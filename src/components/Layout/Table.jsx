@@ -1,4 +1,5 @@
 import { Table as BootstrapTable } from 'react-bootstrap';
+import { get } from 'lodash';
 
 export default function Table(props) {
   return (
@@ -20,7 +21,9 @@ export default function Table(props) {
           >
             {props.columns.map((column) => (
               <td key={column.key}>
-                {column.formatter ? column.formatter(row) : row[column.key]}
+                {column.formatter
+                  ? column.formatter(row)
+                  : get(row, column.key)}
               </td>
             ))}
           </tr>
