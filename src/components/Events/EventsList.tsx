@@ -56,14 +56,14 @@ function renderTemplate(event: any) {
   return Default(event);
 }
 
-export default function LabContactList({ sortBy }: { sortBy?: string }) {
+export default function EventList({ sortBy }: { sortBy?: string }) {
   const events = useResource(EventResource.list(), { sortBy });
   useSubscription(EventResource.list(), { sortBy });
 
   return (
     <section>
       {events.results.map((event) => (
-        <EventBase>{renderTemplate(event)}</EventBase>
+        <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>
       ))}
       <span>Total: {events.total}</span>
     </section>
