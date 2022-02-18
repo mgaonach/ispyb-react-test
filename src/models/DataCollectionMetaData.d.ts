@@ -9,7 +9,7 @@ export interface DataCollectionMetaData {
   snapshots: Snapshots;
 }
 /**
- * Snapshot statuses
+ * Snapshot statuses with ids 1-4
  */
 export interface Snapshots {
   [k: string]: boolean;
@@ -23,7 +23,7 @@ export function withDataCollectionMetaData<TBase extends Constructor>(
     snapshots: Snapshots;
   };
   /**
-   * Snapshot statuses
+   * Snapshot statuses with ids 1-4
    */
 }
 export function withSnapshots<TBase extends Constructor>(Base: TBase) {

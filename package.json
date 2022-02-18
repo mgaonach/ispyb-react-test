@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "prettier": "./node_modules/.bin/prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier-fix": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "generate-interfaces": "node scripts/schema2types.js"
+    "generate-interfaces": "node scripts/schema2types.js && ./node_modules/.bin/prettier --write 'src/models/*.ts'"
   },
   "eslintConfig": {
     "extends": [

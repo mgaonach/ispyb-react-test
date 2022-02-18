@@ -12,7 +12,12 @@ import { Event } from 'models/Event.d';
 import Paginator from 'components/Layout/Paginator';
 
 function EventHeader(props: Event) {
-  return <div className="event-header">{props.startTime}</div>;
+  return (
+    <div className="event-header">
+      <h3>{props.startTime}</h3>
+      {props.endTime && <span>Finished {props.endTime}</span>}
+    </div>
+  );
 }
 
 function EventBase({ children }: { children: JSX.Element }) {

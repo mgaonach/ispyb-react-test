@@ -31,7 +31,7 @@ export default function Paginator({
     <Container>
       <Row>
         <Col>Page:</Col>
-        <Col>
+        <Col className="text-nowrap">
           {Array(nPages)
             .fill(0)
             .map((_, i) => (

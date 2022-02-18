@@ -8,6 +8,7 @@
 export type Id = number;
 export type Type = string;
 export type Starttime = string;
+export type Endtime = string;
 export type Item = DataCollection | RobotAction;
 export type Wavelength = number;
 export type Experimenttype = string;
@@ -18,10 +19,11 @@ export interface Event {
   id: Id;
   type: Type;
   startTime: Starttime;
+  endTime?: Endtime;
   Item: Item;
 }
 export interface DataCollection {
-  wavelength: Wavelength;
+  wavelength?: Wavelength;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -32,7 +34,7 @@ export interface DataCollectionMetaData {
   snapshots: Snapshots;
 }
 /**
- * Snapshot statuses
+ * Snapshot statuses with ids 1-4
  */
 export interface Snapshots {
   [k: string]: boolean;
@@ -48,12 +50,13 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
     id: Id;
     type: Type;
     startTime: Starttime;
+    endTime?: Endtime;
     Item: Item;
   };
 }
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
-    wavelength: Wavelength;
+    wavelength?: Wavelength;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };
@@ -72,7 +75,7 @@ export function withDataCollectionMetaData<TBase extends Constructor>(
     snapshots: Snapshots;
   };
   /**
-   * Snapshot statuses
+   * Snapshot statuses with ids 1-4
    */
 }
 export function withSnapshots<TBase extends Constructor>(Base: TBase) {
