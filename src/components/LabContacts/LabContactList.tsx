@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Table from 'components/Layout/Table';
 import { LabContactResource } from 'api/resources/LabContact';
+import { LabContact } from 'models/LabContact';
 
-function personFormatter(row: any) {
+function personFormatter(row: LabContact) {
   return `${row.Person.givenName} ${row.Person.familyName}`;
 }
 
@@ -13,7 +14,7 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
   const navigate = useNavigate();
   const contacts = useResource(LabContactResource.list(), { sortBy });
 
-  const onRowClick = (row: any) => {
+  const onRowClick = (row: LabContact) => {
     navigate(`/contacts/view/${row.labContactId}`);
   };
 

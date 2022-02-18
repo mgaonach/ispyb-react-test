@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useResource } from 'rest-hooks';
+import React from 'react';
+import { useResource, NetworkErrorBoundary, NetworkError } from 'rest-hooks';
 
 import { useParams } from 'react-router-dom';
 import Form from '@rjsf/bootstrap-4';
@@ -20,8 +20,7 @@ function StringField(props: any) {
   );
 }
 
-export default function ViewLabContact() {
-  //   const [errors, setErrors] = useState('');
+function ViewLabContactMain() {
   const { id } = useParams();
 
   const contact = useResource(LabContactResource.detail(), {
@@ -40,9 +39,6 @@ export default function ViewLabContact() {
 
   const uiSchema = {
     proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
-    defaultCourrierCompany: {
-      'ui:emptyValue': null,
-    },
   };
 
   return (
@@ -56,12 +52,23 @@ export default function ViewLabContact() {
       >
         <React.Fragment />
       </Form>
-
-      {/* { errors && (
-          <div>
-            An error occured: {errors}
-          </div>
-      )} */}
     </section>
+  );
+}
+
+function ErrorPage({ error }: { error: NetworkError }) {
+  console.log('Error Page', error);
+  return error.status === 404 ? (
+    <span>No such lab contact</span>
+  ) : (
+    <span>An error occured: {error.message}</span>
+  );
+}
+
+export default function ViewLabContact() {
+  return (
+    <NetworkErrorBoundary fallbackComponent={ErrorPage}>
+      <ViewLabContactMain />
+    </NetworkErrorBoundary>
   );
 }

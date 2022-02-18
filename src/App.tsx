@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { NetworkErrorBoundary } from 'rest-hooks';
 import { Routes, Route } from 'react-router-dom';
 
 import 'App.css';
@@ -21,30 +20,23 @@ function Home() {
   return <div>Home</div>;
 }
 
-function ErrorPage(props: any) {
-  console.log('Error PAge', props);
-  return <span>An error occured</span>;
-}
-
 function App() {
   return (
     <div className="App">
       <Header />
       <Suspense fallback={<Loading />}>
-        <NetworkErrorBoundary fallbackComponent={ErrorPage}>
-          <section className="App-wrapper">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="events" element={<EventsList />} />
+        <section className="App-wrapper">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="events" element={<EventsList />} />
 
-              <Route path="samples" element={<SamplesList />} />
+            <Route path="samples" element={<SamplesList />} />
 
-              <Route path="contacts" element={<LabContactList />} />
-              <Route path="contacts/view/:id" element={<ViewLabContact />} />
-              <Route path="contacts/new" element={<CreateLabContact />} />
-            </Routes>
-          </section>
-        </NetworkErrorBoundary>
+            <Route path="contacts" element={<LabContactList />} />
+            <Route path="contacts/view/:id" element={<ViewLabContact />} />
+            <Route path="contacts/new" element={<CreateLabContact />} />
+          </Routes>
+        </section>
       </Suspense>
     </div>
   );
