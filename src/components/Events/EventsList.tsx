@@ -1,7 +1,15 @@
-import { useResource, useSubscription } from 'rest-hooks';
+import {
+  useResource,
+  useSubscription,
+  NetworkErrorBoundary,
+  NetworkError,
+} from 'rest-hooks';
+import { Col, Row, Container } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
+
 import { EventResource } from 'api/resources/Event';
 import { Event } from 'models/Event.d';
-import { Col, Row, Container } from 'react-bootstrap';
+import Paginator from 'components/Layout/Paginator';
 
 function EventHeader(props: Event) {
   return <div className="event-header">{props.startTime}</div>;
@@ -76,16 +84,36 @@ function renderTemplate(event: Event) {
   return Default(event);
 }
 
-export default function EventList({ sortBy }: { sortBy?: string }) {
-  const events = useResource(EventResource.list(), { sortBy });
-  useSubscription(EventResource.list(), { sortBy });
+function EventListMain() {
+  const [searchParams] = useSearchParams();
+  const skip = searchParams.get('skip') || 0;
+  const limit = searchParams.get('limit') || 3;
+
+  const events = useResource(EventResource.list(), { skip, limit });
+  useSubscription(EventResource.list(), { skip, limit });
 
   return (
     <section>
       {events.results.map((event) => (
         <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>
       ))}
-      <span>Total: {events.total}</span>
+      <Paginator total={events.total} skip={events.skip} limit={events.limit} />
     </section>
+  );
+}
+
+function ErrorPage({ error }: { error: NetworkError }) {
+  return error.status === 422 ? (
+    <span>Parameter validation error: {String(error.response?.json())} </span>
+  ) : (
+    <span>An error occured: {error.message}</span>
+  );
+}
+
+export default function EventList() {
+  return (
+    <NetworkErrorBoundary fallbackComponent={ErrorPage}>
+      <EventListMain />
+    </NetworkErrorBoundary>
   );
 }
