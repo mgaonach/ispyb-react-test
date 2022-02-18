@@ -23,9 +23,19 @@ export interface Event {
 export interface DataCollection {
   wavelength: Wavelength;
   DataCollectionGroup: DataCollectionGroup;
+  _metadata: DataCollectionMetaData;
 }
 export interface DataCollectionGroup {
   experimentType: Experimenttype;
+}
+export interface DataCollectionMetaData {
+  snapshots: Snapshots;
+}
+/**
+ * Snapshot statuses
+ */
+export interface Snapshots {
+  [k: string]: boolean;
 }
 export interface RobotAction {
   actionType: Actiontype;
@@ -39,22 +49,40 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
     type: Type;
     startTime: Starttime;
     Item: Item;
-  }
+  };
 }
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
     wavelength: Wavelength;
     DataCollectionGroup: DataCollectionGroup;
-  }
+    _metadata: DataCollectionMetaData;
+  };
 }
-export function withDataCollectionGroup<TBase extends Constructor>(Base: TBase) {
+export function withDataCollectionGroup<TBase extends Constructor>(
+  Base: TBase
+) {
   return class WithDataCollectionGroup extends Base {
     experimentType: Experimenttype;
-  }
+  };
+}
+export function withDataCollectionMetaData<TBase extends Constructor>(
+  Base: TBase
+) {
+  return class WithDataCollectionMetaData extends Base {
+    snapshots: Snapshots;
+  };
+  /**
+   * Snapshot statuses
+   */
+}
+export function withSnapshots<TBase extends Constructor>(Base: TBase) {
+  return class WithSnapshots extends Base {
+    [k: string]: boolean;
+  };
 }
 export function withRobotAction<TBase extends Constructor>(Base: TBase) {
   return class WithRobotAction extends Base {
     actionType: Actiontype;
     startTimestamp: Starttimestamp;
-  }
+  };
 }

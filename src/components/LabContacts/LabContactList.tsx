@@ -10,12 +10,12 @@ function personFormatter(row: any) {
 }
 
 export default function LabContactList({ sortBy }: { sortBy?: string }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const contacts = useResource(LabContactResource.list(), { sortBy });
 
   const onRowClick = (row: any) => {
-    navigate(`/contacts/view/${row.labContactId}`)
-  }
+    navigate(`/contacts/view/${row.labContactId}`);
+  };
 
   return (
     <section>
@@ -27,7 +27,11 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
         columns={[
           { label: 'Card Name', key: 'cardName' },
           { label: 'Date', key: 'recordTimeStamp' },
-          { label: 'Contact Person', key: 'person', formatter: personFormatter },
+          {
+            label: 'Contact Person',
+            key: 'person',
+            formatter: personFormatter,
+          },
         ]}
       />
       <span>Total: {contacts.total}</span>

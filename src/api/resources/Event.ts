@@ -3,8 +3,8 @@ import PaginatedResource from 'api/resources/Paginated';
 import { withEvent } from 'models/Event.d';
 
 export class _EventResource extends PaginatedResource {
-  readonly id: number
-  readonly type: string
+  readonly id: number;
+  readonly type: string;
 
   pk() {
     return `${this.id}-${this.type}`;
@@ -18,4 +18,4 @@ export class _EventResource extends PaginatedResource {
   }
 }
 
-export const EventResource = withEvent(_EventResource)
+export const EventResource = withEvent(_EventResource);

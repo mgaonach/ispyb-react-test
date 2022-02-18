@@ -18,5 +18,5 @@ export function withRobotAction<TBase extends Constructor>(Base: TBase) {
   return class WithRobotAction extends Base {
     actionType: Actiontype;
     startTimestamp: Starttimestamp;
-  }
+  };
 }

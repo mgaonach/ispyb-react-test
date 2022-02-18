@@ -21,5 +21,5 @@ export function withProtein<TBase extends Constructor>(Base: TBase) {
     name: Name;
     acronym: Acronym;
     proteinId: Proteinid;
-  }
+  };
 }

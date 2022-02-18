@@ -28,7 +28,6 @@ export default function ViewLabContact() {
     labContactId: id,
   });
 
-
   const spec = useResource(OpenAPIResource.detail(), { id: '' });
 
   const schema = {

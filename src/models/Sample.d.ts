@@ -7,6 +7,14 @@
 
 export type Name = string;
 export type Comments = string;
+/**
+ * Number of sub samples
+ */
+export type Subsamples = number;
+/**
+ * Number of data collections
+ */
+export type Datacollections = number;
 export type Blsampleid = number;
 export type CellA = number;
 export type CellB = number;
@@ -22,11 +30,13 @@ export type Crystalid = number;
 export interface Sample {
   name: Name;
   comments?: Comments;
-  _metadata?: Metadata;
+  _metadata: SampleMetaData;
   blSampleId: Blsampleid;
   Crystal: Crystal;
 }
-export interface Metadata {
+export interface SampleMetaData {
+  subsamples: Subsamples;
+  datacollections: Datacollections;
 }
 export interface Crystal {
   cell_a?: CellA;
@@ -49,14 +59,16 @@ export function withSample<TBase extends Constructor>(Base: TBase) {
   return class WithSample extends Base {
     name: Name;
     comments?: Comments;
-    _metadata?: Metadata;
+    _metadata: SampleMetaData;
     blSampleId: Blsampleid;
     Crystal: Crystal;
-  }
+  };
 }
-export function withMetadata<TBase extends Constructor>(Base: TBase) {
-  return class WithMetadata extends Base {
-  }
+export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleMetaData extends Base {
+    subsamples: Subsamples;
+    datacollections: Datacollections;
+  };
 }
 export function withCrystal<TBase extends Constructor>(Base: TBase) {
   return class WithCrystal extends Base {
@@ -68,12 +80,12 @@ export function withCrystal<TBase extends Constructor>(Base: TBase) {
     cell_gamma?: CellGamma;
     Protein: Protein;
     crystalId: Crystalid;
-  }
+  };
 }
 export function withProtein<TBase extends Constructor>(Base: TBase) {
   return class WithProtein extends Base {
     name: Name1;
     acronym: Acronym;
     proteinId: Proteinid;
-  }
+  };
 }

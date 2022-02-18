@@ -35,7 +35,7 @@ export default function CreateLabContact() {
 
   return (
     <Form
-    //   FieldTemplate={ColField}
+      //   FieldTemplate={ColField}
       liveValidate
       schema={schema}
       uiSchema={uiSchema}

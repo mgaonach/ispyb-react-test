@@ -43,12 +43,12 @@ export function withCrystal<TBase extends Constructor>(Base: TBase) {
     cell_gamma?: CellGamma;
     Protein: Protein;
     crystalId: Crystalid;
-  }
+  };
 }
 export function withProtein<TBase extends Constructor>(Base: TBase) {
   return class WithProtein extends Base {
     name: Name;
     acronym: Acronym;
     proteinId: Proteinid;
-  }
+  };
 }

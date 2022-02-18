@@ -3,7 +3,6 @@ import { useResource } from 'rest-hooks';
 import Table from 'components/Layout/Table';
 import { SampleResource } from 'api/resources/Sample';
 
-
 export default function SamplesList({ sortBy }: { sortBy?: string }) {
   const samples = useResource(SampleResource.list(), { sortBy });
 

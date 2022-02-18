@@ -27,5 +27,5 @@ export function withLaboratory<TBase extends Constructor>(Base: TBase) {
     city: City;
     postcode: PostCode;
     country: Country;
-  }
+  };
 }

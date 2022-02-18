@@ -36,8 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "./node_modules/.bin/prettier --check 'src/**/*.{js,jsx}'",
-    "prettier-fix": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx}'",
+    "prettier": "./node_modules/.bin/prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
+    "prettier-fix": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "generate-interfaces": "node scripts/schema2types.js"
   },
   "eslintConfig": {

@@ -1,6 +1,7 @@
 import { useResource, useSubscription } from 'rest-hooks';
 import { EventResource } from 'api/resources/Event';
 import { Event } from 'models/Event.d';
+import { Col, Row, Container } from 'react-bootstrap';
 
 function EventHeader(props: Event) {
   return <div className="event-header">{props.startTime}</div>;
@@ -16,10 +17,24 @@ function DataCollection(props: Event) {
       <div className="event">
         <EventHeader {...props} />
         <span>DC</span>
-        <ul>
-          <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
-          <li>Wavelength: {props.Item.wavelength}</li>
-        </ul>
+        <Container>
+          <Row>
+            <Col>
+              <ul>
+                <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
+                <li>Wavelength: {props.Item.wavelength}</li>
+              </ul>
+            </Col>
+            <Col className="text-right">
+              {props.Item._metadata.snapshots[1] && (
+                <img
+                  src={`http://localhost:8000/events/image/${props.id}`}
+                  alt="image1"
+                />
+              )}
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

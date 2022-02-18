@@ -12,8 +12,10 @@ export interface DataCollectionGroup {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withDataCollectionGroup<TBase extends Constructor>(Base: TBase) {
+export function withDataCollectionGroup<TBase extends Constructor>(
+  Base: TBase
+) {
   return class WithDataCollectionGroup extends Base {
     experimentType: Experimenttype;
-  }
+  };
 }

@@ -15,7 +15,7 @@ export default function ColField(props: any) {
     required,
     description,
     errors,
-    children
+    children,
   } = props;
 
   // root is treated differently, undocumented :/
@@ -50,7 +50,7 @@ export default function ColField(props: any) {
         <InputGroup>
           {children}
           {props.schema.unit && (
-              <InputGroup.Text>{props.schema.unit}</InputGroup.Text>
+            <InputGroup.Text>{props.schema.unit}</InputGroup.Text>
           )}
         </InputGroup>
         {errors}
