@@ -17,6 +17,7 @@
     "@types/react-dom": "^17.0.11",
     "bootstrap": "^5.1.3",
     "install": "^0.13.0",
+    "json-schema-to-typescript": "^10.1.5",
     "lodash": "^4.17.21",
     "npm": "^8.5.0",
     "prettier": "^2.5.1",
@@ -36,7 +37,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "./node_modules/.bin/prettier --check 'src/**/*.{js,jsx}'",
-    "prettier-fix": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx}'"
+    "prettier-fix": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx}'",
+    "generate-interfaces": "node scripts/schema2types.js"
   },
   "eslintConfig": {
     "extends": [

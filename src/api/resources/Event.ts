@@ -1,9 +1,10 @@
 import { EndpointExtraOptions } from '@rest-hooks/endpoint';
-import PaginatedResource from "api/resources/Paginated";
+import PaginatedResource from 'api/resources/Paginated';
+import { withEvent } from 'models/Event.d';
 
-export class EventResource extends PaginatedResource {
-  readonly id: number | undefined = undefined
-  readonly type: string | undefined = undefined
+export class _EventResource extends PaginatedResource {
+  readonly id: number
+  readonly type: string
 
   pk() {
     return `${this.id}-${this.type}`;
@@ -16,3 +17,5 @@ export class EventResource extends PaginatedResource {
     };
   }
 }
+
+export const EventResource = withEvent(_EventResource)

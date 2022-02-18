@@ -1,40 +1,45 @@
 import { useResource, useSubscription } from 'rest-hooks';
 import { EventResource } from 'api/resources/Event';
+import { Event } from 'models/Event.d';
 
-function EventHeader(props: any) {
+function EventHeader(props: Event) {
   return <div className="event-header">{props.startTime}</div>;
 }
 
-function EventBase(props: any) {
-  return <div className="event border rounded p-2 m-2">{props.children}</div>;
+function EventBase({ children }: { children: JSX.Element }) {
+  return <div className="event border rounded p-2 m-2">{children}</div>;
 }
 
-function DataCollection(props: any) {
-  return (
-    <div className="event">
-      <EventHeader {...props} />
-      <span>DC</span>
-      <ul>
-        <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
-        <li>Wavelength: {props.Item.wavelength}</li>
-      </ul>
-    </div>
-  );
+function DataCollection(props: Event) {
+  if ('wavelength' in props.Item) {
+    return (
+      <div className="event">
+        <EventHeader {...props} />
+        <span>DC</span>
+        <ul>
+          <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
+          <li>Wavelength: {props.Item.wavelength}</li>
+        </ul>
+      </div>
+    );
+  }
 }
 
-function Robot(props: any) {
-  return (
-    <div className="event">
-      <EventHeader {...props} />
-      <span>Robot</span>
-      <ul>
-        <li>Type: {props.Item.actionType}</li>
-      </ul>
-    </div>
-  );
+function Robot(props: Event) {
+  if ('actionType' in props.Item) {
+    return (
+      <div className="event">
+        <EventHeader {...props} />
+        <span>Robot</span>
+        <ul>
+          <li>Type: {props.Item.actionType}</li>
+        </ul>
+      </div>
+    );
+  }
 }
 
-function Default(props: any) {
+function Default(props: Event) {
   return (
     <div className="event">
       <EventHeader {...props} />
@@ -43,8 +48,8 @@ function Default(props: any) {
   );
 }
 
-function renderTemplate(event: any) {
-  const templates: any = {
+function renderTemplate(event: Event) {
+  const templates: { [key: string]: any } = {
     dc: DataCollection,
     robot: Robot,
   };

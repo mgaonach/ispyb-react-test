@@ -1,7 +1,7 @@
 import PaginatedResource from "api/resources/Paginated";
 
 export class SampleResource extends PaginatedResource {
-  readonly blSampleId: number | undefined = undefined;
+  readonly blSampleId: number;
 
   pk() {
     return this.blSampleId?.toString();
