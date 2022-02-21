@@ -110,14 +110,19 @@ function renderTemplate(event: Event) {
   return Default(event);
 }
 
-function EventListMain() {
+interface IEventsList {
+  blSampleId?: string;
+}
+
+function EventListMain({ blSampleId }: IEventsList) {
   const [searchParams] = useSearchParams();
   const skip = searchParams.get('skip') || 0;
   const limit = searchParams.get('limit') || 3;
   const dataCollectionGroupId = searchParams.get('dataCollectionGroupId');
 
-  const opts: { [key: string]: any } = { skip, limit }
-  if (dataCollectionGroupId) opts.dataCollectionGroupId = dataCollectionGroupId
+  const opts: { [key: string]: any } = { skip, limit };
+  if (dataCollectionGroupId) opts.dataCollectionGroupId = dataCollectionGroupId;
+  if (blSampleId) opts.blSampleId = blSampleId;
 
   const events = useResource(EventResource.list(), opts);
   useSubscription(EventResource.list(), opts);
@@ -127,6 +132,7 @@ function EventListMain() {
       {events.results.map((event) => (
         <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>
       ))}
+      {!events.results.length && <div>No events yet</div>}
       <Paginator total={events.total} skip={events.skip} limit={events.limit} />
     </section>
   );
@@ -140,10 +146,10 @@ function ErrorPage({ error }: { error: NetworkError }) {
   );
 }
 
-export default function EventList() {
+export default function EventList(props: IEventsList) {
   return (
     <NetworkErrorBoundary fallbackComponent={ErrorPage}>
-      <EventListMain />
+      <EventListMain {...props} />
     </NetworkErrorBoundary>
   );
 }

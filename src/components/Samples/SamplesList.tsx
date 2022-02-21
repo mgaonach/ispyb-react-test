@@ -1,16 +1,24 @@
 import { useResource } from 'rest-hooks';
+import { useNavigate } from 'react-router-dom';
 
 import Table from 'components/Layout/Table';
 import { SampleResource } from 'api/resources/Sample';
+import { Sample } from 'models/Sample';
 
 export default function SamplesList({ sortBy }: { sortBy?: string }) {
+  const navigate = useNavigate();
   const samples = useResource(SampleResource.list(), { sortBy });
+
+  const onRowClick = (row: Sample) => {
+    navigate(`/samples/${row.blSampleId}`);
+  };
 
   return (
     <section>
       <Table
         keyId="blSampleId"
         results={samples.results}
+        onRowClick={onRowClick}
         columns={[
           { label: 'Name', key: 'name' },
           { label: 'Protein', key: 'Crystal.Protein.name' },

@@ -6,7 +6,7 @@
  */
 
 export type Name = string;
-export type Comments = string;
+export type Comments = null | string;
 /**
  * Number of sub samples
  */
@@ -16,12 +16,12 @@ export type Subsamples = number;
  */
 export type Datacollections = number;
 export type Blsampleid = number;
-export type CellA = number;
-export type CellB = number;
-export type CellC = number;
-export type CellAlpha = number;
-export type CellBeta = number;
-export type CellGamma = number;
+export type CellA = null | number;
+export type CellB = null | number;
+export type CellC = null | number;
+export type CellAlpha = null | number;
+export type CellBeta = null | number;
+export type CellGamma = null | number;
 export type Name1 = string;
 export type Acronym = string;
 export type Proteinid = number;

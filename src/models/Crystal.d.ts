@@ -5,12 +5,12 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type CellA = number;
-export type CellB = number;
-export type CellC = number;
-export type CellAlpha = number;
-export type CellBeta = number;
-export type CellGamma = number;
+export type CellA = null | number;
+export type CellB = null | number;
+export type CellC = null | number;
+export type CellAlpha = null | number;
+export type CellBeta = null | number;
+export type CellGamma = null | number;
 export type Name = string;
 export type Acronym = string;
 export type Proteinid = number;
