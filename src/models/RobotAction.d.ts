@@ -6,17 +6,20 @@
  */
 
 export type Actiontype = string;
-export type Starttimestamp = string;
+export type Status = string;
+export type Message = string;
 
 export interface RobotAction {
   actionType: Actiontype;
-  startTimestamp: Starttimestamp;
+  status?: Status;
+  message?: Message;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withRobotAction<TBase extends Constructor>(Base: TBase) {
   return class WithRobotAction extends Base {
     actionType: Actiontype;
-    startTimestamp: Starttimestamp;
+    status?: Status;
+    message?: Message;
   };
 }

@@ -6,6 +6,7 @@
  */
 
 export type Wavelength = number;
+export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollection {
@@ -14,6 +15,7 @@ export interface DataCollection {
   _metadata: DataCollectionMetaData;
 }
 export interface DataCollectionGroup {
+  dataCollectionGroupId: Datacollectiongroupid;
   experimentType: Experimenttype;
 }
 export interface DataCollectionMetaData {
@@ -38,6 +40,7 @@ export function withDataCollectionGroup<TBase extends Constructor>(
   Base: TBase
 ) {
   return class WithDataCollectionGroup extends Base {
+    dataCollectionGroupId: Datacollectiongroupid;
     experimentType: Experimenttype;
   };
 }

@@ -9,17 +9,31 @@ export type Id = number;
 export type Type = string;
 export type Starttime = string;
 export type Endtime = string;
+export type Count = number;
+/**
+ * Sample name
+ */
+export type Blsample = string;
+/**
+ * Sample id
+ */
+export type Blsampleid = number;
 export type Item = DataCollection | RobotAction;
 export type Wavelength = number;
+export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 export type Actiontype = string;
-export type Starttimestamp = string;
+export type Status = string;
+export type Message = string;
 
 export interface Event {
   id: Id;
   type: Type;
   startTime: Starttime;
   endTime?: Endtime;
+  count: Count;
+  blSample?: Blsample;
+  blSampleId?: Blsampleid;
   Item: Item;
 }
 export interface DataCollection {
@@ -28,6 +42,7 @@ export interface DataCollection {
   _metadata: DataCollectionMetaData;
 }
 export interface DataCollectionGroup {
+  dataCollectionGroupId: Datacollectiongroupid;
   experimentType: Experimenttype;
 }
 export interface DataCollectionMetaData {
@@ -41,7 +56,8 @@ export interface Snapshots {
 }
 export interface RobotAction {
   actionType: Actiontype;
-  startTimestamp: Starttimestamp;
+  status?: Status;
+  message?: Message;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -51,6 +67,9 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
     type: Type;
     startTime: Starttime;
     endTime?: Endtime;
+    count: Count;
+    blSample?: Blsample;
+    blSampleId?: Blsampleid;
     Item: Item;
   };
 }
@@ -65,6 +84,7 @@ export function withDataCollectionGroup<TBase extends Constructor>(
   Base: TBase
 ) {
   return class WithDataCollectionGroup extends Base {
+    dataCollectionGroupId: Datacollectiongroupid;
     experimentType: Experimenttype;
   };
 }
@@ -86,6 +106,7 @@ export function withSnapshots<TBase extends Constructor>(Base: TBase) {
 export function withRobotAction<TBase extends Constructor>(Base: TBase) {
   return class WithRobotAction extends Base {
     actionType: Actiontype;
-    startTimestamp: Starttimestamp;
+    status?: Status;
+    message?: Message;
   };
 }

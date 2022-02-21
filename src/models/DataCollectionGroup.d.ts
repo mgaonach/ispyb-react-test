@@ -5,9 +5,11 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollectionGroup {
+  dataCollectionGroupId: Datacollectiongroupid;
   experimentType: Experimenttype;
 }
 
@@ -16,6 +18,7 @@ export function withDataCollectionGroup<TBase extends Constructor>(
   Base: TBase
 ) {
   return class WithDataCollectionGroup extends Base {
+    dataCollectionGroupId: Datacollectiongroupid;
     experimentType: Experimenttype;
   };
 }

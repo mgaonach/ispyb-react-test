@@ -41,6 +41,8 @@ export function with${name}<TBase extends Constructor>(Base: TBase) {
             `src/models/${schemaName}.d.ts`,
             ts + '\n' + construct + classes.join('') + '\n'
           );
+        }).catch((e) => {
+          console.log("Error parsing", schemaName, e)
         });
       }
     } catch (error) {

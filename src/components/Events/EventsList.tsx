@@ -5,7 +5,7 @@ import {
   NetworkError,
 } from 'rest-hooks';
 import { Col, Row, Container } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 
 import { EventResource } from 'api/resources/Event';
 import { Event } from 'models/Event.d';
@@ -15,7 +15,13 @@ function EventHeader(props: Event) {
   return (
     <div className="event-header">
       <h3>{props.startTime}</h3>
-      {props.endTime && <span>Finished {props.endTime}</span>}
+      {props.endTime && <div>Finished {props.endTime}</div>}
+      {props.blSample && (
+        <div>
+          Sample:{' '}
+          <Link to={`/samples/{props.blSampleId}`}>{props.blSample}</Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -29,7 +35,20 @@ function DataCollection(props: Event) {
     return (
       <div className="event">
         <EventHeader {...props} />
-        <span>DC</span>
+        <span>
+          Data Collection{' '}
+          {props.count > 1 && (
+            <span>
+              [
+              <Link
+                to={`/events?dataCollectionGroupId=${props.Item.DataCollectionGroup.dataCollectionGroupId}`}
+              >
+                Group of {props.count}
+              </Link>
+              ]
+            </span>
+          )}
+        </span>
         <Container>
           <Row>
             <Col>
@@ -58,9 +77,11 @@ function Robot(props: Event) {
     return (
       <div className="event">
         <EventHeader {...props} />
-        <span>Robot</span>
+        <span>Sample Action</span>
         <ul>
           <li>Type: {props.Item.actionType}</li>
+          {props.Item.status && <li>Status: {props.Item.status}</li>}
+          {props.Item.message && <li>Message: {props.Item.message}</li>}
         </ul>
       </div>
     );
