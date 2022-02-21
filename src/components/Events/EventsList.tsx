@@ -19,7 +19,7 @@ function EventHeader(props: Event) {
       {props.blSample && (
         <div>
           Sample:{' '}
-          <Link to={`/samples/{props.blSampleId}`}>{props.blSample}</Link>
+          <Link to={`/samples/${props.blSampleId}`}>{props.blSample}</Link>
         </div>
       )}
     </div>
@@ -114,9 +114,13 @@ function EventListMain() {
   const [searchParams] = useSearchParams();
   const skip = searchParams.get('skip') || 0;
   const limit = searchParams.get('limit') || 3;
+  const dataCollectionGroupId = searchParams.get('dataCollectionGroupId');
 
-  const events = useResource(EventResource.list(), { skip, limit });
-  useSubscription(EventResource.list(), { skip, limit });
+  const opts: { [key: string]: any } = { skip, limit }
+  if (dataCollectionGroupId) opts.dataCollectionGroupId = dataCollectionGroupId
+
+  const events = useResource(EventResource.list(), opts);
+  useSubscription(EventResource.list(), opts);
 
   return (
     <section>
