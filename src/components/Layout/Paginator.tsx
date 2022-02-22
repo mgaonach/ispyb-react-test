@@ -11,7 +11,7 @@ export default function Paginator({
   limit: number;
 }) {
   const navigate = useNavigate();
-  const nPages = Math.round(total / limit);
+  const nPages = Math.ceil(total / limit);
   const currentPage = skip / limit + 1;
 
   const gotoPage = (page: number) => {
