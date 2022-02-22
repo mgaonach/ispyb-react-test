@@ -5,11 +5,13 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Runstatus = string;
 export type Wavelength = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollection {
+  runStatus?: Runstatus;
   wavelength?: Wavelength;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
@@ -31,6 +33,7 @@ export interface Snapshots {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
+    runStatus?: Runstatus;
     wavelength?: Wavelength;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;

@@ -19,6 +19,7 @@ export type Blsample = string;
  */
 export type Blsampleid = number;
 export type Item = DataCollection | RobotAction;
+export type Runstatus = string;
 export type Wavelength = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
@@ -37,6 +38,7 @@ export interface Event {
   Item: Item;
 }
 export interface DataCollection {
+  runStatus?: Runstatus;
   wavelength?: Wavelength;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
@@ -75,6 +77,7 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
 }
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
+    runStatus?: Runstatus;
     wavelength?: Wavelength;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;

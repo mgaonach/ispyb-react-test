@@ -54,6 +54,7 @@ function DataCollection(props: Event) {
             <Col>
               <ul>
                 <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
+                <li>Status: {props.Item.runStatus}</li>
                 <li>Wavelength: {props.Item.wavelength}</li>
               </ul>
             </Col>
