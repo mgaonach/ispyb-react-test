@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router';
 import { useController, useResource } from 'rest-hooks';
 import Form from '@rjsf/bootstrap-4';
 
-import ColField from 'components/RJSF/ColField';
 import { LabContactResource } from 'api/resources/LabContact';
 import { OpenAPIResource } from 'api/resources/OpenAPI';
 

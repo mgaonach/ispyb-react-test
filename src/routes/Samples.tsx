@@ -1,5 +1,16 @@
-import SamplesList from 'components/Samples/SamplesList';
-import ViewSample from 'components/Samples/ViewSample';
+import React from 'react';
+
+const SamplesList = React.lazy(() =>
+  import('components/Samples' /* webpackChunkName: "samples" */).then((m) => ({
+    default: m.SamplesList,
+  }))
+);
+
+const ViewSample = React.lazy(() =>
+  import('components/Samples').then((m) => ({
+    default: m.ViewSample,
+  }))
+);
 
 const SampleRoutes = {
   path: 'samples',

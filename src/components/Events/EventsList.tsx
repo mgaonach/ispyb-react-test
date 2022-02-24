@@ -130,6 +130,7 @@ function EventListMain({ blSampleId }: IEventsList) {
 
   return (
     <section>
+      <Paginator total={events.total} skip={events.skip} limit={events.limit} />
       {events.results.map((event) => (
         <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>
       ))}
