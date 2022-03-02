@@ -1,15 +1,14 @@
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-export default function Paginator({
-  total,
-  skip,
-  limit,
-}: {
+interface Props {
   total: number;
   skip: number;
   limit: number;
-}) {
+}
+
+export default function Paginator(props: Props) {
+  const { total, skip, limit } = props;
   const navigate = useNavigate();
   const nPages = Math.ceil(total / limit);
   const currentPage = skip / limit + 1;

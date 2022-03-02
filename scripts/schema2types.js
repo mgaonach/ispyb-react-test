@@ -16,10 +16,12 @@ const req = http.get(url, (res) => {
       const json = JSON.parse(body);
       for (const schemaName in json.components.schemas) {
         if (schemaName.startsWith('Paginated')) continue;
+
         const schema = {
           components: json.components,
           ...json.components.schemas[schemaName],
         };
+
         sc2t.compile(schema).then((ts) => {
           const construct =
             'type Constructor<T = {}> = new (...args: any[]) => T;';
@@ -37,14 +39,17 @@ export function with${name}<TBase extends Constructor>(Base: TBase) {
               .join('\n  ')
               .slice(0, -2)}}`;
           });
+
           fs.writeFileSync(
             `src/models/${schemaName}.d.ts`,
             ts + '\n' + construct + classes.join('') + '\n'
           );
+          
         }).catch((e) => {
           console.log("Error parsing", schemaName, e)
         });
       }
+
     } catch (error) {
       console.error(error.message);
     }

@@ -1,3 +1,4 @@
+import { JSXElementConstructor } from 'react';
 import {
   useResource,
   useSubscription,
@@ -8,18 +9,22 @@ import { Col, Row, Container } from 'react-bootstrap';
 import { useSearchParams, Link } from 'react-router-dom';
 
 import { EventResource } from 'api/resources/Event';
-import { Event } from 'models/Event.d';
+import {
+  DataCollection as DataCollectionType,
+  RobotAction as RobotActionType,
+  Event,
+} from 'models/Event.d';
 import Paginator from 'components/Layout/Paginator';
 
-function EventHeader(props: Event) {
+function EventHeader(event: Event) {
   return (
     <div className="event-header">
-      <h3>{props.startTime}</h3>
-      {props.endTime && <div>Finished {props.endTime}</div>}
-      {props.blSample && (
+      <h3>{event.startTime}</h3>
+      {event.endTime && <div>Finished {event.endTime}</div>}
+      {event.blSample && (
         <div>
           Sample:{' '}
-          <Link to={`/samples/${props.blSampleId}`}>{props.blSample}</Link>
+          <Link to={`/samples/${event.blSampleId}`}>{event.blSample}</Link>
         </div>
       )}
     </div>
@@ -30,85 +35,84 @@ function EventBase({ children }: { children: JSX.Element }) {
   return <div className="event border rounded p-2 m-2">{children}</div>;
 }
 
-function DataCollection(props: Event) {
-  if ('wavelength' in props.Item) {
-    return (
-      <div className="event">
-        <EventHeader {...props} />
-        <span>
-          Data Collection{' '}
-          {props.count > 1 && (
-            <span>
-              [
-              <Link
-                to={`/events?dataCollectionGroupId=${props.Item.DataCollectionGroup.dataCollectionGroupId}`}
-              >
-                Group of {props.count}
-              </Link>
-              ]
-            </span>
-          )}
-        </span>
-        <Container>
-          <Row>
-            <Col>
-              <ul>
-                <li>Type: {props.Item.DataCollectionGroup.experimentType}</li>
-                <li>Status: {props.Item.runStatus}</li>
-                <li>Wavelength: {props.Item.wavelength}</li>
-              </ul>
-            </Col>
-            <Col className="text-right">
-              {props.Item._metadata.snapshots[1] && (
-                <img
-                  src={`http://localhost:8000/events/image/${props.id}`}
-                  alt="image1"
-                />
-              )}
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
-}
-
-function Robot(props: Event) {
-  if ('actionType' in props.Item) {
-    return (
-      <div className="event">
-        <EventHeader {...props} />
-        <span>Sample Action</span>
-        <ul>
-          <li>Type: {props.Item.actionType}</li>
-          {props.Item.status && <li>Status: {props.Item.status}</li>}
-          {props.Item.message && <li>Message: {props.Item.message}</li>}
-        </ul>
-      </div>
-    );
-  }
-}
-
-function Default(props: Event) {
+function DataCollection(props: { item: DataCollectionType; parent: Event }) {
+  const { item, parent } = props;
   return (
     <div className="event">
-      <EventHeader {...props} />
+      <EventHeader {...parent} />
+      <span>
+        Data Collection{' '}
+        {parent.count > 1 && (
+          <span>
+            [
+            <Link
+              to={`/events?dataCollectionGroupId=${item.DataCollectionGroup.dataCollectionGroupId}`}
+            >
+              Group of {parent.count}
+            </Link>
+            ]
+          </span>
+        )}
+      </span>
+      <Container>
+        <Row>
+          <Col>
+            <ul>
+              <li>Type: {item.DataCollectionGroup.experimentType}</li>
+              <li>Status: {item.runStatus}</li>
+              <li>Wavelength: {item.wavelength}</li>
+            </ul>
+          </Col>
+          <Col className="text-right">
+            {item._metadata.snapshots[1] && (
+              <img
+                src={`http://localhost:8000/events/image/${parent.id}`}
+                alt="image1"
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+}
+
+function Robot(props: { item: RobotActionType; parent: Event }) {
+  const { item, parent } = props;
+  return (
+    <div className="event">
+      <EventHeader {...parent} />
+      <span>Sample Action</span>
+      <ul>
+        <li>Type: {item.actionType}</li>
+        {item.status && <li>Status: {item.status}</li>}
+        {item.message && <li>Message: {item.message}</li>}
+      </ul>
+    </div>
+  );
+}
+
+function Default(event: Event) {
+  return (
+    <div className="event">
+      <EventHeader {...event} />
       <span>Default</span>
     </div>
   );
 }
 
 function renderTemplate(event: Event) {
-  const templates: { [key: string]: any } = {
+  const templates: Record<string, JSXElementConstructor<any>> = {
     dc: DataCollection,
     robot: Robot,
   };
 
   if (event.type in templates) {
-    return templates[event.type](event);
+    const Template = templates[event.type];
+    return <Template item={event.Item} parent={event} />;
   }
 
-  return Default(event);
+  return <Default {...event} />;
 }
 
 interface IEventsList {
@@ -121,9 +125,12 @@ function EventListMain({ blSampleId }: IEventsList) {
   const limit = searchParams.get('limit') || 3;
   const dataCollectionGroupId = searchParams.get('dataCollectionGroupId');
 
-  const opts: { [key: string]: any } = { skip, limit };
-  if (dataCollectionGroupId) opts.dataCollectionGroupId = dataCollectionGroupId;
-  if (blSampleId) opts.blSampleId = blSampleId;
+  const opts = {
+    skip,
+    limit,
+    ...(dataCollectionGroupId ? { dataCollectionGroupId } : {}),
+    ...(blSampleId ? { blSampleId } : {}),
+  };
 
   const events = useResource(EventResource.list(), opts);
   useSubscription(EventResource.list(), opts);
