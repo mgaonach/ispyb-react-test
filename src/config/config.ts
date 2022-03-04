@@ -2,8 +2,8 @@ const apiVersion = '/api/v1';
 
 const config = {
   /* eslint-disable no-nested-ternary */
-  baseUrl: process.env.BASE_URL
-    ? process.env.BASE_URL
+  baseUrl: process.env.REACT_APP_API_URL
+    ? process.env.REACT_APP_API_URL
     : process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_HTTPS
       ? `https://localhost:8000${apiVersion}`
