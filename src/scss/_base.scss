@@ -1,0 +1,48 @@
+html {
+    min-height: 100vh;
+}
+
+.breadcrumbs {
+    background-color: $tertiary;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0.25rem 0;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 0.2rem, rgb(0 0 0 / 20%) 0px 0.2rem 0.4rem;
+}
+
+.main-wrapper {
+    margin: 2rem 0;
+}
+
+.footer {
+    font-size: 12px;
+    padding: 1.5rem 0;
+    background: url(images/ispyb_gs_medium.png) center center no-repeat;
+    background-position: 50% 85%;
+    height: 180px;
+    color: $tertiary;
+}
+
+.main-header {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.navbar-brand {
+    padding-left: 70px;
+    background: url(images/ispyb_gs_medium.png) no-repeat;
+    background-size: contain;
+}
+
+
+.event {
+    h3 {
+        font-family: Poppins;
+        font-size: 1rem;
+        font-weight: normal;
+        word-break: break-all;
+        border-bottom: 1px solid $tertiary;
+    }
+}

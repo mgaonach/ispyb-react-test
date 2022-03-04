@@ -27,39 +27,60 @@ export default function Paginator(props: Props) {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>Page:</Col>
-        <Col className="text-nowrap">
-          {Array(nPages)
-            .fill(0)
-            .map((_, i) => (
-              <div
-                style={{ cursor: i + 1 !== currentPage ? 'pointer' : '' }}
-                key={`page-${i}`}
-                className={
-                  (i + 1 === currentPage ? 'border-success' : '') +
-                  ' border rounded d-inline-block p-2 m-1'
-                }
-                onClick={() => gotoPage(i + 1)}
-              >
-                {i + 1}
-              </div>
-            ))}
-        </Col>
-        <Col>Limit:</Col>
-        <Col>
-          <Form.Control as="select" onChange={changeLimit} defaultValue={3}>
-            {[2, 3, 5, 10, 25].map((i) => (
-              <option key={`limit-${i}`} value={i}>
-                {i}
-              </option>
-            ))}
-          </Form.Control>
-        </Col>
-        <Col>Total:</Col>
-        <Col>{total}</Col>
-      </Row>
-    </Container>
+    // <Container>
+    <Row className="my-2 align-items-center" xs="auto">
+      <Col className="text-nowrap">
+        <div
+          style={{ cursor: 1 !== currentPage ? 'pointer' : '' }}
+          key="page-first"
+          className={
+            (1 === currentPage ? 'bg-gray' : 'bg-secondary') +
+            ' border d-inline-block p-2 px-3 me-2'
+          }
+          onClick={() => gotoPage(1)}
+        >
+          &laquo;
+        </div>
+        {Array(nPages)
+          .fill(0)
+          .map((_, i) => (
+            <div
+              style={{ cursor: i + 1 !== currentPage ? 'pointer' : '' }}
+              key={`page-${i}`}
+              className={
+                (i + 1 === currentPage
+                  ? 'border-primary bg-light'
+                  : 'bg-secondary') + ' border d-inline-block p-2 px-3 me-2'
+              }
+              onClick={() => gotoPage(i + 1)}
+            >
+              {i + 1}
+            </div>
+          ))}
+        <div
+          style={{ cursor: nPages !== currentPage ? 'pointer' : '' }}
+          key="page-last"
+          className={
+            (nPages === currentPage ? 'bg-gray' : 'bg-secondary') +
+            ' border d-inline-block p-2 px-3 me-2'
+          }
+          onClick={() => gotoPage(nPages)}
+        >
+          &raquo;
+        </div>
+      </Col>
+      <Col>
+        <Form.Control as="select" onChange={changeLimit} defaultValue={3}>
+          {[2, 3, 5, 10, 25].map((i) => (
+            <option key={`limit-${i}`} value={i}>
+              {i}
+            </option>
+          ))}
+        </Form.Control>
+      </Col>
+      <Col>Total:</Col>
+      <Col>{total}</Col>
+    </Row>
+    // </Container>
   );
 }
