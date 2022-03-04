@@ -9,7 +9,7 @@ export class _EventResource extends PaginatedResource {
   pk() {
     return `${this.id}-${this.type}`;
   }
-  static urlRoot = 'http://localhost:8000/events/';
+  static urlRoot = 'events';
 
   static getEndpointExtra(): EndpointExtraOptions {
     return {

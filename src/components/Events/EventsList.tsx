@@ -9,6 +9,7 @@ import { Col, Row, Container, Button } from 'react-bootstrap';
 import { useSearchParams, Link } from 'react-router-dom';
 
 import { EventResource } from 'api/resources/Event';
+import { LazyImage } from 'api/resources/Image';
 import {
   DataCollection as DataCollectionType,
   RobotAction as RobotActionType,
@@ -167,10 +168,10 @@ function DataCollection(props: { item: DataCollectionType; parent: Event }) {
           <Col className="text-center" xs="12" md="3"></Col>
           <Col className="text-center bg-light" xs="12" md="3">
             {item._metadata.snapshots[1] && (
-              <img
+              <LazyImage
                 className="img-fluid"
-                src={`http://localhost:8000/events/image/${parent.id}`}
-                alt="image1"
+                src={`/events/image/${parent.id}`}
+                alt="Sample snapshot 1"
               />
             )}
           </Col>
