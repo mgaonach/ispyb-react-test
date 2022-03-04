@@ -1,10 +1,12 @@
 import { useResource } from 'rest-hooks';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 import Table from 'components/Layout/Table';
 import { LabContactResource } from 'api/resources/LabContact';
 import { LabContact } from 'models/LabContact';
+import { PersonPlus } from 'react-bootstrap-icons';
 
 function personFormatter(row: LabContact) {
   return `${row.Person.givenName} ${row.Person.familyName}`;
@@ -20,10 +22,19 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
 
   return (
     <section>
-      <Link to="/contacts/new">New</Link>
+      <div className="text-end">
+        <Button onClick={() => navigate('/contacts/new')}>
+          <PersonPlus className="me-1" /> New
+        </Button>
+      </div>
       <Table
         onRowClick={onRowClick}
         keyId="labContactId"
+        paginator={{
+          total: contacts.total,
+          skip: contacts.skip,
+          limit: contacts.limit,
+        }}
         results={contacts.results}
         columns={[
           { label: 'Card Name', key: 'cardName' },
@@ -35,7 +46,6 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
           },
         ]}
       />
-      <span>Total: {contacts.total}</span>
     </section>
   );
 }

@@ -7,12 +7,26 @@
 
 export type Runstatus = string;
 export type Wavelength = number;
+export type Exposuretime = number;
+export type Numberofimages = number;
+export type Imagedirectory = string;
+export type Filetemplate = string;
+export type Imagecontainersubpath = string;
+export type Beamsizeatsamplex = number;
+export type Beamsizeatsampley = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollection {
   runStatus?: Runstatus;
   wavelength?: Wavelength;
+  exposureTime?: Exposuretime;
+  numberOfImages?: Numberofimages;
+  imageDirectory?: Imagedirectory;
+  fileTemplate?: Filetemplate;
+  imageContainerSubPath?: Imagecontainersubpath;
+  beamSizeAtSampleX?: Beamsizeatsamplex;
+  beamSizeAtSampleY?: Beamsizeatsampley;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -35,6 +49,13 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
     runStatus?: Runstatus;
     wavelength?: Wavelength;
+    exposureTime?: Exposuretime;
+    numberOfImages?: Numberofimages;
+    imageDirectory?: Imagedirectory;
+    fileTemplate?: Filetemplate;
+    imageContainerSubPath?: Imagecontainersubpath;
+    beamSizeAtSampleX?: Beamsizeatsamplex;
+    beamSizeAtSampleY?: Beamsizeatsampley;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };

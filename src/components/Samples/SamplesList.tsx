@@ -19,6 +19,11 @@ export default function SamplesList({ sortBy }: { sortBy?: string }) {
         keyId="blSampleId"
         results={samples.results}
         onRowClick={onRowClick}
+        paginator={{
+          total: samples.total,
+          skip: samples.skip,
+          limit: samples.limit,
+        }}
         columns={[
           { label: 'Name', key: 'name' },
           { label: 'Protein', key: 'Crystal.Protein.name' },
@@ -26,7 +31,6 @@ export default function SamplesList({ sortBy }: { sortBy?: string }) {
           { label: '# DCs', key: '_metadata.datacollections' },
         ]}
       />
-      <span>Total: {samples.total}</span>
     </section>
   );
 }

@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { CacheProvider } from 'rest-hooks';
-import './index.css';
+// import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
-import './custom.scss';
+import './scss/main.scss';
 
 ReactDOM.render(
   <React.StrictMode>
