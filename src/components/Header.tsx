@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Navbar, NavDropdown, Container, Nav } from 'react-bootstrap';
-import { Calendar, House, PersonBadge } from 'react-bootstrap-icons';
+import { PersonBadge } from 'react-bootstrap-icons';
 
 export default function Header() {
   return (

@@ -1,23 +1,15 @@
 import { useNavigate } from 'react-router';
-import { useController, useResource } from 'rest-hooks';
+import { useController } from 'rest-hooks';
 import Form from '@rjsf/bootstrap-4';
 
+import { useSchema } from 'hooks/useSpec';
 import { LabContactResource } from 'api/resources/LabContact';
-import { OpenAPIResource } from 'api/resources/OpenAPI';
 
 export default function CreateLabContact() {
   const navigate = useNavigate();
-  const spec = useResource(OpenAPIResource.detail(), { id: '' });
   const { fetch } = useController();
 
-  const schema = {
-    $ref: '#/components/schemas/LabContactCreate',
-    components: {
-      ...spec.components,
-    },
-    title: 'Create Lab Contact',
-  };
-
+  const schema = useSchema('LabContactCreate', 'Create Lab Contact');
   const uiSchema = {
     proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
   };

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useResource, NetworkErrorBoundary, NetworkError } from 'rest-hooks';
-
 import { useParams } from 'react-router-dom';
 import Form from '@rjsf/bootstrap-4';
-import { OpenAPIResource } from 'api/resources/OpenAPI';
+
+import { useSchema } from 'hooks/useSpec';
 import { LabContactResource } from 'api/resources/LabContact';
 
 // import {
@@ -27,16 +27,7 @@ function ViewLabContactMain() {
     labContactId: id,
   });
 
-  const spec = useResource(OpenAPIResource.detail(), { id: '' });
-
-  const schema = {
-    $ref: '#/components/schemas/LabContactCreate',
-    components: {
-      ...spec.components,
-    },
-    title: 'View Lab Contact',
-  };
-
+  const schema = useSchema('LabContactCreate', 'View Lab Contact');
   const uiSchema = {
     proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
   };
