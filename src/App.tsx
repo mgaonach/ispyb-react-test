@@ -1,11 +1,13 @@
 import { Suspense, CSSProperties } from 'react';
 import { useRoutes } from 'react-router-dom';
-
+import { NetworkErrorBoundary, NetworkError } from 'rest-hooks';
 import { Spinner, Container } from 'react-bootstrap';
 
 import 'App.css';
 import Header from 'components/Header';
+import { useAuth } from 'hooks/useAuth';
 import routes from 'routes';
+import { AuthenticatedResource } from 'api/resources/Authenticated';
 
 function Loading() {
   return (
@@ -54,15 +56,33 @@ function Footer() {
   );
 }
 
+function AuthErrorBoundary({ error }: { error: NetworkError }) {
+  return error.status === 401 ? (
+    <span>Unauthenticated</span>
+  ) : (
+    <span>An error occured: {error.message}</span>
+  );
+}
+
 function App() {
-  const routesElement = useRoutes(routes);
+  const { token } = useAuth();
+  if (token) {
+    console.log('restoring token');
+    AuthenticatedResource.accessToken = token;
+  }
+
+  const routesElement = useRoutes(routes(!!token));
   return (
     <div className="App">
       <Header />
       <Bread />
       <Suspense fallback={<Loading />}>
         <section className="main-wrapper">
-          <Container className="main">{routesElement}</Container>
+          <Container className="main">
+            <NetworkErrorBoundary fallbackComponent={AuthErrorBoundary}>
+              {routesElement}
+            </NetworkErrorBoundary>
+          </Container>
         </section>
       </Suspense>
       <Footer />

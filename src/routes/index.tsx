@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 import SampleRoutes from 'routes/Samples';
 import EventsRoutes from 'routes/Events';
 import ContactRoutes from 'routes/Contacts';
+import Login from 'components/Login';
 
 function Home() {
   return <div>Home</div>;
@@ -11,7 +12,7 @@ function NotFound() {
   return <div>Cant find that page: 404</div>;
 }
 
-const routes: RouteObject[] = [
+const routes = (isAuthenticated: boolean) => [
   {
     path: '/',
     children: [
@@ -19,6 +20,7 @@ const routes: RouteObject[] = [
       SampleRoutes,
       EventsRoutes,
       ContactRoutes,
+      { path: 'login', element: <Login /> },
       { path: '*', element: <NotFound /> },
     ],
   },

@@ -7,7 +7,7 @@ import { Sample } from 'models/Sample';
 
 export default function SamplesList({ sortBy }: { sortBy?: string }) {
   const navigate = useNavigate();
-  const samples = useResource(SampleResource.list(), { sortBy });
+  const samples = useResource(SampleResource.list(), { skip: 0, limit: 10 });
 
   const onRowClick = (row: Sample) => {
     navigate(`/samples/${row.blSampleId}`);
