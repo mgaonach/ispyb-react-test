@@ -56,10 +56,10 @@ function Footer() {
 }
 
 function App() {
-  const { restoreToken, token } = useAuth();
+  const { restoreToken } = useAuth();
   restoreToken();
 
-  const routesElement = useRoutes(routes(!!token));
+  const routesElement = useRoutes(routes);
   return (
     <div className="App">
       <Header />

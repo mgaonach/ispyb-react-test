@@ -1,4 +1,4 @@
-import type { RouteObject, Outlet } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import SampleRoutes from 'routes/Samples';
 import EventsRoutes from 'routes/Events';
 import ContactRoutes from 'routes/Contacts';
@@ -13,7 +13,7 @@ function NotFound() {
   return <div>Cant find that page: 404</div>;
 }
 
-const routes = (isAuthenticated: boolean) => [
+const routes: RouteObject[] = [
   {
     path: '/',
     children: [
