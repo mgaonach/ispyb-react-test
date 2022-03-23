@@ -1,13 +1,16 @@
-import { useRef } from 'react';
-import { useNavigate } from 'react-router';
+import { useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router';
 import { useController } from 'rest-hooks';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 
 import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
-import { AuthenticatedResource } from 'api/resources/Authenticated';
+import { LocationState } from 'components/PrivateRoute';
 
-export default function CreateLogin() {
+export default function Login() {
+  const [error, setError] = useState('');
+  const location = useLocation();
+  const { from } = location.state as LocationState;
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { fetch } = useController();
@@ -27,8 +30,7 @@ export default function CreateLogin() {
       .then((response) => {
         console.log('login', response);
         setToken(response.token);
-        AuthenticatedResource.accessToken = response.token;
-        navigate(`/`);
+        navigate(from ? from : '/');
       })
       .catch((err) => {
         console.log('error', err);
@@ -36,23 +38,41 @@ export default function CreateLogin() {
   };
 
   return (
-    <Form>
-      <Form.Group as={Row} className="mb-2">
-        <Form.Label column>Username</Form.Label>
-        <Col>
-          <Form.Control type="text" placeholder="Username" ref={userRef} />
-        </Col>
-      </Form.Group>
+    <Container>
+      <Row>
+        <Col xs={12} md={4}></Col>
+        <Col xs={12} md={4}>
+          <Form>
+            <Form.Group as={Row} className="mb-2">
+              <Form.Label column>Username</Form.Label>
+              <Col xs={12} md={8}>
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  ref={userRef}
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row}>
-        <Form.Label column>Password</Form.Label>
-        <Col>
-          <Form.Control type="password" placeholder="Password" ref={passRef} />
+            <Form.Group as={Row}>
+              <Form.Label column>Password</Form.Label>
+              <Col xs={12} md={8}>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  ref={passRef}
+                />
+              </Col>
+            </Form.Group>
+            <div className="d-grid gap-2 mt-2">
+              <Button variant="primary" onClick={onSubmit}>
+                Login
+              </Button>
+            </div>
+          </Form>
         </Col>
-      </Form.Group>
-      <Button variant="primary" onClick={onSubmit}>
-        Login
-      </Button>
-    </Form>
+        <Col xs={12} md={4}></Col>
+      </Row>
+    </Container>
   );
 }
