@@ -10,7 +10,7 @@ import { LocationState } from 'components/PrivateRoute';
 export default function Login() {
   const [error, setError] = useState('');
   const location = useLocation();
-  const { from } = location.state as LocationState;
+  const { from, message } = location.state as LocationState;
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { fetch } = useController();
@@ -47,6 +47,13 @@ export default function Login() {
         <Col xs={12} md={4}></Col>
         <Col xs={12} md={4}>
           <Form>
+            {message && (
+              <Row>
+                <Col>
+                  <Alert variant="warning">{message}</Alert>
+                </Col>
+              </Row>
+            )}
             {error && (
               <Row>
                 <Col>
