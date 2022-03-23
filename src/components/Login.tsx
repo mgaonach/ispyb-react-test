@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useController } from 'rest-hooks';
-import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import { Form, Button, Row, Col, Container, Alert } from 'react-bootstrap';
 
 import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
@@ -17,7 +17,8 @@ export default function Login() {
   const userRef = useRef<any>();
   const passRef = useRef<any>();
 
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
+    setError('');
     fetch(
       LoginResource.create(),
       {},
@@ -33,9 +34,12 @@ export default function Login() {
         navigate(from ? from : '/');
       })
       .catch((err) => {
-        console.log('error', err);
+        err.response.json().then((json: any) => {
+          setError(json.message);
+          console.log('error', err, json);
+        });
       });
-  };
+  }, [setToken, navigate, fetch, from]);
 
   return (
     <Container>
@@ -43,6 +47,13 @@ export default function Login() {
         <Col xs={12} md={4}></Col>
         <Col xs={12} md={4}>
           <Form>
+            {error && (
+              <Row>
+                <Col>
+                  <Alert variant="danger">{error}</Alert>
+                </Col>
+              </Row>
+            )}
             <Form.Group as={Row} className="mb-2">
               <Form.Label column>Username</Form.Label>
               <Col xs={12} md={8}>
