@@ -1,11 +1,12 @@
 import { Suspense, CSSProperties } from 'react';
 import { useRoutes } from 'react-router-dom';
-
 import { Spinner, Container } from 'react-bootstrap';
 
 import 'App.css';
 import Header from 'components/Header';
 import routes from 'routes';
+
+import { useAuth } from 'hooks/useAuth';
 
 function Loading() {
   return (
@@ -55,7 +56,10 @@ function Footer() {
 }
 
 function App() {
-  const routesElement = useRoutes(routes);
+  const { restoreToken, token } = useAuth();
+  restoreToken();
+
+  const routesElement = useRoutes(routes(!!token));
   return (
     <div className="App">
       <Header />
