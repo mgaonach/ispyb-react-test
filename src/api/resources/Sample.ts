@@ -6,5 +6,5 @@ export class SampleResource extends PaginatedResource {
   pk() {
     return this.blSampleId?.toString();
   }
-  static urlRoot = 'samples';
+  static urlRoot = 'samples/';
 }
