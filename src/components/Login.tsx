@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useController } from 'rest-hooks';
 import {
@@ -26,6 +26,10 @@ export default function Login() {
   const { fetch } = useController();
   const userRef = useRef<any>();
   const passRef = useRef<any>();
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [userRef]);
 
   const resetPending = useCallback(() => {
     setTimeout(() => {
