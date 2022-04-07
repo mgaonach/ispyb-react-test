@@ -1,37 +1,60 @@
-import { useNavigate } from 'react-router';
-import { useController } from 'rest-hooks';
+import { useRef } from 'react';
 import Form from '@rjsf/bootstrap-4';
+import { Spinner, Button } from 'react-bootstrap';
+import { PersonPlus } from 'react-bootstrap-icons';
 
 import { useSchema } from 'hooks/useSpec';
+import { useInformativeSubmit } from 'hooks/useInformativeSubmit';
 import { LabContactResource } from 'api/resources/LabContact';
+import ParsedError from 'components/ParsedError';
 
 export default function CreateLabContact() {
-  const navigate = useNavigate();
-  const { fetch } = useController();
+  const alertRef = useRef<any>();
+  const { onSubmit, pending, error, lastFormData } = useInformativeSubmit({
+    resource: LabContactResource,
+    redirect: '/contacts/view',
+    redirectKey: 'labContactId',
+    alertRef,
+    initialFormData: {
+      proposalId: 1,
+    },
+  });
 
   const schema = useSchema('LabContactCreate', 'Create Lab Contact');
   const uiSchema = {
     proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
   };
 
-  const onSubmit = ({ formData }: { formData: {} }) => {
-    fetch(LabContactResource.create(), {}, formData).then((newContact) => {
-      navigate(`/contacts/view/${newContact.labContactId}`);
-    });
-  };
-
-  const formData = {
-    proposalId: 1,
-  };
-
   return (
-    <Form
-      //   FieldTemplate={ColField}
-      liveValidate
-      schema={schema}
-      uiSchema={uiSchema}
-      onSubmit={onSubmit}
-      formData={formData}
-    />
+    <>
+      <ParsedError error={error} ref={alertRef} />
+      <Form
+        //   FieldTemplate={ColField}
+        liveValidate
+        schema={schema}
+        uiSchema={uiSchema}
+        onSubmit={onSubmit}
+        formData={lastFormData}
+        disabled={pending}
+      >
+        <Button type="submit" disabled={pending}>
+          <>
+            {pending && (
+              <Spinner
+                size="sm"
+                animation="border"
+                role="status"
+                variant="light"
+                className="me-1"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )}
+            {!pending && <PersonPlus className="me-1" />}
+            Create Contact
+          </>
+        </Button>
+      </Form>
+    </>
   );
 }
