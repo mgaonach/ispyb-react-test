@@ -1,6 +1,6 @@
 import { Suspense, CSSProperties } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { Spinner, Container } from 'react-bootstrap';
+import { Spinner, Container, ProgressBar } from 'react-bootstrap';
 
 import 'App.css';
 import Header from 'components/Header';
@@ -27,23 +27,38 @@ interface CustomCSS extends CSSProperties {
   '--bs-breadcrumb-divider': string;
 }
 
-function Bread() {
+function Bread({ pending }: { pending: boolean }) {
   return (
-    <div className="breadcrumbs">
-      <Container>
-        <nav
-          style={{ '--bs-breadcrumb-divider': "'»'" } as CustomCSS}
-          aria-label="breadcrumb"
-        >
-          <ol className="breadcrumb mb-0">
-            <li className="breadcrumb-item">Home</li>
-            <li className="breadcrumb-item active" aria-current="page">
-              Somewhere
-            </li>
-          </ol>
-        </nav>
-      </Container>
-    </div>
+    <>
+      <div className="bg-primary">
+        {pending && (
+          <ProgressBar
+            animated
+            now={100}
+            className="rounded-0"
+            style={{ height: 5 }}
+          />
+        )}
+        {!pending && (
+          <ProgressBar className="rounded-0 bg-primary" style={{ height: 5 }} />
+        )}
+      </div>
+      <div className="breadcrumbs">
+        <Container>
+          <nav
+            style={{ '--bs-breadcrumb-divider': "'»'" } as CustomCSS}
+            aria-label="breadcrumb"
+          >
+            <ol className="breadcrumb mb-0">
+              <li className="breadcrumb-item">Home</li>
+              <li className="breadcrumb-item active" aria-current="page">
+                Somewhere
+              </li>
+            </ol>
+          </nav>
+        </Container>
+      </div>
+    </>
   );
 }
 
@@ -55,7 +70,7 @@ function Footer() {
   );
 }
 
-function App() {
+function App({ pending }: { pending: boolean }) {
   const { restoreToken } = useAuth();
   restoreToken();
 
@@ -63,7 +78,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Bread />
+      <Bread pending={pending} />
       <Suspense fallback={<Loading />}>
         <section className="main-wrapper">
           <Container className="main">{routesElement}</Container>

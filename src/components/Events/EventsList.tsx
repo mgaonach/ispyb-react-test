@@ -1,6 +1,6 @@
 import React, { JSXElementConstructor, ReactElement } from 'react';
 import {
-  useResource,
+  useSuspense,
   useSubscription,
   NetworkErrorBoundary,
   NetworkError,
@@ -252,7 +252,7 @@ function EventListMain({ blSampleId }: IEventsList) {
     ...(blSampleId ? { blSampleId } : {}),
   };
 
-  const events = useResource(EventResource.list(), opts);
+  const events = useSuspense(EventResource.list(), opts);
   useSubscription(EventResource.list(), opts);
 
   return (
