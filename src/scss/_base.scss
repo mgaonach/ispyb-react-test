@@ -2,6 +2,10 @@ html {
     min-height: 100vh;
 }
 
+* {
+    scroll-margin-top: calc(59px + 10px);
+}
+
 .breadcrumbs {
     background-color: $tertiary;
     font-family: Poppins;
