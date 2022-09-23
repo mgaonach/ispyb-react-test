@@ -1,21 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { createBrowserHistory } from 'history';
 import { CacheProvider } from 'rest-hooks';
 // import './index.css';
+import SuspenseRouter from './SuspenseRouter';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import './scss/main.scss';
 
-ReactDOM.render(
+const history = createBrowserHistory();
+
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(
   <React.StrictMode>
     <CacheProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <SuspenseRouter history={history} timeoutMs={2000}>
+        {(isPending: boolean) => <App pending={isPending} />}
+      </SuspenseRouter>
     </CacheProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
