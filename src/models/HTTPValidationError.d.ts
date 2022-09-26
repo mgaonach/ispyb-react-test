@@ -5,7 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Location = string[];
+export type Location = (string | number)[];
 export type Message = string;
 export type ErrorType = string;
 export type Detail = ValidationError[];

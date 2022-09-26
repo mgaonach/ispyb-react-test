@@ -13,10 +13,15 @@ export type Subsamples = number;
  * Number of data collections
  */
 export type Datacollections = number;
+/**
+ * Types of data collections
+ */
+export type Types = string[];
 
 export interface SampleMetaData {
   subsamples: Subsamples;
   datacollections: Datacollections;
+  types?: Types;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -24,5 +29,6 @@ export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSampleMetaData extends Base {
     subsamples: Subsamples;
     datacollections: Datacollections;
+    types?: Types;
   };
 }

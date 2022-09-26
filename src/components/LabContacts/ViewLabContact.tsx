@@ -1,8 +1,9 @@
 import React from 'react';
-import { useResource, NetworkErrorBoundary, NetworkError } from 'rest-hooks';
+import { useSuspense } from 'rest-hooks';
 import { useParams } from 'react-router-dom';
 import Form from '@rjsf/bootstrap-4';
 
+import NetworkErrorPage from 'components/NetworkErrorPage';
 import { useSchema } from 'hooks/useSpec';
 import { LabContactResource } from 'api/resources/LabContact';
 
@@ -23,7 +24,7 @@ function StringField(props: any) {
 function ViewLabContactMain() {
   const { id } = useParams();
 
-  const contact = useResource(LabContactResource.detail(), {
+  const contact = useSuspense(LabContactResource.detail(), {
     labContactId: id,
   });
 
@@ -47,19 +48,10 @@ function ViewLabContactMain() {
   );
 }
 
-function ErrorPage({ error }: { error: NetworkError }) {
-  console.log('Error Page', error);
-  return error.status === 404 ? (
-    <span>No such lab contact</span>
-  ) : (
-    <span>An error occured: {error.message}</span>
-  );
-}
-
 export default function ViewLabContact() {
   return (
-    <NetworkErrorBoundary fallbackComponent={ErrorPage}>
+    <NetworkErrorPage message="No such lab contact">
       <ViewLabContactMain />
-    </NetworkErrorBoundary>
+    </NetworkErrorPage>
   );
 }

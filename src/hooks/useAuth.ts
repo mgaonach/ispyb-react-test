@@ -8,6 +8,10 @@ interface AuthData {
   clearToken: () => void;
 }
 
+/**
+ * Get the authentication state
+ * @returns
+ */
 export function useAuth(): AuthData {
   const token = window.sessionStorage.getItem('token') || '';
 

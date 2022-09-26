@@ -1,5 +1,10 @@
+import { useRef, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import {
+  useNavigate,
+  createSearchParams,
+  useSearchParams,
+} from 'react-router-dom';
 
 interface Props {
   total: number;
@@ -9,21 +14,52 @@ interface Props {
 
 export default function Paginator(props: Props) {
   const { total, skip, limit } = props;
+  const limitRef = useRef<any>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  // @ts-ignore
+  const searchParamsObj = Object.fromEntries([...searchParams]);
+  const { limit: searchLimit } = searchParamsObj;
+
   const nPages = Math.ceil(total / limit);
   const currentPage = skip / limit + 1;
+
+  useEffect(() => {
+    if (limitRef.current) {
+      limitRef.current.value = searchLimit;
+    }
+  }, [searchLimit]);
 
   const gotoPage = (page: number) => {
     const newSkip = limit * (page - 1);
     if (page === 1) {
-      navigate('');
+      const { skip, ...excludeSkip } = searchParamsObj;
+
+      navigate({
+        pathname: '',
+        search: createSearchParams({ ...excludeSkip }).toString(),
+      });
       return;
     }
-    navigate(`?skip=${newSkip}&limit=${limit}`);
+    navigate({
+      pathname: '',
+      search: createSearchParams({
+        ...searchParamsObj,
+        skip: newSkip.toString(),
+        limit: limit.toString(),
+      }).toString(),
+    });
   };
 
   const changeLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    navigate(`?limit=${e.target.value}`);
+    const { limit, ...excludeLimit } = searchParamsObj;
+    navigate({
+      pathname: '',
+      search: createSearchParams({
+        ...excludeLimit,
+        limit: e.target.value,
+      }).toString(),
+    });
   };
 
   return (
@@ -70,7 +106,12 @@ export default function Paginator(props: Props) {
         </div>
       </Col>
       <Col>
-        <Form.Control as="select" onChange={changeLimit} defaultValue={3}>
+        <Form.Control
+          ref={limitRef}
+          as="select"
+          onChange={changeLimit}
+          defaultValue={searchParamsObj.limit || limit}
+        >
           {[2, 3, 5, 10, 25].map((i) => (
             <option key={`limit-${i}`} value={i}>
               {i}

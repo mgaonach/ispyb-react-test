@@ -3,13 +3,36 @@ import { useNavigate } from 'react-router';
 import { NetworkError, useController } from 'rest-hooks';
 
 interface SubmitData {
+  /**
+   * The resource to create
+   */
   resource: any;
+  /**
+   * Any initial form parameters
+   */
   initialFormData: {};
+  /**
+   * A reference to an alert box to show errors
+   */
   alertRef: any;
+  /**
+   * Url to redirect
+   */
   redirect?: string;
+  /**
+   * Primary key to append to the url when redirecting
+   */
   redirectKey?: string;
 }
 
+/**
+ * Create a new resource in an informative way
+ *  * Set pending state
+ *  * Catch errors
+ *  * Redirect
+ * @param {SubmitData}
+ * @returns
+ */
 export function useInformativeSubmit({
   resource,
   initialFormData,

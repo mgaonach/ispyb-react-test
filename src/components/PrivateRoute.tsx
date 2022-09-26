@@ -1,22 +1,10 @@
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
-import { NetworkErrorBoundary, NetworkError } from 'rest-hooks';
 import { useAuth } from 'hooks/useAuth';
+import AuthErrorBoundary from 'components/AuthErrorBoundary';
 
 export interface LocationState {
   from: string;
   message?: string;
-}
-
-function AuthErrorBoundary({ error }: { error: NetworkError }) {
-  const location = useLocation();
-  return error.status === 401 ? (
-    <Navigate
-      to="/login"
-      state={{ from: location, message: 'Token expired' }}
-    />
-  ) : (
-    <span>An error occured: {error.message}</span>
-  );
 }
 
 const PrivateRoute = () => {
@@ -28,9 +16,9 @@ const PrivateRoute = () => {
   }
 
   return (
-    <NetworkErrorBoundary fallbackComponent={AuthErrorBoundary}>
+    <AuthErrorBoundary>
       <Outlet />
-    </NetworkErrorBoundary>
+    </AuthErrorBoundary>
   );
 };
 

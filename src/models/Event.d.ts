@@ -7,53 +7,113 @@
 
 export type Id = number;
 export type Type = string;
-export type Starttime = string;
-export type Endtime = string;
+export type StartTime = string;
+export type EndTime = string;
 export type Count = number;
+export type Session = string;
+export type Proposal = string;
 /**
- * Sample name
+ * Sample Name
  */
 export type Blsample = string;
 /**
- * Sample id
+ * Sample Id
  */
 export type Blsampleid = number;
+/**
+ * No. of attachments
+ */
+export type Attachments = number;
 export type Item = DataCollection | RobotAction;
-export type Runstatus = string;
+export type Datacollectionid = number;
+/**
+ * `Successful` on success
+ */
+export type Status = string;
+/**
+ * Directory where the data is saved
+ */
+export type Directory = string;
+/**
+ * File template for data
+ */
+export type DataFileTemplate = string;
+/**
+ * For hdf5 files, path to the images
+ */
+export type ImageSubPath = string;
+export type NumberOfImagesPoints = number;
 export type Wavelength = number;
-export type Exposuretime = number;
-export type Numberofimages = number;
-export type Imagedirectory = string;
-export type Filetemplate = string;
-export type Imagecontainersubpath = string;
-export type Beamsizeatsamplex = number;
-export type Beamsizeatsampley = number;
+export type ExposureTime = number;
+export type Flux = number;
+export type BeamPositionHorizontal = number;
+export type BeamPositionVertical = number;
+export type BeamSizeAtSampleHorizontal = number;
+export type BeamSizeAtSampleVertical = number;
+export type BeamTransmision = number;
+/**
+ * At edge of detector
+ */
+export type Resolution = number;
+export type DetectorDistance = number;
+export type RotationAxisStart = number;
+export type RotationAxisEnd = number;
+export type RotationAxisOscillation = number;
+export type ExposureTime1 = RotationAxis;
+/**
+ * An enumeration.
+ */
+export type RotationAxis = 'omega' | 'phi';
+export type RotationAxisOverlap = number;
+export type PhiStart = number;
+export type KappaStart = number;
+export type OmegaStart = number;
+export type ChiStart = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 export type Actiontype = string;
-export type Status = string;
+export type Status1 = string;
 export type Message = string;
 
 export interface Event {
   id: Id;
   type: Type;
-  startTime: Starttime;
-  endTime?: Endtime;
+  startTime?: StartTime;
+  endTime?: EndTime;
   count: Count;
+  session: Session;
+  proposal: Proposal;
   blSample?: Blsample;
   blSampleId?: Blsampleid;
+  attachments?: Attachments;
   Item: Item;
 }
 export interface DataCollection {
-  runStatus?: Runstatus;
+  dataCollectionId: Datacollectionid;
+  runStatus?: Status;
+  imageDirectory?: Directory;
+  fileTemplate?: DataFileTemplate;
+  imageContainerSubPath?: ImageSubPath;
+  numberOfImages?: NumberOfImagesPoints;
   wavelength?: Wavelength;
-  exposureTime?: Exposuretime;
-  numberOfImages?: Numberofimages;
-  imageDirectory?: Imagedirectory;
-  fileTemplate?: Filetemplate;
-  imageContainerSubPath?: Imagecontainersubpath;
-  beamSizeAtSampleX?: Beamsizeatsamplex;
-  beamSizeAtSampleY?: Beamsizeatsampley;
+  exposureTime?: ExposureTime;
+  flux?: Flux;
+  xBeam?: BeamPositionHorizontal;
+  yBeam?: BeamPositionVertical;
+  beamSizeAtSampleX?: BeamSizeAtSampleHorizontal;
+  beamSizeAtSampleY?: BeamSizeAtSampleVertical;
+  transmission?: BeamTransmision;
+  resolution?: Resolution;
+  detectorDistance?: DetectorDistance;
+  axisStart?: RotationAxisStart;
+  axisEnd?: RotationAxisEnd;
+  axisRange?: RotationAxisOscillation;
+  rotationAxis?: ExposureTime1;
+  overlap?: RotationAxisOverlap;
+  phiStart?: PhiStart;
+  kappaStart?: KappaStart;
+  omegaStart?: OmegaStart;
+  chiStart?: ChiStart;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -72,7 +132,7 @@ export interface Snapshots {
 }
 export interface RobotAction {
   actionType: Actiontype;
-  status?: Status;
+  status?: Status1;
   message?: Message;
 }
 
@@ -81,25 +141,44 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
   return class WithEvent extends Base {
     id: Id;
     type: Type;
-    startTime: Starttime;
-    endTime?: Endtime;
+    startTime?: StartTime;
+    endTime?: EndTime;
     count: Count;
+    session: Session;
+    proposal: Proposal;
     blSample?: Blsample;
     blSampleId?: Blsampleid;
+    attachments?: Attachments;
     Item: Item;
   };
 }
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
-    runStatus?: Runstatus;
+    dataCollectionId: Datacollectionid;
+    runStatus?: Status;
+    imageDirectory?: Directory;
+    fileTemplate?: DataFileTemplate;
+    imageContainerSubPath?: ImageSubPath;
+    numberOfImages?: NumberOfImagesPoints;
     wavelength?: Wavelength;
-    exposureTime?: Exposuretime;
-    numberOfImages?: Numberofimages;
-    imageDirectory?: Imagedirectory;
-    fileTemplate?: Filetemplate;
-    imageContainerSubPath?: Imagecontainersubpath;
-    beamSizeAtSampleX?: Beamsizeatsamplex;
-    beamSizeAtSampleY?: Beamsizeatsampley;
+    exposureTime?: ExposureTime;
+    flux?: Flux;
+    xBeam?: BeamPositionHorizontal;
+    yBeam?: BeamPositionVertical;
+    beamSizeAtSampleX?: BeamSizeAtSampleHorizontal;
+    beamSizeAtSampleY?: BeamSizeAtSampleVertical;
+    transmission?: BeamTransmision;
+    resolution?: Resolution;
+    detectorDistance?: DetectorDistance;
+    axisStart?: RotationAxisStart;
+    axisEnd?: RotationAxisEnd;
+    axisRange?: RotationAxisOscillation;
+    rotationAxis?: ExposureTime1;
+    overlap?: RotationAxisOverlap;
+    phiStart?: PhiStart;
+    kappaStart?: KappaStart;
+    omegaStart?: OmegaStart;
+    chiStart?: ChiStart;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };
@@ -130,7 +209,7 @@ export function withSnapshots<TBase extends Constructor>(Base: TBase) {
 export function withRobotAction<TBase extends Constructor>(Base: TBase) {
   return class WithRobotAction extends Base {
     actionType: Actiontype;
-    status?: Status;
+    status?: Status1;
     message?: Message;
   };
 }

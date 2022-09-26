@@ -1,4 +1,3 @@
-import { EndpointExtraOptions } from '@rest-hooks/endpoint';
 import PaginatedResource from 'api/resources/Paginated';
 import { withEvent } from 'models/Event.d';
 
@@ -11,8 +10,9 @@ export class _EventResource extends PaginatedResource {
   }
   static urlRoot = 'events';
 
-  static getEndpointExtra(): EndpointExtraOptions {
+  static getEndpointExtra() {
     return {
+      ...super.getEndpointExtra(),
       pollFrequency: 5000,
     };
   }

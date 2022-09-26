@@ -5,28 +5,79 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Runstatus = string;
+export type Datacollectionid = number;
+/**
+ * `Successful` on success
+ */
+export type Status = string;
+/**
+ * Directory where the data is saved
+ */
+export type Directory = string;
+/**
+ * File template for data
+ */
+export type DataFileTemplate = string;
+/**
+ * For hdf5 files, path to the images
+ */
+export type ImageSubPath = string;
+export type NumberOfImagesPoints = number;
 export type Wavelength = number;
-export type Exposuretime = number;
-export type Numberofimages = number;
-export type Imagedirectory = string;
-export type Filetemplate = string;
-export type Imagecontainersubpath = string;
-export type Beamsizeatsamplex = number;
-export type Beamsizeatsampley = number;
+export type ExposureTime = number;
+export type Flux = number;
+export type BeamPositionHorizontal = number;
+export type BeamPositionVertical = number;
+export type BeamSizeAtSampleHorizontal = number;
+export type BeamSizeAtSampleVertical = number;
+export type BeamTransmision = number;
+/**
+ * At edge of detector
+ */
+export type Resolution = number;
+export type DetectorDistance = number;
+export type RotationAxisStart = number;
+export type RotationAxisEnd = number;
+export type RotationAxisOscillation = number;
+export type ExposureTime1 = RotationAxis;
+/**
+ * An enumeration.
+ */
+export type RotationAxis = 'omega' | 'phi';
+export type RotationAxisOverlap = number;
+export type PhiStart = number;
+export type KappaStart = number;
+export type OmegaStart = number;
+export type ChiStart = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollection {
-  runStatus?: Runstatus;
+  dataCollectionId: Datacollectionid;
+  runStatus?: Status;
+  imageDirectory?: Directory;
+  fileTemplate?: DataFileTemplate;
+  imageContainerSubPath?: ImageSubPath;
+  numberOfImages?: NumberOfImagesPoints;
   wavelength?: Wavelength;
-  exposureTime?: Exposuretime;
-  numberOfImages?: Numberofimages;
-  imageDirectory?: Imagedirectory;
-  fileTemplate?: Filetemplate;
-  imageContainerSubPath?: Imagecontainersubpath;
-  beamSizeAtSampleX?: Beamsizeatsamplex;
-  beamSizeAtSampleY?: Beamsizeatsampley;
+  exposureTime?: ExposureTime;
+  flux?: Flux;
+  xBeam?: BeamPositionHorizontal;
+  yBeam?: BeamPositionVertical;
+  beamSizeAtSampleX?: BeamSizeAtSampleHorizontal;
+  beamSizeAtSampleY?: BeamSizeAtSampleVertical;
+  transmission?: BeamTransmision;
+  resolution?: Resolution;
+  detectorDistance?: DetectorDistance;
+  axisStart?: RotationAxisStart;
+  axisEnd?: RotationAxisEnd;
+  axisRange?: RotationAxisOscillation;
+  rotationAxis?: ExposureTime1;
+  overlap?: RotationAxisOverlap;
+  phiStart?: PhiStart;
+  kappaStart?: KappaStart;
+  omegaStart?: OmegaStart;
+  chiStart?: ChiStart;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -47,15 +98,31 @@ export interface Snapshots {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
-    runStatus?: Runstatus;
+    dataCollectionId: Datacollectionid;
+    runStatus?: Status;
+    imageDirectory?: Directory;
+    fileTemplate?: DataFileTemplate;
+    imageContainerSubPath?: ImageSubPath;
+    numberOfImages?: NumberOfImagesPoints;
     wavelength?: Wavelength;
-    exposureTime?: Exposuretime;
-    numberOfImages?: Numberofimages;
-    imageDirectory?: Imagedirectory;
-    fileTemplate?: Filetemplate;
-    imageContainerSubPath?: Imagecontainersubpath;
-    beamSizeAtSampleX?: Beamsizeatsamplex;
-    beamSizeAtSampleY?: Beamsizeatsampley;
+    exposureTime?: ExposureTime;
+    flux?: Flux;
+    xBeam?: BeamPositionHorizontal;
+    yBeam?: BeamPositionVertical;
+    beamSizeAtSampleX?: BeamSizeAtSampleHorizontal;
+    beamSizeAtSampleY?: BeamSizeAtSampleVertical;
+    transmission?: BeamTransmision;
+    resolution?: Resolution;
+    detectorDistance?: DetectorDistance;
+    axisStart?: RotationAxisStart;
+    axisEnd?: RotationAxisEnd;
+    axisRange?: RotationAxisOscillation;
+    rotationAxis?: ExposureTime1;
+    overlap?: RotationAxisOverlap;
+    phiStart?: PhiStart;
+    kappaStart?: KappaStart;
+    omegaStart?: OmegaStart;
+    chiStart?: ChiStart;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };
