@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback, useEffect, FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useController } from 'rest-hooks';
 import {
@@ -38,7 +38,7 @@ export default function Login() {
   }, [setPending]);
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: FormEvent<HTMLFormElement>) => {
       setPending(true);
       e.preventDefault();
       const form = e.currentTarget;
@@ -55,7 +55,7 @@ export default function Login() {
         {},
         {
           plugin: 'dummy',
-          username: userRef.current?.value,
+          login: userRef.current?.value,
           password: passRef.current?.value,
         }
       )

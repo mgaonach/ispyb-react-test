@@ -1,22 +1,19 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserHistory } from 'history';
 import { CacheProvider } from 'rest-hooks';
-// import './index.css';
+
 import SuspenseRouter from './SuspenseRouter';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import './scss/main.scss';
-
-const history = createBrowserHistory();
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <CacheProvider>
-      <SuspenseRouter history={history} timeoutMs={2000}>
-        {(isPending: boolean) => <App pending={isPending} />}
+      <SuspenseRouter>
+        <App />
       </SuspenseRouter>
     </CacheProvider>
   </React.StrictMode>

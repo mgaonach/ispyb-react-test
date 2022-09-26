@@ -5,7 +5,8 @@ import Paginator from 'components/Layout/Paginator';
 interface IColumn {
   label: string;
   key: string;
-  formatter?: any;
+  formatter?: (row: any) => string | JSX.Element | null;
+  className?: string;
 }
 
 interface IResults {
@@ -48,7 +49,7 @@ export default function Table(props: ITable) {
               }}
             >
               {props.columns.map((column) => (
-                <td key={column.key}>
+                <td key={column.key} className={column.className}>
                   {column.formatter
                     ? column.formatter(row)
                     : get(row, column.key)}

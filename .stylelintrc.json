@@ -1,8 +1,7 @@
 {
-    "extends": "stylelint-config-sass-guidelines",
-    "rules": {
-      "indentation": 4,
-      "max-nesting-depth": 3
-    }
+  "extends": "stylelint-config-sass-guidelines",
+  "rules": {
+    "indentation": 2,
+    "max-nesting-depth": 3
   }
-  
+}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useResource, NetworkErrorBoundary, NetworkError } from 'rest-hooks';
-
+import { useSuspense } from 'rest-hooks';
 import { useParams } from 'react-router-dom';
 import Form from '@rjsf/bootstrap-4';
+
+import NetworkErrorPage from 'components/NetworkErrorPage';
 import { useSchema } from 'hooks/useSpec';
 import { SampleResource } from 'api/resources/Sample';
 
@@ -21,7 +22,7 @@ function StringField(props: any) {
 function ViewSampleMain() {
   const { blSampleId } = useParams();
 
-  const contact = useResource(SampleResource.detail(), {
+  const contact = useSuspense(SampleResource.detail(), {
     blSampleId,
   });
 
@@ -51,19 +52,10 @@ function ViewSampleMain() {
   );
 }
 
-function ErrorPage({ error }: { error: NetworkError }) {
-  console.log('Error Page', error);
-  return error.status === 404 ? (
-    <span>No such sample</span>
-  ) : (
-    <span>An error occured: {error.message}</span>
-  );
-}
-
 export default function ViewSample() {
   return (
-    <NetworkErrorBoundary fallbackComponent={ErrorPage}>
+    <NetworkErrorPage message="No such sample">
       <ViewSampleMain />
-    </NetworkErrorBoundary>
+    </NetworkErrorPage>
   );
 }

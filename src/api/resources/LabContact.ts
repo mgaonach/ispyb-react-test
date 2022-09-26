@@ -9,5 +9,5 @@ export class LabContactResource extends PaginatedResource {
   pk() {
     return this.labContactId?.toString();
   }
-  static urlRoot = 'labcontacts/';
+  static urlRoot = 'labcontacts';
 }

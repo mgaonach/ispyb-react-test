@@ -1,4 +1,4 @@
-import { useResource } from 'rest-hooks';
+import { useSuspense } from 'rest-hooks';
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import Table from 'components/Layout/Table';
 import { LabContactResource } from 'api/resources/LabContact';
 import { LabContact } from 'models/LabContact';
 import { PersonPlus } from 'react-bootstrap-icons';
+import { usePath } from 'hooks/usePath';
 
 function personFormatter(row: LabContact) {
   return `${row.Person.givenName} ${row.Person.familyName}`;
@@ -14,16 +15,17 @@ function personFormatter(row: LabContact) {
 
 export default function LabContactList({ sortBy }: { sortBy?: string }) {
   const navigate = useNavigate();
-  const contacts = useResource(LabContactResource.list(), { sortBy });
+  const proposal = usePath('proposal');
+  const contacts = useSuspense(LabContactResource.list(), { sortBy });
 
   const onRowClick = (row: LabContact) => {
-    navigate(`/contacts/view/${row.labContactId}`);
+    navigate(`/proposals/${proposal}/contacts/view/${row.labContactId}`);
   };
 
   return (
     <section>
       <div className="text-end">
-        <Button onClick={() => navigate('/contacts/new')}>
+        <Button onClick={() => navigate(`/proposals/${proposal}/contacts/new`)}>
           <PersonPlus className="me-1" /> New
         </Button>
       </div>
@@ -45,6 +47,7 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
             formatter: personFormatter,
           },
         ]}
+        emptyText="No lab contact yet"
       />
     </section>
   );

@@ -8,6 +8,11 @@
 export type Name = string;
 export type Comments = null | string;
 /**
+ * Location in container
+ */
+export type Location = number;
+export type Containerid = number;
+/**
  * Number of sub samples
  */
 export type Subsamples = number;
@@ -15,6 +20,10 @@ export type Subsamples = number;
  * Number of data collections
  */
 export type Datacollections = number;
+/**
+ * Types of data collections
+ */
+export type Types = string[];
 export type Blsampleid = number;
 export type CellA = null | number;
 export type CellB = null | number;
@@ -23,20 +32,54 @@ export type CellAlpha = null | number;
 export type CellBeta = null | number;
 export type CellGamma = null | number;
 export type Name1 = string;
+/**
+ * A short name
+ */
 export type Acronym = string;
+export type Proposalid = number;
+/**
+ * Sequence or chemical composition
+ */
+export type SequenceSMILES = string;
+export type Density = number;
+export type Mass = number;
+export type Containmentlevel = string;
+export type Hazardgroup = string;
+export type Safetylevel = string;
+export type Componenttypeid = number;
+export type Name2 = string;
 export type Proteinid = number;
+/**
+ * Number of attached pdbs
+ */
+export type Pdbs = number;
+/**
+ * Number of child crystals
+ */
+export type Crystals = number;
+/**
+ * Number of child samples
+ */
+export type Samples = number;
 export type Crystalid = number;
+export type Code = string;
+export type Code1 = string;
+export type Shippingname = string;
 
 export interface Sample {
   name: Name;
   comments?: Comments;
-  _metadata: SampleMetaData;
+  location?: Location;
+  containerId: Containerid;
+  _metadata?: SampleMetaData;
   blSampleId: Blsampleid;
   Crystal: Crystal;
+  Container: Container;
 }
 export interface SampleMetaData {
   subsamples: Subsamples;
   datacollections: Datacollections;
+  types?: Types;
 }
 export interface Crystal {
   cell_a?: CellA;
@@ -51,7 +94,36 @@ export interface Crystal {
 export interface Protein {
   name: Name1;
   acronym: Acronym;
+  proposalId: Proposalid;
+  sequence?: SequenceSMILES;
+  density?: Density;
+  molecularMass?: Mass;
+  containmentLevel?: Containmentlevel;
+  hazardGroup?: Hazardgroup;
+  safetyLevel?: Safetylevel;
+  ComponentType?: ComponentType;
   proteinId: Proteinid;
+  _metadata?: ProteinMetaData;
+}
+export interface ComponentType {
+  componentTypeId: Componenttypeid;
+  name: Name2;
+}
+export interface ProteinMetaData {
+  pdbs?: Pdbs;
+  crystals?: Crystals;
+  samples?: Samples;
+}
+export interface Container {
+  code: Code;
+  Dewar: Dewar;
+}
+export interface Dewar {
+  code: Code1;
+  Shipping: Shipping;
+}
+export interface Shipping {
+  shippingName: Shippingname;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -59,15 +131,19 @@ export function withSample<TBase extends Constructor>(Base: TBase) {
   return class WithSample extends Base {
     name: Name;
     comments?: Comments;
-    _metadata: SampleMetaData;
+    location?: Location;
+    containerId: Containerid;
+    _metadata?: SampleMetaData;
     blSampleId: Blsampleid;
     Crystal: Crystal;
+    Container: Container;
   };
 }
 export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSampleMetaData extends Base {
     subsamples: Subsamples;
     datacollections: Datacollections;
+    types?: Types;
   };
 }
 export function withCrystal<TBase extends Constructor>(Base: TBase) {
@@ -86,6 +162,45 @@ export function withProtein<TBase extends Constructor>(Base: TBase) {
   return class WithProtein extends Base {
     name: Name1;
     acronym: Acronym;
+    proposalId: Proposalid;
+    sequence?: SequenceSMILES;
+    density?: Density;
+    molecularMass?: Mass;
+    containmentLevel?: Containmentlevel;
+    hazardGroup?: Hazardgroup;
+    safetyLevel?: Safetylevel;
+    ComponentType?: ComponentType;
     proteinId: Proteinid;
+    _metadata?: ProteinMetaData;
+  };
+}
+export function withComponentType<TBase extends Constructor>(Base: TBase) {
+  return class WithComponentType extends Base {
+    componentTypeId: Componenttypeid;
+    name: Name2;
+  };
+}
+export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
+  return class WithProteinMetaData extends Base {
+    pdbs?: Pdbs;
+    crystals?: Crystals;
+    samples?: Samples;
+  };
+}
+export function withContainer<TBase extends Constructor>(Base: TBase) {
+  return class WithContainer extends Base {
+    code: Code;
+    Dewar: Dewar;
+  };
+}
+export function withDewar<TBase extends Constructor>(Base: TBase) {
+  return class WithDewar extends Base {
+    code: Code1;
+    Shipping: Shipping;
+  };
+}
+export function withShipping<TBase extends Constructor>(Base: TBase) {
+  return class WithShipping extends Base {
+    shippingName: Shippingname;
   };
 }

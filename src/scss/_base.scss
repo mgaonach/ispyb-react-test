@@ -1,52 +1,60 @@
 html {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 * {
-    scroll-margin-top: calc(59px + 10px);
+  scroll-margin-top: calc(59px + 10px);
 }
 
 .breadcrumbs {
-    background-color: $tertiary;
-    font-family: Poppins;
-    font-weight: 400;
-    font-size: 12px;
-    padding: 0.25rem 0;
-    box-shadow: rgb(0 0 0 / 10%) 0px 0px 0.2rem, rgb(0 0 0 / 20%) 0px 0.2rem 0.4rem;
+  background-color: $tertiary;
+  box-shadow: rgb(0 0 0 / 10%) 0 0 0.2rem, rgb(0 0 0 / 20%) 0 0.2rem 0.4rem;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0.25rem 0;
 }
 
 .main-wrapper {
-    margin: 2rem 0;
+  margin: 1.5rem 0 0;
 }
 
 .footer {
-    font-size: 12px;
-    padding: 1.5rem 0;
-    background: url(images/ispyb_gs_medium.png) center center no-repeat;
-    background-position: 50% 85%;
-    height: 180px;
-    color: $tertiary;
+  background: url('images/ispyb_gs_medium.png') center center no-repeat;
+  background-position: 50% 85%;
+  color: $tertiary;
+  font-size: 12px;
+  height: 180px;
+  padding: 1.5rem 0;
 }
 
 .main-header {
-    font-family: Poppins;
-    font-weight: 400;
-    font-size: 18px;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .navbar-brand {
-    padding-left: 70px;
-    background: url(images/ispyb_gs_medium.png) no-repeat;
-    background-size: contain;
+  background: url('images/ispyb_gs_medium.png') no-repeat;
+  background-size: contain;
+  padding-left: 70px;
 }
 
-
 .event {
-    h3 {
-        font-family: Poppins;
-        font-size: 1rem;
-        font-weight: normal;
-        word-break: break-all;
-        border-bottom: 1px solid $tertiary;
-    }
+  h3 {
+    border-bottom: 1px solid $tertiary;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-weight: normal;
+    word-break: break-all;
+  }
+}
+
+.lazy-image {
+  opacity: 0;
+  transition: opacity ease-in-out 0.5s;
+}
+
+.lazy-image-loaded {
+  opacity: 1;
 }
