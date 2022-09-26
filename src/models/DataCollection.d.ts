@@ -5,7 +5,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Datacollectionid = number;
 /**
  * `Successful` on success
  */
@@ -49,11 +48,11 @@ export type PhiStart = number;
 export type KappaStart = number;
 export type OmegaStart = number;
 export type ChiStart = number;
+export type Datacollectionid = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 
 export interface DataCollection {
-  dataCollectionId: Datacollectionid;
   runStatus?: Status;
   imageDirectory?: Directory;
   fileTemplate?: DataFileTemplate;
@@ -78,6 +77,7 @@ export interface DataCollection {
   kappaStart?: KappaStart;
   omegaStart?: OmegaStart;
   chiStart?: ChiStart;
+  dataCollectionId: Datacollectionid;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -98,7 +98,6 @@ export interface Snapshots {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
-    dataCollectionId: Datacollectionid;
     runStatus?: Status;
     imageDirectory?: Directory;
     fileTemplate?: DataFileTemplate;
@@ -123,6 +122,7 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     kappaStart?: KappaStart;
     omegaStart?: OmegaStart;
     chiStart?: ChiStart;
+    dataCollectionId: Datacollectionid;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };

@@ -1,4 +1,4 @@
-import { JSXElementConstructor } from 'react';
+import { JSXElementConstructor, Suspense } from 'react';
 import { useSuspense, useSubscription } from 'rest-hooks';
 import { useSearchParams } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
@@ -14,6 +14,46 @@ import { EventBase } from './Events';
 import Default from './Default';
 import RobotAction from './RobotAction';
 import DataCollection from './DataCollection';
+import Filter from 'components/Filter';
+import { EventTypeResource } from '../../api/resources/EventType';
+
+function EventTypeFilter({
+  urlKey,
+  session,
+}: {
+  urlKey: string;
+  session?: string;
+}) {
+  const eventTypes = useSuspense(EventTypeResource.list(), {
+    ...(session ? { session } : null),
+  });
+
+  const filterTypes = eventTypes.results.map((eventType) => ({
+    filterKey: eventType.eventTypeName,
+    filterValue: eventType.eventType,
+  }));
+
+  return (
+    <Suspense>
+      <Filter urlKey={urlKey} filters={filterTypes} />
+    </Suspense>
+  );
+}
+
+function EventStatusFilter({ urlKey }: { urlKey: string }) {
+  const filterTypes = [
+    {
+      filterKey: 'Success',
+      filterValue: 'success',
+    },
+    {
+      filterKey: 'Failed',
+      filterValue: 'failed',
+    },
+  ];
+
+  return <Filter urlKey={urlKey} filters={filterTypes} />;
+}
 
 function renderTemplate(event: Event) {
   const templates: Record<string, JSXElementConstructor<any>> = {
@@ -40,6 +80,8 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
   const { skip, limit } = usePaging();
   const dataCollectionId = searchParams.get('dataCollectionId');
   const dataCollectionGroupId = searchParams.get('dataCollectionGroupId');
+  const eventType = searchParams.get('eventType');
+  const status = searchParams.get('status');
 
   const opts = {
     skip,
@@ -48,6 +90,8 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
     ...(dataCollectionGroupId ? { dataCollectionGroupId } : {}),
     ...(blSampleId ? { blSampleId } : {}),
     ...(session ? { session } : {}),
+    ...(eventType ? { eventType } : {}),
+    ...(status ? { status } : {}),
   };
 
   const events = useSuspense(EventResource.list(), opts);
@@ -62,6 +106,8 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
   return (
     <section>
       <h1>Data Collections{title ? `: ${title}` : ''}</h1>
+      <EventStatusFilter urlKey="status" />
+      <EventTypeFilter urlKey="eventType" session={session} />
       <Paginator total={events.total} skip={events.skip} limit={events.limit} />
       {events.results.map((event) => (
         <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>

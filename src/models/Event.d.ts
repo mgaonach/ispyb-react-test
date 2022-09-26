@@ -25,7 +25,6 @@ export type Blsampleid = number;
  */
 export type Attachments = number;
 export type Item = DataCollection | RobotAction;
-export type Datacollectionid = number;
 /**
  * `Successful` on success
  */
@@ -69,6 +68,7 @@ export type PhiStart = number;
 export type KappaStart = number;
 export type OmegaStart = number;
 export type ChiStart = number;
+export type Datacollectionid = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
 export type Actiontype = string;
@@ -89,7 +89,6 @@ export interface Event {
   Item: Item;
 }
 export interface DataCollection {
-  dataCollectionId: Datacollectionid;
   runStatus?: Status;
   imageDirectory?: Directory;
   fileTemplate?: DataFileTemplate;
@@ -114,6 +113,7 @@ export interface DataCollection {
   kappaStart?: KappaStart;
   omegaStart?: OmegaStart;
   chiStart?: ChiStart;
+  dataCollectionId: Datacollectionid;
   DataCollectionGroup: DataCollectionGroup;
   _metadata: DataCollectionMetaData;
 }
@@ -154,7 +154,6 @@ export function withEvent<TBase extends Constructor>(Base: TBase) {
 }
 export function withDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollection extends Base {
-    dataCollectionId: Datacollectionid;
     runStatus?: Status;
     imageDirectory?: Directory;
     fileTemplate?: DataFileTemplate;
@@ -179,6 +178,7 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     kappaStart?: KappaStart;
     omegaStart?: OmegaStart;
     chiStart?: ChiStart;
+    dataCollectionId: Datacollectionid;
     DataCollectionGroup: DataCollectionGroup;
     _metadata: DataCollectionMetaData;
   };
