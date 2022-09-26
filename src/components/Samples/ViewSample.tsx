@@ -45,7 +45,6 @@ function ViewSampleMain() {
         </Form>
       </section>
       <section>
-        <h3>Data Collections</h3>
         <EventList blSampleId={blSampleId} />
       </section>
     </div>

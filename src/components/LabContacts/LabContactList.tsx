@@ -24,11 +24,17 @@ export default function LabContactList({ sortBy }: { sortBy?: string }) {
 
   return (
     <section>
-      <div className="text-end">
-        <Button onClick={() => navigate(`/proposals/${proposal}/contacts/new`)}>
-          <PersonPlus className="me-1" /> New
-        </Button>
-      </div>
+      <h1 className="clearfix">
+        Lab Contacts
+        <div className="float-end">
+          <Button
+            onClick={() => navigate(`/proposals/${proposal}/contacts/new`)}
+          >
+            <PersonPlus className="me-1" /> New
+          </Button>
+        </div>
+      </h1>
+
       <Table
         onRowClick={onRowClick}
         keyId="labContactId"

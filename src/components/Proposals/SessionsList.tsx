@@ -22,6 +22,7 @@ export default function SessionList({ sortBy }: { sortBy?: string }) {
 
   return (
     <section>
+      <h1>Sessions</h1>
       <Table
         keyId="sessionId"
         results={sessions.results}

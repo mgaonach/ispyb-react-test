@@ -146,15 +146,15 @@ export default function Calendar() {
   const month = monthParam !== null ? parseInt(monthParam) : now.month;
 
   return (
-    <>
-      <h2>
+    <section>
+      <h1>
         {Info.months()[month - 1]} {year}
-      </h2>
+      </h1>
       <div className="calendar">
         <CalendarNav month={month} year={year} />
         <CalendarHeader />
         <CalendarDays month={month} year={year} />
       </div>
-    </>
+    </section>
   );
 }

@@ -26,7 +26,7 @@ export default function CreateLabContact() {
   };
 
   return (
-    <>
+    <section>
       <ParsedError error={error} ref={alertRef} />
       <Form
         //   FieldTemplate={ColField}
@@ -55,6 +55,6 @@ export default function CreateLabContact() {
           </>
         </Button>
       </Form>
-    </>
+    </section>
   );
 }

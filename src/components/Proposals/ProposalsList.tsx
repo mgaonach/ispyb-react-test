@@ -21,6 +21,7 @@ export default function ProposalsList({ sortBy }: { sortBy?: string }) {
 
   return (
     <section>
+      <h1>Proposals</h1>
       <Table
         keyId="proposalId"
         results={proposals.results}
@@ -36,6 +37,7 @@ export default function ProposalsList({ sortBy }: { sortBy?: string }) {
           { label: 'State', key: 'state' },
           { label: '# Sessions', key: '_metadata.sessions' },
         ]}
+        emptyText="No proposals yet"
       />
     </section>
   );

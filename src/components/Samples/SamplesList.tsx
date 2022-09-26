@@ -21,6 +21,7 @@ export default function SamplesList({ sortBy }: { sortBy?: string }) {
 
   return (
     <section>
+      <h1>Samples</h1>
       <Table
         keyId="blSampleId"
         results={samples.results}

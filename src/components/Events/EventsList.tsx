@@ -53,8 +53,15 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
   const events = useSuspense(EventResource.list(), opts);
   useSubscription(EventResource.list(), refresh ? opts : null);
 
+  const title = dataCollectionGroupId
+    ? `group ${dataCollectionGroupId}`
+    : session
+    ? session
+    : '';
+
   return (
     <section>
+      <h1>Data Collections{title ? `: ${title}` : ''}</h1>
       <Paginator total={events.total} skip={events.skip} limit={events.limit} />
       {events.results.map((event) => (
         <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>

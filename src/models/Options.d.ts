@@ -26,6 +26,9 @@ export type WebserviceRoutes = boolean;
  */
 export type CreateMissingLogin = boolean;
 export type GroupName = string;
+/**
+ * Display type to use in the UI
+ */
 export type UIGroup = string;
 /**
  * Permission required to view all proposals from these beamlines
