@@ -23,7 +23,7 @@ export type Sessions = number;
  */
 export type Beamlines = string[];
 /**
- * Beamline groups allocated in this proposal
+ * UI groups allocated in this proposal
  */
 export type Uigroups = string[];
 export type Proposalid = number;

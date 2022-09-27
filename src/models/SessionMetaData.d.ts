@@ -10,7 +10,7 @@
  */
 export type Datacollections = number;
 /**
- * Beamline group for this session
+ * UI groups for this session
  */
 export type Uigroups = string[];
 /**
