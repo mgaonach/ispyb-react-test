@@ -7,16 +7,18 @@ import { useSchema } from 'hooks/useSpec';
 import { useInformativeSubmit } from 'hooks/useInformativeSubmit';
 import { LabContactResource } from 'api/resources/LabContact';
 import ParsedError from 'components/ParsedError';
+import { useProposal } from '../../hooks/useProposal';
 
 export default function CreateLabContact() {
+  const proposal = useProposal();
   const alertRef = useRef<any>();
   const { onSubmit, pending, error, lastFormData } = useInformativeSubmit({
     resource: LabContactResource,
-    redirect: '/contacts/view',
+    redirect: '/contacts',
     redirectKey: 'labContactId',
     alertRef,
     initialFormData: {
-      proposalId: 1,
+      proposal: proposal,
     },
   });
 

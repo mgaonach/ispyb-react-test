@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useSuspense } from 'rest-hooks';
 import { Link } from 'react-router-dom';
-import { Card, CardGroup } from 'react-bootstrap';
+import { Alert, Card, CardGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 
 import { SessionResource, SessionGroupResource } from 'api/resources/Session';
 import { useCurrentUser } from 'hooks/useCurrentUser';
 import NetworkErrorPage from 'components/NetworkErrorPage';
+import { useUIOptions } from 'hooks/useUIOptions';
 
 interface ISessionRow {
   upcoming?: boolean;
@@ -102,14 +103,18 @@ function BeamlineGroupHome({ beamlineGroups }: { beamlineGroups: string[] }) {
 
 function HomeMain() {
   const currentUser = useCurrentUser();
+  const uiOptions = useUIOptions();
 
   return (
-    <section>
-      {currentUser.beamlineGroups.length > 0 && (
-        <BeamlineGroupHome beamlineGroups={currentUser.beamlineGroups} />
-      )}
-      {currentUser.beamlineGroups.length === 0 && <UserHome />}
-    </section>
+    <>
+      {uiOptions.motd && <Alert variant="success">{uiOptions.motd}</Alert>}
+      <section>
+        {currentUser.beamlineGroups.length > 0 && (
+          <BeamlineGroupHome beamlineGroups={currentUser.beamlineGroups} />
+        )}
+        {currentUser.beamlineGroups.length === 0 && <UserHome />}
+      </section>
+    </>
   );
 }
 

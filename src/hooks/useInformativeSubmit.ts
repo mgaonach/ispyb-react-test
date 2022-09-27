@@ -16,13 +16,26 @@ interface SubmitData {
    */
   alertRef: any;
   /**
+   * A reference to an alert box to show success
+   */
+  successRef?: any;
+  /**
+   * Timeout to reset success to false
+   */
+  successTimeout?: number;
+  /**
    * Url to redirect
    */
+
   redirect?: string;
   /**
    * Primary key to append to the url when redirecting
    */
   redirectKey?: string;
+  /**
+   * The method to call on the resource, default 'create'
+   */
+  method?: string;
 }
 
 /**
@@ -37,14 +50,18 @@ export function useInformativeSubmit({
   resource,
   initialFormData,
   alertRef,
+  successRef,
+  successTimeout = 5000,
   redirect,
   redirectKey,
+  method = 'create',
 }: SubmitData) {
   const [lastFormData, setLastFormData] = useState<Record<string, any>>({
     ...initialFormData,
   });
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<NetworkError>();
+  const [success, setSuccess] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { fetch } = useController();
@@ -54,11 +71,20 @@ export function useInformativeSubmit({
     setError(undefined);
     setLastFormData(formData);
 
-    fetch(resource.create(), {}, formData)
+    fetch(resource[method](), {}, formData)
       .then((response: any) => {
         setTimeout(() => setPending(false), 500);
         if (redirect && redirectKey)
           navigate(`${redirect}/${response[redirectKey]}`);
+        setSuccess(true);
+        if (successRef) {
+          setTimeout(() => {
+            successRef.current?.scrollIntoView(true);
+          }, 500);
+        }
+        setTimeout(() => {
+          setSuccess(false);
+        }, successTimeout);
       })
       .catch((err: NetworkError) => {
         setTimeout(() => {
@@ -70,5 +96,5 @@ export function useInformativeSubmit({
         }, 500);
       });
   };
-  return { onSubmit, pending, error, lastFormData };
+  return { onSubmit, pending, error, success, lastFormData };
 }

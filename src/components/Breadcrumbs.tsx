@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { Container } from 'react-bootstrap';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
-import routes from 'routes';
+import routes, { TitledBreadcrumbsRoute } from 'routes';
 
 interface CustomCSS extends CSSProperties {
   '--bs-breadcrumb-divider': string;
@@ -13,7 +13,13 @@ export default function Breadcrumbs() {
 
   document.title =
     'ISPyB  » ' +
-    breadcrumbs.map(({ match }) => match.route?.breadcrumb).join(' » ');
+    breadcrumbs
+      .map(({ match }) => {
+        const route: TitledBreadcrumbsRoute | undefined = match.route;
+        if (route?.titleBreadcrumb) return route.titleBreadcrumb({ match });
+        return route?.breadcrumb;
+      })
+      .join(' » ');
 
   return (
     <div className="breadcrumbs">

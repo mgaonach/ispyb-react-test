@@ -2,13 +2,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import { NetworkError } from 'rest-hooks';
 import { Alert } from 'react-bootstrap';
 
-function ParsedErrorMain({
-  error,
-  message,
-}: {
-  error: NetworkError;
-  message?: string;
-}) {
+export function ParsedErrorMain({ error }: { error: NetworkError }) {
   const [json, setJson] = useState<Record<string, any>>({});
 
   useEffect(() => {
