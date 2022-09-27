@@ -23,9 +23,9 @@ const CreateLabContact = React.lazy(() =>
 const ContactRoutes = {
   path: 'contacts',
   children: [
-    { index: true, element: <LabContactList /> },
-    { path: 'new', element: <CreateLabContact /> },
-    { path: 'view/:id', element: <ViewLabContact /> },
+    { index: true, element: <LabContactList />, breadcrumb: 'Lab Contacts' },
+    { path: 'new', element: <CreateLabContact />, breadcrumb: 'Create' },
+    { path: ':id', element: <ViewLabContact />, breadcrumb: 'View' },
   ],
 };
 

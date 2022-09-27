@@ -16,10 +16,14 @@ const SessionsList = React.lazy(() =>
 
 export const SessionRoutes = {
   path: 'sessions',
-  children: [{ index: true, element: <SessionsList /> }],
+  children: [
+    { index: true, element: <SessionsList />, breadcrumb: 'Sessions' },
+  ],
 };
 
 export const ProposalsRoutes = {
   path: 'proposals',
-  children: [{ index: true, element: <ProposalsList /> }],
+  children: [
+    { index: true, element: <ProposalsList />, breadcrumb: 'Proposals' },
+  ],
 };

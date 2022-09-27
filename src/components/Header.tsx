@@ -10,21 +10,24 @@ import { useProposal } from 'hooks/useProposal';
 import { useCurrentUser } from 'hooks/useCurrentUser';
 import AuthErrorBoundary from './AuthErrorBoundary';
 
-function PersonName() {
+function PersonMenu() {
   const currentUser = useCurrentUser();
-  return <>{currentUser?.givenName}</>;
-}
-
-function Person() {
   return (
-    <>
-      <PersonBadge className="me-1" />
-      <AuthErrorBoundary>
-        <Suspense fallback={<span>...</span>}>
-          <PersonName />
-        </Suspense>
-      </AuthErrorBoundary>
-    </>
+    <NavDropdown
+      title={
+        <>
+          <PersonBadge className="me-1" />
+          {currentUser.givenName}
+        </>
+      }
+      id="admin-nav-dropdown"
+      align="end"
+    >
+      <NavDropdown.Header>
+        {currentUser.givenName} {currentUser.familyName}
+      </NavDropdown.Header>
+      <AdminMenu />
+    </NavDropdown>
   );
 }
 
@@ -44,6 +47,29 @@ function Logout() {
     >
       Logout
     </Button>
+  );
+}
+
+function AdminMenu() {
+  const currentUser = useCurrentUser();
+  const adminPermissions = ['manage_options', 'manage_groups'];
+  const userAdminPermissions = adminPermissions.filter((adminPermission) =>
+    currentUser.Permissions.includes(adminPermission)
+  );
+  return (
+    <>
+      {userAdminPermissions.length > 0 && (
+        <>
+          <NavDropdown.Divider />
+          <NavDropdown.Header>Administration</NavDropdown.Header>
+          {currentUser.Permissions.includes('manage_options') && (
+            <NavDropdown.Item as={Link} to={`/admin/options`}>
+              Manage Options
+            </NavDropdown.Item>
+          )}
+        </>
+      )}
+    </>
   );
 }
 
@@ -109,24 +135,11 @@ export default function Header() {
                 )}
               </Nav>
               <Nav>
-                <NavDropdown
-                  title={<Person />}
-                  id="admin-nav-dropdown"
-                  align="end"
-                >
-                  <NavDropdown.Item as={Link} to="/proposals">
-                    Fault Reports
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/">
-                    Stats
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/">
-                    Logistics
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/">
-                    Run Overview
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <AuthErrorBoundary>
+                  <Suspense fallback={<span>...</span>}>
+                    <PersonMenu />
+                  </Suspense>
+                </AuthErrorBoundary>
                 <Logout />
               </Nav>
             </Navbar.Collapse>

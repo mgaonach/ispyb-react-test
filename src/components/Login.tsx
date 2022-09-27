@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useEffect, FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { useController } from 'rest-hooks';
+import { useController, useSuspense } from 'rest-hooks';
 import {
   Form,
   Button,
@@ -14,8 +14,11 @@ import {
 import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
 import { LocationState } from 'components/PrivateRoute';
+import { AuthConfigResource } from 'api/resources/AuthConfig';
 
 export default function Login() {
+  const authConfig = useSuspense(AuthConfigResource.detail(), {});
+
   const [error, setError] = useState<string>('');
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
@@ -26,9 +29,10 @@ export default function Login() {
   const { fetch } = useController();
   const userRef = useRef<any>();
   const passRef = useRef<any>();
+  const typeRef = useRef<any>();
 
   useEffect(() => {
-    userRef.current.focus();
+    userRef.current?.focus();
   }, [userRef]);
 
   const resetPending = useCallback(() => {
@@ -54,7 +58,7 @@ export default function Login() {
         LoginResource.create(),
         {},
         {
-          plugin: 'dummy',
+          plugin: typeRef.current?.value,
           login: userRef.current?.value,
           password: passRef.current?.value,
         }
@@ -69,7 +73,7 @@ export default function Login() {
           resetPending();
           if (err.response) {
             err.response.json().then((json: any) => {
-              setError(json.message);
+              setError(json.detail);
               console.log('error', err, json);
             });
           } else {
@@ -102,7 +106,7 @@ export default function Login() {
             )}
             <Form.Group as={Row} className="mb-2">
               <Form.Label column>Username</Form.Label>
-              <Col xs={12} md={8}>
+              <Col md={12} lg={8}>
                 <Form.Control
                   type="text"
                   placeholder="Username"
@@ -112,9 +116,9 @@ export default function Login() {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className="mb-2">
               <Form.Label column>Password</Form.Label>
-              <Col xs={12} md={8}>
+              <Col md={12} lg={8}>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -122,6 +126,21 @@ export default function Login() {
                   disabled={pending}
                   required
                 />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column>Type</Form.Label>
+              <Col md={12} lg={8}>
+                <Form.Control
+                  as="select"
+                  ref={typeRef}
+                  disabled={pending}
+                  required
+                >
+                  {authConfig.plugins.map((plugin) => (
+                    <option value={plugin.name}>{plugin.name}</option>
+                  ))}
+                </Form.Control>
               </Col>
             </Form.Group>
             <div className="d-grid gap-2 mt-2">
