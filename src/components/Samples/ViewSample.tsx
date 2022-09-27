@@ -53,7 +53,7 @@ function ViewSampleMain() {
 
 export default function ViewSample() {
   return (
-    <NetworkErrorPage message="No such sample">
+    <NetworkErrorPage>
       <ViewSampleMain />
     </NetworkErrorPage>
   );

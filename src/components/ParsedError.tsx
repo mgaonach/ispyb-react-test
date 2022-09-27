@@ -2,7 +2,13 @@ import { forwardRef, useEffect, useState } from 'react';
 import { NetworkError } from 'rest-hooks';
 import { Alert } from 'react-bootstrap';
 
-export function ParsedError({ error }: { error: NetworkError }) {
+function ParsedErrorMain({
+  error,
+  message,
+}: {
+  error: NetworkError;
+  message?: string;
+}) {
   const [json, setJson] = useState<Record<string, any>>({});
 
   useEffect(() => {
@@ -36,13 +42,17 @@ export function ParsedError({ error }: { error: NetworkError }) {
   return <span>An error occured: {error.message}</span>;
 }
 
-const WrappedParsedError = forwardRef(
+/**
+ * Parsed rest-hooks NetworkError
+ *   with ref forwarded (to scroll in to view)
+ */
+const ParsedErrorRef = forwardRef(
   ({ error }: { error?: NetworkError }, ref: any) => {
     return (
       <>
         {error !== undefined && (
           <Alert variant="danger" ref={ref}>
-            <ParsedError error={error} />
+            <ParsedErrorMain error={error} />
           </Alert>
         )}
       </>
@@ -50,4 +60,19 @@ const WrappedParsedError = forwardRef(
   }
 );
 
-export default WrappedParsedError;
+export default ParsedErrorRef;
+
+/**
+ * Parsed rest-hooks NetworkError
+ */
+export function ParsedError({ error }: { error?: NetworkError }) {
+  return (
+    <>
+      {error !== undefined && (
+        <Alert variant="danger">
+          <ParsedErrorMain error={error} />
+        </Alert>
+      )}
+    </>
+  );
+}

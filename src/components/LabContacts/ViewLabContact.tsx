@@ -50,7 +50,7 @@ function ViewLabContactMain() {
 
 export default function ViewLabContact() {
   return (
-    <NetworkErrorPage message="No such lab contact">
+    <NetworkErrorPage>
       <ViewLabContactMain />
     </NetworkErrorPage>
   );
