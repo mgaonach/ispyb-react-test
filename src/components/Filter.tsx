@@ -33,7 +33,6 @@ export default function Filter(props: IFilter) {
     });
   }
 
-  console.log('filter', urlKey, searchParamsObj);
   return (
     <div className="filter my-1">
       {filters.map((filter) => (

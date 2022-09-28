@@ -33,7 +33,6 @@ export default function Options() {
       )}
       <ParsedError error={error} ref={alertRef} />
       <Form
-        //   FieldTemplate={ColField}
         liveValidate
         schema={optionsSchema}
         uiSchema={uiSchema}
