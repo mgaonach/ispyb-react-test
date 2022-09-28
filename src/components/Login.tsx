@@ -58,7 +58,10 @@ export default function Login() {
         LoginResource.create(),
         {},
         {
-          plugin: typeRef.current?.value,
+          plugin:
+            authConfig.plugins.length === 1
+              ? authConfig.plugins[0].name
+              : typeRef.current?.value,
           login: userRef.current?.value,
           password: passRef.current?.value,
         }
@@ -128,21 +131,23 @@ export default function Login() {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column>Type</Form.Label>
-              <Col md={12} lg={8}>
-                <Form.Control
-                  as="select"
-                  ref={typeRef}
-                  disabled={pending}
-                  required
-                >
-                  {authConfig.plugins.map((plugin) => (
-                    <option value={plugin.name}>{plugin.name}</option>
-                  ))}
-                </Form.Control>
-              </Col>
-            </Form.Group>
+            {authConfig.plugins.length > 1 && (
+              <Form.Group as={Row}>
+                <Form.Label column>Type</Form.Label>
+                <Col md={12} lg={8}>
+                  <Form.Control
+                    as="select"
+                    ref={typeRef}
+                    disabled={pending}
+                    required
+                  >
+                    {authConfig.plugins.map((plugin) => (
+                      <option value={plugin.name}>{plugin.name}</option>
+                    ))}
+                  </Form.Control>
+                </Col>
+              </Form.Group>
+            )}
             <div className="d-grid gap-2 mt-2">
               <Button variant="primary" type="submit" disabled={pending}>
                 {!pending && <>Login</>}
