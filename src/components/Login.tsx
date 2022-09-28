@@ -84,7 +84,7 @@ export default function Login() {
           }
         });
     },
-    [setToken, navigate, fetch, resetPending, from]
+    [setToken, navigate, fetch, resetPending, from, authConfig.plugins]
   );
 
   return (
