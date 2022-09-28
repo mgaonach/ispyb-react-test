@@ -10,13 +10,15 @@ export type Familyname = string;
 export type Permissions = string[];
 export type Personid = number;
 export type Beamlinegroups = string[];
+export type Beamlines = string[];
 
 export interface CurrentUser {
   givenName: Givenname;
   familyName: Familyname;
   Permissions: Permissions;
   personId: Personid;
-  beamlineGroups: Beamlinegroups;
+  beamLineGroups: Beamlinegroups;
+  beamLines: Beamlines;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -26,6 +28,7 @@ export function withCurrentUser<TBase extends Constructor>(Base: TBase) {
     familyName: Familyname;
     Permissions: Permissions;
     personId: Personid;
-    beamlineGroups: Beamlinegroups;
+    beamLineGroups: Beamlinegroups;
+    beamLines: Beamlines;
   };
 }

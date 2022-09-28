@@ -13,18 +13,18 @@ interface ISessionRow {
   upcoming?: boolean;
   previous?: boolean;
   commissioning?: boolean;
-  beamlineGroup?: string;
+  beamLineGroup?: string;
 }
 
 function SessionRow(props: ISessionRow) {
-  const { upcoming, previous, commissioning, beamlineGroup } = props;
+  const { upcoming, previous, commissioning, beamLineGroup } = props;
 
-  const resource = beamlineGroup ? SessionGroupResource : SessionResource;
+  const resource = beamLineGroup ? SessionGroupResource : SessionResource;
   const sessions = useSuspense(resource.list(), {
     ...(upcoming ? { upcoming: true } : {}),
     ...(previous ? { previous: true } : {}),
     ...(commissioning ? { sessionType: 'commissioning' } : {}),
-    ...(beamlineGroup ? { beamlineGroup } : {}),
+    ...(beamLineGroup ? { beamLineGroup } : {}),
   });
 
   return (
@@ -80,23 +80,23 @@ function UserHome() {
   );
 }
 
-function BeamlineGroupHome({ beamlineGroups }: { beamlineGroups: string[] }) {
-  const [beamlineGroup, setbeamlineGroup] = useState<string>(beamlineGroups[0]);
+function BeamLineGroupHome({ beamLineGroups }: { beamLineGroups: string[] }) {
+  const [beamLineGroup, setBeamLineGroup] = useState<string>(beamLineGroups[0]);
   return (
     <>
-      {beamlineGroups.length > 1 && (
-        <select onChange={(e) => setbeamlineGroup(e.target.value)}>
-          {beamlineGroups.map((group) => (
+      {beamLineGroups.length > 1 && (
+        <select onChange={(e) => setBeamLineGroup(e.target.value)}>
+          {beamLineGroups.map((group) => (
             <option value={group}>{group}</option>
           ))}
         </select>
       )}
       <h1>Upcoming Sessions</h1>
-      <SessionRow upcoming beamlineGroup={beamlineGroup} />
+      <SessionRow upcoming beamLineGroup={beamLineGroup} />
       <h1>Previous Sessions</h1>
-      <SessionRow previous beamlineGroup={beamlineGroup} />
+      <SessionRow previous beamLineGroup={beamLineGroup} />
       <h1>Commissioning Sessions</h1>
-      <SessionRow commissioning beamlineGroup={beamlineGroup} />
+      <SessionRow commissioning beamLineGroup={beamLineGroup} />
     </>
   );
 }
@@ -109,10 +109,10 @@ function HomeMain() {
     <>
       {uiOptions.motd && <Alert variant="success">{uiOptions.motd}</Alert>}
       <section>
-        {currentUser.beamlineGroups.length > 0 && (
-          <BeamlineGroupHome beamlineGroups={currentUser.beamlineGroups} />
+        {currentUser.beamLineGroups.length > 0 && (
+          <BeamLineGroupHome beamLineGroups={currentUser.beamLineGroups} />
         )}
-        {currentUser.beamlineGroups.length === 0 && <UserHome />}
+        {currentUser.beamLineGroups.length === 0 && <UserHome />}
       </section>
     </>
   );
