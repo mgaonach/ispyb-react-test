@@ -38,7 +38,7 @@ export type DetectorDistance = number;
 export type RotationAxisStart = number;
 export type RotationAxisEnd = number;
 export type RotationAxisOscillation = number;
-export type ExposureTime1 = RotationAxis;
+export type RotationAxisMotor = RotationAxis;
 /**
  * An enumeration.
  */
@@ -71,7 +71,7 @@ export interface DataCollection {
   axisStart?: RotationAxisStart;
   axisEnd?: RotationAxisEnd;
   axisRange?: RotationAxisOscillation;
-  rotationAxis?: ExposureTime1;
+  rotationAxis?: RotationAxisMotor;
   overlap?: RotationAxisOverlap;
   phiStart?: PhiStart;
   kappaStart?: KappaStart;
@@ -116,7 +116,7 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     axisStart?: RotationAxisStart;
     axisEnd?: RotationAxisEnd;
     axisRange?: RotationAxisOscillation;
-    rotationAxis?: ExposureTime1;
+    rotationAxis?: RotationAxisMotor;
     overlap?: RotationAxisOverlap;
     phiStart?: PhiStart;
     kappaStart?: KappaStart;
