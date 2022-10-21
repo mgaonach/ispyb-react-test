@@ -5,8 +5,10 @@ import type {
 
 import ContactRoutes from './Contacts';
 import EventsRoutes from './Events';
+import StatsRoutes from './Stats';
 import { SessionRoutes } from './Proposals';
 import SampleRoutes from './Samples';
+import ProteinRoutes from './Proteins';
 
 const ProposalBreadCrumb: BreadcrumbComponentType<'proposal'> = ({ match }) => {
   return <>{match.params.proposal}</>;
@@ -17,7 +19,14 @@ const ProposalRoutes = {
   breadcrumb: ProposalBreadCrumb,
   titleBreadcrumb: ({ match }: { match: BreadcrumbMatch<string> }) =>
     match.params.proposal,
-  children: [SessionRoutes, SampleRoutes, ContactRoutes, EventsRoutes],
+  children: [
+    SessionRoutes,
+    SampleRoutes,
+    ProteinRoutes,
+    ContactRoutes,
+    EventsRoutes,
+    StatsRoutes,
+  ],
 };
 
 export default ProposalRoutes;

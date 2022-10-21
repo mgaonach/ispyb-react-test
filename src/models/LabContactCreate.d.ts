@@ -47,7 +47,6 @@ export type LaboratoryExtPk = number;
  * Time Laboratory was created
  */
 export type RecordTimeStamp = string;
-export type Laboratoryid = number;
 
 export interface LabContactCreate {
   proposalId: Proposalid;
@@ -57,16 +56,16 @@ export interface LabContactCreate {
   billingReference?: BillingReference;
   dewarAvgCustomsValue?: AvgCustomsValue;
   dewarAvgTransportValue?: AvgTransportValue;
-  Person: ContactPerson;
+  Person: PersonCreate;
 }
-export interface ContactPerson {
+export interface PersonCreate {
   givenName: FirstName;
   familyName: Surname;
   emailAddress?: EmailAddress;
   phoneNumber?: PhoneNumber;
-  Laboratory?: Laboratory;
+  Laboratory?: LaboratoryCreate;
 }
-export interface Laboratory {
+export interface LaboratoryCreate {
   name: LaboratoryName;
   address: Address;
   city: City;
@@ -74,7 +73,6 @@ export interface Laboratory {
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
   recordTimeStamp?: RecordTimeStamp;
-  laboratoryId: Laboratoryid;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -87,20 +85,20 @@ export function withLabContactCreate<TBase extends Constructor>(Base: TBase) {
     billingReference?: BillingReference;
     dewarAvgCustomsValue?: AvgCustomsValue;
     dewarAvgTransportValue?: AvgTransportValue;
-    Person: ContactPerson;
+    Person: PersonCreate;
   };
 }
-export function withContactPerson<TBase extends Constructor>(Base: TBase) {
-  return class WithContactPerson extends Base {
+export function withPersonCreate<TBase extends Constructor>(Base: TBase) {
+  return class WithPersonCreate extends Base {
     givenName: FirstName;
     familyName: Surname;
     emailAddress?: EmailAddress;
     phoneNumber?: PhoneNumber;
-    Laboratory?: Laboratory;
+    Laboratory?: LaboratoryCreate;
   };
 }
-export function withLaboratory<TBase extends Constructor>(Base: TBase) {
-  return class WithLaboratory extends Base {
+export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
+  return class WithLaboratoryCreate extends Base {
     name: LaboratoryName;
     address: Address;
     city: City;
@@ -108,6 +106,5 @@ export function withLaboratory<TBase extends Constructor>(Base: TBase) {
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
     recordTimeStamp?: RecordTimeStamp;
-    laboratoryId: Laboratoryid;
   };
 }

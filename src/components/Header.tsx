@@ -27,6 +27,7 @@ function PersonMenu() {
         {currentUser.givenName} {currentUser.familyName}
       </NavDropdown.Header>
       <AdminMenu />
+      <BeamlineMenu />
     </NavDropdown>
   );
 }
@@ -73,6 +74,25 @@ function AdminMenu() {
   );
 }
 
+function BeamlineMenu() {
+  const currentUser = useCurrentUser();
+  return (
+    <>
+      {currentUser.beamLines.length > 0 && (
+        <>
+          <NavDropdown.Divider />
+          <NavDropdown.Header>My Beamlines</NavDropdown.Header>
+          {currentUser.beamLines.map((beamLine) => (
+            <NavDropdown.Item as={Link} to={`/beamline/${beamLine}`}>
+              {beamLine}
+            </NavDropdown.Item>
+          ))}
+        </>
+      )}
+    </>
+  );
+}
+
 export default function Header() {
   const { isAuthenticated } = useAuth();
   const { proposalName } = useProposal();
@@ -101,7 +121,9 @@ export default function Header() {
                   Proposals
                 </Nav.Link>
                 {!proposalName && (
-                  <Nav.Item className="nav-link">No Proposal</Nav.Item>
+                  <Nav.Link className="nav-link" eventKey="disabled" disabled>
+                    No Proposal
+                  </Nav.Link>
                 )}
                 {proposalName && (
                   <NavDropdown title={proposalName} id="proposal-nav-dropdown">

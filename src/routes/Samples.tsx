@@ -15,7 +15,11 @@ const ViewSample = React.lazy(() =>
 const SampleRoutes = {
   path: 'samples',
   children: [
-    { index: true, element: <SamplesList />, breadcrumb: 'Samples' },
+    {
+      index: true,
+      element: <SamplesList focusSearch />,
+      breadcrumb: 'Samples',
+    },
     { path: ':blSampleId', element: <ViewSample />, breadcrumb: 'View' },
   ],
 };

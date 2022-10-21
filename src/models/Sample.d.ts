@@ -24,47 +24,50 @@ export type Datacollections = number;
  * Types of data collections
  */
 export type Types = string[];
+/**
+ * Whether this sample is queued for data collection
+ */
+export type Queued = boolean;
+/**
+ * Number of successful strategies
+ */
+export type Strategies = number;
+/**
+ * Number of successful auto-integrations
+ */
+export type Autointegrations = number;
+/**
+ * Highest integration resolution
+ */
+export type Integratedresolution = number;
+/**
+ * The associated proposal
+ */
+export type Proposal = string;
 export type Blsampleid = number;
+export type Crystal = SampleCrystal;
 export type CellA = null | number;
 export type CellB = null | number;
 export type CellC = null | number;
 export type CellAlpha = null | number;
 export type CellBeta = null | number;
 export type CellGamma = null | number;
+export type Protein = SampleProtein;
+export type Proposalid = string;
 export type Name1 = string;
-/**
- * A short name
- */
 export type Acronym = string;
-export type Proposalid = number;
-/**
- * Sequence or chemical composition
- */
-export type SequenceSMILES = string;
-export type Density = number;
-export type Mass = number;
-export type Containmentlevel = string;
-export type Hazardgroup = string;
-export type Safetylevel = string;
-export type Componenttypeid = number;
-export type Name2 = string;
-export type Proteinid = number;
-/**
- * Number of attached pdbs
- */
-export type Pdbs = number;
-/**
- * Number of child crystals
- */
-export type Crystals = number;
-/**
- * Number of child samples
- */
-export type Samples = number;
 export type Crystalid = number;
-export type Code = string;
-export type Code1 = string;
-export type Shippingname = string;
+export type Name2 = string;
+/**
+ * Position in sample change
+ */
+export type Samplechangerlocation = string;
+/**
+ * Beamline if container is assigned
+ */
+export type Beamlinelocation = string;
+export type Name3 = string;
+export type Name4 = string;
 
 export interface Sample {
   name: Name;
@@ -80,8 +83,13 @@ export interface SampleMetaData {
   subsamples: Subsamples;
   datacollections: Datacollections;
   types?: Types;
+  queued?: Queued;
+  strategies?: Strategies;
+  autoIntegrations?: Autointegrations;
+  integratedResolution?: Integratedresolution;
+  proposal?: Proposal;
 }
-export interface Crystal {
+export interface SampleCrystal {
   cell_a?: CellA;
   cell_b?: CellB;
   cell_c?: CellC;
@@ -91,39 +99,23 @@ export interface Crystal {
   Protein: Protein;
   crystalId: Crystalid;
 }
-export interface Protein {
+export interface SampleProtein {
+  proposalId: Proposalid;
   name: Name1;
   acronym: Acronym;
-  proposalId: Proposalid;
-  sequence?: SequenceSMILES;
-  density?: Density;
-  molecularMass?: Mass;
-  containmentLevel?: Containmentlevel;
-  hazardGroup?: Hazardgroup;
-  safetyLevel?: Safetylevel;
-  ComponentType?: ComponentType;
-  proteinId: Proteinid;
-  _metadata?: ProteinMetaData;
-}
-export interface ComponentType {
-  componentTypeId: Componenttypeid;
-  name: Name2;
-}
-export interface ProteinMetaData {
-  pdbs?: Pdbs;
-  crystals?: Crystals;
-  samples?: Samples;
 }
 export interface Container {
-  code: Code;
+  code: Name2;
+  sampleChangerLocation?: Samplechangerlocation;
+  beamlineLocation?: Beamlinelocation;
   Dewar: Dewar;
 }
 export interface Dewar {
-  code: Code1;
+  code: Name3;
   Shipping: Shipping;
 }
 export interface Shipping {
-  shippingName: Shippingname;
+  shippingName: Name4;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -144,10 +136,15 @@ export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
     subsamples: Subsamples;
     datacollections: Datacollections;
     types?: Types;
+    queued?: Queued;
+    strategies?: Strategies;
+    autoIntegrations?: Autointegrations;
+    integratedResolution?: Integratedresolution;
+    proposal?: Proposal;
   };
 }
-export function withCrystal<TBase extends Constructor>(Base: TBase) {
-  return class WithCrystal extends Base {
+export function withSampleCrystal<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleCrystal extends Base {
     cell_a?: CellA;
     cell_b?: CellB;
     cell_c?: CellC;
@@ -158,49 +155,29 @@ export function withCrystal<TBase extends Constructor>(Base: TBase) {
     crystalId: Crystalid;
   };
 }
-export function withProtein<TBase extends Constructor>(Base: TBase) {
-  return class WithProtein extends Base {
+export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleProtein extends Base {
+    proposalId: Proposalid;
     name: Name1;
     acronym: Acronym;
-    proposalId: Proposalid;
-    sequence?: SequenceSMILES;
-    density?: Density;
-    molecularMass?: Mass;
-    containmentLevel?: Containmentlevel;
-    hazardGroup?: Hazardgroup;
-    safetyLevel?: Safetylevel;
-    ComponentType?: ComponentType;
-    proteinId: Proteinid;
-    _metadata?: ProteinMetaData;
-  };
-}
-export function withComponentType<TBase extends Constructor>(Base: TBase) {
-  return class WithComponentType extends Base {
-    componentTypeId: Componenttypeid;
-    name: Name2;
-  };
-}
-export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
-  return class WithProteinMetaData extends Base {
-    pdbs?: Pdbs;
-    crystals?: Crystals;
-    samples?: Samples;
   };
 }
 export function withContainer<TBase extends Constructor>(Base: TBase) {
   return class WithContainer extends Base {
-    code: Code;
+    code: Name2;
+    sampleChangerLocation?: Samplechangerlocation;
+    beamlineLocation?: Beamlinelocation;
     Dewar: Dewar;
   };
 }
 export function withDewar<TBase extends Constructor>(Base: TBase) {
   return class WithDewar extends Base {
-    code: Code1;
+    code: Name3;
     Shipping: Shipping;
   };
 }
 export function withShipping<TBase extends Constructor>(Base: TBase) {
   return class WithShipping extends Base {
-    shippingName: Shippingname;
+    shippingName: Name4;
   };
 }

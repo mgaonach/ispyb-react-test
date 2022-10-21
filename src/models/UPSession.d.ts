@@ -5,8 +5,8 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Expsessionpk = number;
 export type Beamlinesetupid = number;
-export type Beamcalendarid = number;
 export type Projectcode = string;
 export type Startdate = string;
 export type Enddate = string;
@@ -21,12 +21,11 @@ export type Structuredeterminations = number;
 export type Dewartransport = number;
 export type Databackupfrance = number;
 export type Databackupeurope = number;
-export type Expsessionpk = number;
 export type Operatorsitenumber = string;
 export type Lastupdate = string;
 export type Protecteddata = string;
 export type Externalid = number;
-export type Archived = number;
+export type Nbreimbdewars = number;
 export type Siteid = number;
 export type Personuuid = string;
 export type Familyname = string;
@@ -35,9 +34,10 @@ export type Title = string;
 export type Emailaddress = string;
 export type Phonenumber = string;
 export type Login = string;
+export type Passwd = string;
 export type Faxnumber = string;
-export type Cache = string;
 export type Externalid1 = number;
+export type Cache = string;
 /**
  * The Laboratory name
  */
@@ -78,8 +78,8 @@ export type Remote = number;
 export type Persons = PersonSessionLaboratory[];
 
 export interface UPSession {
+  expSessionPk?: Expsessionpk;
   beamLineSetupId?: Beamlinesetupid;
-  beamCalendarId?: Beamcalendarid;
   projectCode?: Projectcode;
   startDate?: Startdate;
   endDate?: Enddate;
@@ -94,12 +94,11 @@ export interface UPSession {
   dewarTransport?: Dewartransport;
   databackupFrance?: Databackupfrance;
   databackupEurope?: Databackupeurope;
-  expSessionPk?: Expsessionpk;
   operatorSiteNumber?: Operatorsitenumber;
   lastUpdate?: Lastupdate;
   protectedData?: Protecteddata;
   externalId?: Externalid;
-  archived?: Archived;
+  nbReimbDewars?: Nbreimbdewars;
   persons?: Persons;
 }
 export interface PersonSessionLaboratory {
@@ -111,9 +110,10 @@ export interface PersonSessionLaboratory {
   emailAddress?: Emailaddress;
   phoneNumber?: Phonenumber;
   login?: Login;
+  passwd?: Passwd;
   faxNumber?: Faxnumber;
-  cache?: Cache;
   externalId?: Externalid1;
+  cache?: Cache;
   laboratory?: LaboratoryCreate;
   session_options?: PersonSessionOptions;
 }
@@ -134,8 +134,8 @@ export interface PersonSessionOptions {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withUPSession<TBase extends Constructor>(Base: TBase) {
   return class WithUPSession extends Base {
+    expSessionPk?: Expsessionpk;
     beamLineSetupId?: Beamlinesetupid;
-    beamCalendarId?: Beamcalendarid;
     projectCode?: Projectcode;
     startDate?: Startdate;
     endDate?: Enddate;
@@ -150,12 +150,11 @@ export function withUPSession<TBase extends Constructor>(Base: TBase) {
     dewarTransport?: Dewartransport;
     databackupFrance?: Databackupfrance;
     databackupEurope?: Databackupeurope;
-    expSessionPk?: Expsessionpk;
     operatorSiteNumber?: Operatorsitenumber;
     lastUpdate?: Lastupdate;
     protectedData?: Protecteddata;
     externalId?: Externalid;
-    archived?: Archived;
+    nbReimbDewars?: Nbreimbdewars;
     persons?: Persons;
   };
 }
@@ -171,9 +170,10 @@ export function withPersonSessionLaboratory<TBase extends Constructor>(
     emailAddress?: Emailaddress;
     phoneNumber?: Phonenumber;
     login?: Login;
+    passwd?: Passwd;
     faxNumber?: Faxnumber;
-    cache?: Cache;
     externalId?: Externalid1;
+    cache?: Cache;
     laboratory?: LaboratoryCreate;
     session_options?: PersonSessionOptions;
   };

@@ -13,9 +13,10 @@ export type Title = string;
 export type Emailaddress = string;
 export type Phonenumber = string;
 export type Login = string;
+export type Passwd = string;
 export type Faxnumber = string;
-export type Cache = string;
 export type Externalid = number;
+export type Cache = string;
 /**
  * The Laboratory name
  */
@@ -54,9 +55,10 @@ export interface PersonProposalLaboratory {
   emailAddress?: Emailaddress;
   phoneNumber?: Phonenumber;
   login?: Login;
+  passwd?: Passwd;
   faxNumber?: Faxnumber;
-  cache?: Cache;
   externalId?: Externalid;
+  cache?: Cache;
   laboratory?: LaboratoryCreate;
 }
 export interface LaboratoryCreate {
@@ -82,9 +84,10 @@ export function withPersonProposalLaboratory<TBase extends Constructor>(
     emailAddress?: Emailaddress;
     phoneNumber?: Phonenumber;
     login?: Login;
+    passwd?: Passwd;
     faxNumber?: Faxnumber;
-    cache?: Cache;
     externalId?: Externalid;
+    cache?: Cache;
     laboratory?: LaboratoryCreate;
   };
 }

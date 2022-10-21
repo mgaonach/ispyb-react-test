@@ -14,7 +14,7 @@ export type Datacollections = number;
  */
 export type Uigroups = string[];
 /**
- * Number of people registered on this session
+ * Number of people registered on this session (via SessionHasPerson)
  */
 export type Persons = number;
 /**
@@ -25,6 +25,10 @@ export type Active = boolean;
  * Whether this session is due to start soon or has ended recently (+/-20 min)
  */
 export type ActiveSoon = boolean;
+/**
+ * Session types for this session
+ */
+export type Sessiontypes = string[];
 
 export interface SessionMetaData {
   datacollections?: Datacollections;
@@ -32,6 +36,7 @@ export interface SessionMetaData {
   persons: Persons;
   active: Active;
   active_soon: ActiveSoon;
+  sessionTypes: Sessiontypes;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -42,5 +47,6 @@ export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
     persons: Persons;
     active: Active;
     active_soon: ActiveSoon;
+    sessionTypes: Sessiontypes;
   };
 }

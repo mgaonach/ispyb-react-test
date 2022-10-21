@@ -35,7 +35,7 @@ function SessionRow(props: ISessionRow) {
           className={classNames({ 'session-active': session._metadata.active })}
         >
           <Card.Header>
-            <span>{session.beamLineName}</span>.
+            <span>{session.beamLineName}</span>.{' '}
             <span>{session.beamLineOperator}</span>
           </Card.Header>
 
@@ -43,7 +43,7 @@ function SessionRow(props: ISessionRow) {
             <Card.Title>
               <Card.Link
                 as={Link}
-                to={`/proposals/${session.proposal}/sessions/${session.session}`}
+                to={`/proposals/${session.proposal}/sessions/${session.sessionId}`}
               >
                 {session.session}
               </Card.Link>
@@ -55,11 +55,7 @@ function SessionRow(props: ISessionRow) {
               <span>End: {session.endDate}</span>
             </Card.Text>
             <Card.Text>
-              <span>
-                {session.SessionType.map(
-                  (sessionType) => sessionType.typeName
-                ).join(',')}
-              </span>
+              <span>{session._metadata.sessionTypes.join(',')}</span>
             </Card.Text>
           </Card.Body>
         </Card>

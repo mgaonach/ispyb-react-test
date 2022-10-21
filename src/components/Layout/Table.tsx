@@ -1,15 +1,21 @@
 import { Table as BootstrapTable } from 'react-bootstrap';
 import { get } from 'lodash';
+
 import Paginator from 'components/Layout/Paginator';
 
-interface IColumn {
+export interface IColumn {
   label: string;
   key: string;
-  formatter?: (row: any) => string | JSX.Element | null;
+  formatter?: (row: any, column?: any) => string | JSX.Element | null;
+  formatterParams?: IFormatterParams;
   className?: string;
 }
 
-interface IResults {
+export interface IResults {
+  [key: string]: any;
+}
+
+export interface IFormatterParams {
   [key: string]: any;
 }
 
@@ -26,16 +32,17 @@ interface ITable {
   onRowClick?: any;
   emptyText?: string;
   paginator?: IPaginatorProps;
+  size?: string;
 }
 
 export default function Table(props: ITable) {
   return (
     <>
-      <BootstrapTable striped hover>
+      <BootstrapTable striped hover size={props.size}>
         <thead>
           <tr>
             {props.columns.map((column) => (
-              <th key={column.label}>{column.label}</th>
+              <th key={column.key}>{column.label}</th>
             ))}
           </tr>
         </thead>
@@ -51,7 +58,7 @@ export default function Table(props: ITable) {
               {props.columns.map((column) => (
                 <td key={column.key} className={column.className}>
                   {column.formatter
-                    ? column.formatter(row)
+                    ? column.formatter(row, column)
                     : get(row, column.key)}
                 </td>
               ))}

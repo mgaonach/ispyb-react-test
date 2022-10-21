@@ -3,9 +3,17 @@ import type {
   BreadcrumbMatch,
 } from 'use-react-router-breadcrumbs';
 import EventsList from 'components/Events/EventsList';
+import SampleChanger from 'components/Samples/SampleChanger';
+import ImageViewer from 'components/Events/DataCollections/Braggy/ImageViewer';
 
-const SessionBreadCrumb: BreadcrumbComponentType<'session'> = ({ match }) => {
-  return <>{match.params.session}</>;
+const SessionBreadCrumb: BreadcrumbComponentType<'sessionId'> = ({ match }) => {
+  return <>{match.params.sessionId}</>;
+};
+
+const DataCollectionBreadCrumb: BreadcrumbComponentType<'dataCollectionId'> = ({
+  match,
+}) => {
+  return <>{match.params.dataCollectionId}</>;
 };
 
 const EventsRoutes = {
@@ -17,11 +25,23 @@ const EventsRoutes = {
       breadcrumb: 'Data Collections',
     },
     {
-      path: ':session',
+      path: ':sessionId',
       element: <EventsList refresh />,
       titleBreadcrumb: ({ match }: { match: BreadcrumbMatch<string> }) =>
-        match.params.session,
+        match.params.sessionId,
       breadcrumb: SessionBreadCrumb,
+    },
+    {
+      path: ':sessionId/samples',
+      element: <SampleChanger />,
+      breadcrumb: 'Sample Changer',
+    },
+    {
+      path: ':sessionId/images/:dataCollectionId',
+      element: <ImageViewer />,
+      breadcrumb: DataCollectionBreadCrumb,
+      titleBreadcrumb: ({ match }: { match: BreadcrumbMatch<string> }) =>
+        match.params.dataCollectionId,
     },
   ],
 };

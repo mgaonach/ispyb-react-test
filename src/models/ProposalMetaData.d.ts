@@ -6,6 +6,10 @@
  */
 
 /**
+ * Number of people registered on this proposal (via ProposalHasPerson)
+ */
+export type Persons = number;
+/**
  * Number of sessions
  */
 export type Sessions = number;
@@ -19,6 +23,7 @@ export type Beamlines = string[];
 export type Uigroups = string[];
 
 export interface ProposalMetaData {
+  persons: Persons;
   sessions: Sessions;
   beamLines: Beamlines;
   uiGroups?: Uigroups;
@@ -27,6 +32,7 @@ export interface ProposalMetaData {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withProposalMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithProposalMetaData extends Base {
+    persons: Persons;
     sessions: Sessions;
     beamLines: Beamlines;
     uiGroups?: Uigroups;

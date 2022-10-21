@@ -17,11 +17,16 @@ export type Crystals = number;
  * Number of child samples
  */
 export type Samples = number;
+/**
+ * Number of data collections
+ */
+export type Datacollections = number;
 
 export interface ProteinMetaData {
   pdbs?: Pdbs;
   crystals?: Crystals;
   samples?: Samples;
+  datacollections?: Datacollections;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -30,5 +35,6 @@ export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
     pdbs?: Pdbs;
     crystals?: Crystals;
     samples?: Samples;
+    datacollections?: Datacollections;
   };
 }

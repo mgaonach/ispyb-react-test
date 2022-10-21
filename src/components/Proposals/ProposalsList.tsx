@@ -5,12 +5,18 @@ import Table from 'components/Layout/Table';
 import { ProposalResource } from 'api/resources/Proposal';
 import { Proposal } from 'models/Proposal';
 import { useProposal } from 'hooks/useProposal';
+import Search from 'components/Layout/Search';
+import { usePaging } from 'hooks/usePaging';
+import { useSearch } from 'hooks/useSearch';
 
 export default function ProposalsList({ sortBy }: { sortBy?: string }) {
+  const { skip, limit } = usePaging(10);
+  const search = useSearch();
   const navigate = useNavigate();
   const proposals = useSuspense(ProposalResource.list(), {
-    skip: 0,
-    limit: 10,
+    skip,
+    limit,
+    ...(search ? { search } : null),
   });
   const { setProposalName } = useProposal();
 
@@ -22,6 +28,7 @@ export default function ProposalsList({ sortBy }: { sortBy?: string }) {
   return (
     <section>
       <h1>Proposals</h1>
+      <Search focus />
       <Table
         keyId="proposalId"
         results={proposals.results}

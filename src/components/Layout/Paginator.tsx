@@ -23,7 +23,13 @@ export default function Paginator(props: Props) {
 
   const nPages = Math.ceil(total / limit);
   const currentPage = skip / limit + 1;
-
+  const nPagesShown = nPages > 3 ? 3 : nPages;
+  const nPageStart =
+    currentPage === 1
+      ? currentPage
+      : currentPage > nPages - 2
+      ? nPages - 2
+      : currentPage - 1;
   useEffect(() => {
     if (limitRef.current) {
       limitRef.current.value = searchLimit;
@@ -77,22 +83,33 @@ export default function Paginator(props: Props) {
         >
           &laquo;
         </div>
-        {Array(nPages)
-          .fill(0)
-          .map((_, i) => (
-            <div
-              style={{ cursor: i + 1 !== currentPage ? 'pointer' : '' }}
-              key={`page-${i}`}
-              className={
-                (i + 1 === currentPage
-                  ? 'border-primary bg-light'
-                  : 'bg-secondary') + ' border d-inline-block p-2 px-3 me-2'
-              }
-              onClick={() => gotoPage(i + 1)}
-            >
-              {i + 1}
-            </div>
-          ))}
+        {Array(nPagesShown)
+          .fill(nPageStart)
+          .map((start, i) => {
+            const page = start + i;
+            return (
+              <div
+                style={{ cursor: page !== currentPage ? 'pointer' : '' }}
+                key={`page-${page}`}
+                className={
+                  (page === currentPage
+                    ? 'border-primary bg-light'
+                    : 'bg-secondary') + ' border d-inline-block p-2 px-3 me-2'
+                }
+                onClick={() => gotoPage(page)}
+              >
+                {page}
+              </div>
+            );
+          })}
+        {nPages > 3 && currentPage < nPages - 2 && (
+          <div
+            key="page-last-number"
+            className="border d-inline-block p-2 px-3 me-2"
+          >
+            ... {nPages}
+          </div>
+        )}
         <div
           style={{ cursor: nPages !== currentPage ? 'pointer' : '' }}
           key="page-last"
@@ -112,7 +129,7 @@ export default function Paginator(props: Props) {
           onChange={changeLimit}
           defaultValue={searchParamsObj.limit || limit}
         >
-          {[2, 3, 5, 10, 25].map((i) => (
+          {[5, 10, 25].map((i) => (
             <option key={`limit-${i}`} value={i}>
               {i}
             </option>

@@ -13,13 +13,15 @@ function personFormatter(row: LabContact) {
   return `${row.Person.givenName} ${row.Person.familyName}`;
 }
 
-export default function LabContactList({ sortBy }: { sortBy?: string }) {
+export default function LabContactList() {
   const navigate = useNavigate();
   const proposal = usePath('proposal');
-  const contacts = useSuspense(LabContactResource.list(), { sortBy });
+  const contacts = useSuspense(LabContactResource.list(), {
+    ...(proposal ? { proposal } : {}),
+  });
 
   const onRowClick = (row: LabContact) => {
-    navigate(`/proposals/${proposal}/contacts/view/${row.labContactId}`);
+    navigate(`/proposals/${proposal}/contacts/${row.labContactId}`);
   };
 
   return (

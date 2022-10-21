@@ -1,31 +1,43 @@
 import { JSXElementConstructor, Suspense } from 'react';
 import { useSuspense, useSubscription } from 'rest-hooks';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
+import { Gear, PeopleFill, PieChartFill, Wrench } from 'react-bootstrap-icons';
 
 import { EventResource } from 'api/resources/Event';
-import NetworkErrorPage from 'components/NetworkErrorPage';
-import Paginator from 'components/Layout/Paginator';
+import { EventTypeResource } from 'api/resources/EventType';
+import { ProcessingStatus } from 'api/resources/Processing/ProcessingStatus';
+import { ProcessingMessageStatus } from 'api/resources/Processing/ProcessingMessageStatus';
 import { usePath } from 'hooks/usePath';
 import { usePaging } from 'hooks/usePaging';
+import NetworkErrorPage from 'components/NetworkErrorPage';
+import Paginator from 'components/Layout/Paginator';
+import Filter from 'components/Filter';
+import TimesBar from 'components/Stats/TimesBar';
 import { Event } from 'models/Event.d';
-
+import { Statuses as ProcessingStatusesType } from 'models/ProcessingStatusesList.d';
+import { Statuses as ProcessingMessageStatusesType } from 'models/AutoProcProgramMessageStatuses.d';
 import { EventBase } from './Events';
 import Default from './Default';
 import RobotAction from './RobotAction';
 import DataCollection from './DataCollection';
-import Filter from 'components/Filter';
-import { EventTypeResource } from '../../api/resources/EventType';
+import { useSessionInfo } from 'hooks/useSessionInfo';
 
 function EventTypeFilter({
   urlKey,
-  session,
+  sessionId,
+  blSampleId,
+  proteinId,
 }: {
   urlKey: string;
-  session?: string;
+  sessionId?: string;
+  blSampleId?: string;
+  proteinId?: string;
 }) {
   const eventTypes = useSuspense(EventTypeResource.list(), {
-    ...(session ? { session } : null),
+    ...(sessionId ? { sessionId } : null),
+    ...(blSampleId ? { blSampleId } : null),
+    ...(proteinId ? { proteinId } : null),
   });
 
   const filterTypes = eventTypes.results.map((eventType) => ({
@@ -50,12 +62,64 @@ function EventStatusFilter({ urlKey }: { urlKey: string }) {
       filterKey: 'Failed',
       filterValue: 'failed',
     },
+    {
+      filterKey: 'Processed',
+      filterValue: 'processed',
+    },
+    {
+      filterKey: 'Processing Error',
+      filterValue: 'processerror',
+    },
   ];
 
   return <Filter urlKey={urlKey} filters={filterTypes} />;
 }
 
-function renderTemplate(event: Event) {
+function EventListButtons() {
+  const proposal = usePath('proposal');
+  const sessionId = usePath('sessionId');
+  const sessionInfo = useSessionInfo(sessionId);
+  return (
+    <>
+      <Link
+        className="btn btn-primary btn-sm me-1"
+        to={`/proposals/${proposal}`}
+      >
+        <PeopleFill className="me-1" />
+        Users
+      </Link>
+      <Link
+        className="btn btn-primary btn-sm me-1"
+        to={`/proposals/${proposal}/stats/${sessionId}`}
+      >
+        <PieChartFill className="me-1" />
+        Stats
+      </Link>
+      <Link
+        className="btn btn-primary btn-sm me-1"
+        to={`/proposals/${proposal}`}
+      >
+        <Wrench className="me-1" />
+        Beamline Status
+      </Link>
+      {sessionInfo && sessionInfo._metadata.uiGroups?.includes('mx') && (
+        <Link
+          className="btn btn-primary btn-sm me-1"
+          to={`/proposals/${proposal}/sessions/${sessionId}/samples`}
+        >
+          <Gear className="me-1" />
+          Sample Changer
+        </Link>
+      )}
+    </>
+  );
+}
+
+function renderTemplate(
+  event: Event,
+  processingStatuses: ProcessingStatusesType,
+  processngMessageStatuses: ProcessingMessageStatusesType
+) {
   const templates: Record<string, JSXElementConstructor<any>> = {
     dc: DataCollection,
     robot: RobotAction,
@@ -63,7 +127,12 @@ function renderTemplate(event: Event) {
 
   if (event.type in templates) {
     const Template = templates[event.type];
-    return <Template item={event.Item} parent={event} />;
+    const extraProps: Record<string, any> = {};
+    if (event.type === 'dc') {
+      extraProps.processingStatuses = processingStatuses[event.id];
+      extraProps.messageStatuses = processngMessageStatuses[event.id];
+    }
+    return <Template item={event.Item} parent={event} {...extraProps} />;
   }
 
   return <Default {...event} />;
@@ -71,13 +140,22 @@ function renderTemplate(event: Event) {
 
 interface IEventsList {
   blSampleId?: string;
+  proteinId?: string;
+  beamLineName?: string;
   refresh?: boolean;
+  limit?: number;
 }
 
-function EventListMain({ blSampleId, refresh }: IEventsList) {
+function EventListMain({
+  blSampleId,
+  proteinId,
+  beamLineName,
+  refresh,
+  limit: initialLimit,
+}: IEventsList) {
   const [searchParams] = useSearchParams();
-  const session = usePath('session');
-  const { skip, limit } = usePaging();
+  const sessionId = usePath('sessionId');
+  const { skip, limit } = usePaging(initialLimit);
   const dataCollectionId = searchParams.get('dataCollectionId');
   const dataCollectionGroupId = searchParams.get('dataCollectionGroupId');
   const eventType = searchParams.get('eventType');
@@ -89,7 +167,9 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
     ...(dataCollectionId ? { dataCollectionId } : {}),
     ...(dataCollectionGroupId ? { dataCollectionGroupId } : {}),
     ...(blSampleId ? { blSampleId } : {}),
-    ...(session ? { session } : {}),
+    ...(proteinId ? { proteinId } : {}),
+    ...(sessionId ? { sessionId } : {}),
+    ...(beamLineName ? { beamLineName } : {}),
     ...(eventType ? { eventType } : {}),
     ...(status ? { status } : {}),
   };
@@ -97,20 +177,69 @@ function EventListMain({ blSampleId, refresh }: IEventsList) {
   const events = useSuspense(EventResource.list(), opts);
   useSubscription(EventResource.list(), refresh ? opts : null);
 
+  const dataCollectionIds = events.results
+    .filter((event) => event.type === 'dc')
+    .map((event) => event.id);
+
+  const processingStatuses = useSuspense(
+    ProcessingStatus.list(),
+    dataCollectionIds.length > 0
+      ? { dataCollectionIds: JSON.stringify(dataCollectionIds) }
+      : null
+  );
+  useSubscription(
+    ProcessingStatus.list(),
+    refresh && dataCollectionIds.length > 0 && refresh
+      ? { dataCollectionIds: JSON.stringify(dataCollectionIds) }
+      : null
+  );
+
+  const messageStatuses = useSuspense(
+    ProcessingMessageStatus.list(),
+    dataCollectionIds.length > 0
+      ? { dataCollectionIds: JSON.stringify(dataCollectionIds) }
+      : null
+  );
+
+  useSubscription(
+    ProcessingMessageStatus.list(),
+    dataCollectionIds.length > 0 && refresh
+      ? { dataCollectionIds: JSON.stringify(dataCollectionIds) }
+      : null
+  );
+
   const title = dataCollectionGroupId
     ? `group ${dataCollectionGroupId}`
-    : session
-    ? session
+    : sessionId
+    ? sessionId
     : '';
 
   return (
     <section>
-      <h1>Data Collections{title ? `: ${title}` : ''}</h1>
-      <EventStatusFilter urlKey="status" />
-      <EventTypeFilter urlKey="eventType" session={session} />
+      <h1 className="d-flex justify-content-between">
+        <span>Data Collections{title ? `: ${title}` : ''}</span>
+        {sessionId && <TimesBar />}
+      </h1>
+
+      {sessionId && <EventListButtons />}
+      <div className="d-flex">
+        <EventStatusFilter urlKey="status" />
+        <EventTypeFilter
+          urlKey="eventType"
+          sessionId={sessionId}
+          blSampleId={blSampleId}
+          proteinId={proteinId}
+        />
+      </div>
       <Paginator total={events.total} skip={events.skip} limit={events.limit} />
       {events.results.map((event) => (
-        <EventBase key={event.pk()}>{renderTemplate(event)}</EventBase>
+        <EventBase key={event.pk()}>
+          {renderTemplate(
+            event,
+            processingStatuses ? processingStatuses.statuses : {},
+            messageStatuses ? messageStatuses.statuses : {}
+          )}
+        </EventBase>
       ))}
       {!events.results.length && <Alert>No events yet</Alert>}
       <Paginator total={events.total} skip={events.skip} limit={events.limit} />

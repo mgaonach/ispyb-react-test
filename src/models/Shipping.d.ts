@@ -5,15 +5,15 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Shippingname = string;
+export type Name = string;
 
 export interface Shipping {
-  shippingName: Shippingname;
+  shippingName: Name;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withShipping<TBase extends Constructor>(Base: TBase) {
   return class WithShipping extends Base {
-    shippingName: Shippingname;
+    shippingName: Name;
   };
 }

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import Form from '@rjsf/bootstrap-4';
 import { Spinner, Button } from 'react-bootstrap';
 import { PersonPlus } from 'react-bootstrap-icons';
 
+import Form from 'components/RJSF/Form';
 import { useSchema } from 'hooks/useSpec';
 import { useInformativeSubmit } from 'hooks/useInformativeSubmit';
 import { LabContactResource } from 'api/resources/LabContact';
@@ -24,7 +24,7 @@ export default function CreateLabContact() {
 
   const schema = useSchema('LabContactCreate', 'Create Lab Contact');
   const uiSchema = {
-    proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
+    proposalId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
   };
 
   return (

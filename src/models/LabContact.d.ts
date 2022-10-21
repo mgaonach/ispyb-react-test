@@ -76,10 +76,10 @@ export interface ContactPerson {
   Laboratory?: Laboratory;
 }
 export interface Laboratory {
-  name: LaboratoryName;
-  address: Address;
-  city: City;
-  country: Country;
+  name?: LaboratoryName;
+  address?: Address;
+  city?: City;
+  country?: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
   recordTimeStamp?: RecordTimeStamp;
@@ -113,10 +113,10 @@ export function withContactPerson<TBase extends Constructor>(Base: TBase) {
 }
 export function withLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratory extends Base {
-    name: LaboratoryName;
-    address: Address;
-    city: City;
-    country: Country;
+    name?: LaboratoryName;
+    address?: Address;
+    city?: City;
+    country?: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
     recordTimeStamp?: RecordTimeStamp;

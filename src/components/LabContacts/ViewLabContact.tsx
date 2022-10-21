@@ -1,25 +1,10 @@
-import React from 'react';
 import { useSuspense } from 'rest-hooks';
 import { useParams } from 'react-router-dom';
-import Form from '@rjsf/bootstrap-4';
 
 import NetworkErrorPage from 'components/NetworkErrorPage';
 import { useSchema } from 'hooks/useSpec';
 import { LabContactResource } from 'api/resources/LabContact';
-
-// import {
-//     getDefaultRegistry,
-//   }  from '@rjsf/core/dist/cjs/utils';
-
-function StringField(props: any) {
-  const { name, formData } = props;
-
-  return (
-    <span>
-      {name}: {formData}
-    </span>
-  );
-}
+import InlineEditable from 'components/RJSF/InlineEditable';
 
 function ViewLabContactMain() {
   const { id } = useParams();
@@ -28,22 +13,23 @@ function ViewLabContactMain() {
     labContactId: id,
   });
 
-  const schema = useSchema('LabContactCreate', 'View Lab Contact');
+  const schema = useSchema('LabContact', 'View Lab Contact');
   const uiSchema = {
-    proposalId: { classNames: 'hidden-row', 'ui:widget': 'hidden' },
+    proposalId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
   };
+
+  function onChange({ field, value }: { field: string; value: any }) {
+    console.log(field, value);
+  }
 
   return (
     <section>
-      <Form
-        liveValidate
-        fields={{ StringField }}
+      <InlineEditable
         schema={schema}
         uiSchema={uiSchema}
         formData={contact}
-      >
-        <React.Fragment />
-      </Form>
+        onChange={onChange}
+      />
     </section>
   );
 }

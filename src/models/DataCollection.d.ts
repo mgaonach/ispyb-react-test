@@ -38,19 +38,44 @@ export type DetectorDistance = number;
 export type RotationAxisStart = number;
 export type RotationAxisEnd = number;
 export type RotationAxisOscillation = number;
-export type RotationAxisMotor = RotationAxis;
-/**
- * An enumeration.
- */
-export type RotationAxis = 'omega' | 'phi';
+export type RotationAxisMotor = string;
 export type RotationAxisOverlap = number;
 export type PhiStart = number;
 export type KappaStart = number;
 export type OmegaStart = number;
 export type ChiStart = number;
+export type BeamSizeX = number;
+export type BeamSizeY = number;
+export type Magnification = number;
+export type Binning = number;
+export type ParticleDiameter = number;
+export type Defocusstepsize = number;
+export type Amountastigmatism = number;
+export type Voltage = number;
+export type Objaperture = number;
 export type Datacollectionid = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
+export type Workflowid = number;
+export type Comments = string;
+export type Status1 = string;
+export type Workflowtitle = string;
+export type Workflowtype = string;
+export type Gridinfoid = number;
+export type Xoffset = number;
+export type Yoffset = number;
+export type DxMm = number;
+export type DyMm = number;
+export type StepsX = number;
+export type StepsY = number;
+export type Meshangle = number;
+export type Orientation = string;
+export type Pixelspermicronx = number;
+export type Pixelspermicrony = number;
+export type SnapshotOffsetxpixel = number;
+export type SnapshotOffsetypixel = number;
+export type Snaked = boolean;
+export type Gridinfo = GridInfo[];
 
 export interface DataCollection {
   runStatus?: Status;
@@ -77,13 +102,47 @@ export interface DataCollection {
   kappaStart?: KappaStart;
   omegaStart?: OmegaStart;
   chiStart?: ChiStart;
+  xBeamPix?: BeamSizeX;
+  yBeamPix?: BeamSizeY;
+  magnification?: Magnification;
+  binning?: Binning;
+  particleDiameter?: ParticleDiameter;
+  defocusStepSize?: Defocusstepsize;
+  amountAstigmatism?: Amountastigmatism;
+  voltage?: Voltage;
+  objAperture?: Objaperture;
   dataCollectionId: Datacollectionid;
   DataCollectionGroup: DataCollectionGroup;
+  GridInfo?: Gridinfo;
   _metadata: DataCollectionMetaData;
 }
 export interface DataCollectionGroup {
   dataCollectionGroupId: Datacollectiongroupid;
   experimentType: Experimenttype;
+  Workflow?: Workflow;
+}
+export interface Workflow {
+  workflowId: Workflowid;
+  comments?: Comments;
+  status?: Status1;
+  workflowTitle?: Workflowtitle;
+  workflowType?: Workflowtype;
+}
+export interface GridInfo {
+  gridInfoId: Gridinfoid;
+  xOffset?: Xoffset;
+  yOffset?: Yoffset;
+  dx_mm?: DxMm;
+  dy_mm?: DyMm;
+  steps_x?: StepsX;
+  steps_y?: StepsY;
+  meshAngle?: Meshangle;
+  orientation?: Orientation;
+  pixelsPerMicronX?: Pixelspermicronx;
+  pixelsPerMicronY?: Pixelspermicrony;
+  snapshot_offsetXPixel?: SnapshotOffsetxpixel;
+  snapshot_offsetYPixel?: SnapshotOffsetypixel;
+  snaked?: Snaked;
 }
 export interface DataCollectionMetaData {
   snapshots: Snapshots;
@@ -122,8 +181,18 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     kappaStart?: KappaStart;
     omegaStart?: OmegaStart;
     chiStart?: ChiStart;
+    xBeamPix?: BeamSizeX;
+    yBeamPix?: BeamSizeY;
+    magnification?: Magnification;
+    binning?: Binning;
+    particleDiameter?: ParticleDiameter;
+    defocusStepSize?: Defocusstepsize;
+    amountAstigmatism?: Amountastigmatism;
+    voltage?: Voltage;
+    objAperture?: Objaperture;
     dataCollectionId: Datacollectionid;
     DataCollectionGroup: DataCollectionGroup;
+    GridInfo?: Gridinfo;
     _metadata: DataCollectionMetaData;
   };
 }
@@ -133,6 +202,34 @@ export function withDataCollectionGroup<TBase extends Constructor>(
   return class WithDataCollectionGroup extends Base {
     dataCollectionGroupId: Datacollectiongroupid;
     experimentType: Experimenttype;
+    Workflow?: Workflow;
+  };
+}
+export function withWorkflow<TBase extends Constructor>(Base: TBase) {
+  return class WithWorkflow extends Base {
+    workflowId: Workflowid;
+    comments?: Comments;
+    status?: Status1;
+    workflowTitle?: Workflowtitle;
+    workflowType?: Workflowtype;
+  };
+}
+export function withGridInfo<TBase extends Constructor>(Base: TBase) {
+  return class WithGridInfo extends Base {
+    gridInfoId: Gridinfoid;
+    xOffset?: Xoffset;
+    yOffset?: Yoffset;
+    dx_mm?: DxMm;
+    dy_mm?: DyMm;
+    steps_x?: StepsX;
+    steps_y?: StepsY;
+    meshAngle?: Meshangle;
+    orientation?: Orientation;
+    pixelsPerMicronX?: Pixelspermicronx;
+    pixelsPerMicronY?: Pixelspermicrony;
+    snapshot_offsetXPixel?: SnapshotOffsetxpixel;
+    snapshot_offsetYPixel?: SnapshotOffsetypixel;
+    snaked?: Snaked;
   };
 }
 export function withDataCollectionMetaData<TBase extends Constructor>(
