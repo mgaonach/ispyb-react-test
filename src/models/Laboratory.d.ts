@@ -36,10 +36,10 @@ export type RecordTimeStamp = string;
 export type Laboratoryid = number;
 
 export interface Laboratory {
-  name: LaboratoryName;
-  address: Address;
-  city: City;
-  country: Country;
+  name?: LaboratoryName;
+  address?: Address;
+  city?: City;
+  country?: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
   recordTimeStamp?: RecordTimeStamp;
@@ -49,10 +49,10 @@ export interface Laboratory {
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratory extends Base {
-    name: LaboratoryName;
-    address: Address;
-    city: City;
-    country: Country;
+    name?: LaboratoryName;
+    address?: Address;
+    city?: City;
+    country?: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
     recordTimeStamp?: RecordTimeStamp;

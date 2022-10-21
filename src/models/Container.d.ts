@@ -5,37 +5,49 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Code = string;
-export type Code1 = string;
-export type Shippingname = string;
+export type Name = string;
+/**
+ * Position in sample change
+ */
+export type Samplechangerlocation = string;
+/**
+ * Beamline if container is assigned
+ */
+export type Beamlinelocation = string;
+export type Name1 = string;
+export type Name2 = string;
 
 export interface Container {
-  code: Code;
+  code: Name;
+  sampleChangerLocation?: Samplechangerlocation;
+  beamlineLocation?: Beamlinelocation;
   Dewar: Dewar;
 }
 export interface Dewar {
-  code: Code1;
+  code: Name1;
   Shipping: Shipping;
 }
 export interface Shipping {
-  shippingName: Shippingname;
+  shippingName: Name2;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withContainer<TBase extends Constructor>(Base: TBase) {
   return class WithContainer extends Base {
-    code: Code;
+    code: Name;
+    sampleChangerLocation?: Samplechangerlocation;
+    beamlineLocation?: Beamlinelocation;
     Dewar: Dewar;
   };
 }
 export function withDewar<TBase extends Constructor>(Base: TBase) {
   return class WithDewar extends Base {
-    code: Code1;
+    code: Name1;
     Shipping: Shipping;
   };
 }
 export function withShipping<TBase extends Constructor>(Base: TBase) {
   return class WithShipping extends Base {
-    shippingName: Shippingname;
+    shippingName: Name2;
   };
 }

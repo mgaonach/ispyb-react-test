@@ -6,6 +6,7 @@ import {
 import { ProposalsRoutes } from 'routes/Proposals';
 import ProposalRoutes from 'routes/Proposal';
 import AdminRoutes from 'routes/Admin';
+import BeamLineRoutes from 'routes/BeamLine';
 
 import Login from 'components/Login';
 import PrivateRoute from 'components/PrivateRoute';
@@ -31,6 +32,7 @@ const routes: TitledBreadcrumbsRoute[] = [
           { path: 'calendar', element: <Calendar />, breadcrumb: 'Calendar' },
           ProposalsRoutes,
           ProposalRoutes,
+          BeamLineRoutes,
           AdminRoutes,
         ],
       },

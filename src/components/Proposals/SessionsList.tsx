@@ -6,18 +6,20 @@ import { SessionResource } from 'api/resources/Session';
 import { Session } from 'models/Session';
 import { usePath } from 'hooks/usePath';
 import { Badge } from 'react-bootstrap';
+import { usePaging } from 'hooks/usePaging';
 
 export default function SessionList({ sortBy }: { sortBy?: string }) {
+  const { skip, limit } = usePaging(10);
   const navigate = useNavigate();
   const proposal = usePath('proposal');
   const sessions = useSuspense(SessionResource.list(), {
-    skip: 0,
-    limit: 10,
+    skip,
+    limit,
     ...(proposal ? { proposal } : {}),
   });
 
   const onRowClick = (row: Session) => {
-    navigate(`/proposals/${proposal}/sessions/${row.session}`);
+    navigate(`/proposals/${proposal}/sessions/${row.sessionId}`);
   };
 
   return (
@@ -33,6 +35,7 @@ export default function SessionList({ sortBy }: { sortBy?: string }) {
           limit: sessions.limit,
         }}
         columns={[
+          { label: 'Id', key: 'sessionId' },
           { label: 'Session', key: 'session' },
           { label: 'Start', key: 'startDate' },
           { label: 'End', key: 'endDate' },
@@ -40,10 +43,7 @@ export default function SessionList({ sortBy }: { sortBy?: string }) {
           {
             label: 'Type',
             key: 'Type',
-            formatter: (row: Session) =>
-              row.SessionType.map((sessionType) => sessionType.typeName).join(
-                ','
-              ),
+            formatter: (row: Session) => row._metadata.sessionTypes.join(','),
           },
           { label: '# DCs', key: '_metadata.datacollections' },
           {

@@ -57,13 +57,13 @@ export function DataCollectionFileAttachments({
         limit: attachments.limit,
       }}
       columns={[
-        { label: 'Name', key: '_metadata.fileName' },
+        { label: 'Name', key: '_metadata.fileName', className: 'text-break' },
         { label: 'Type', key: 'fileType' },
         {
           label: '',
           key: 'actions',
           formatter: ActionsCell,
-          className: 'text-end',
+          className: 'text-end text-nowrap',
         },
       ]}
       emptyText="No attachments yet"
@@ -83,7 +83,13 @@ export function DataCollectionFileAttachmentsModal({
   onHide?: () => void;
 }) {
   return (
-    <Modal fullscreen="sm-down" show={show} onHide={onHide} title="Attachments">
+    <Modal
+      size="lg"
+      fullscreen="sm-down"
+      show={show}
+      onHide={onHide}
+      title="Attachments"
+    >
       <Modal.Header closeButton>
         <Modal.Title>Attachments</Modal.Title>
       </Modal.Header>

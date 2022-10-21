@@ -37,6 +37,7 @@ export default function Filter(props: IFilter) {
     <div className="filter my-1">
       {filters.map((filter) => (
         <div
+          key={filter.filterValue}
           onClick={() => doFilter(filter.filterValue)}
           className={classNames('me-1', 'btn', 'btn-sm', {
             'btn-primary': filter.filterValue !== searchParamsObj[urlKey],

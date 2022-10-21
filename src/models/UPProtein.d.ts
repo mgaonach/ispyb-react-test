@@ -13,15 +13,12 @@ export type Containmentlevel = number;
 export type Safetylevel = string;
 export type Molecularmass = number;
 export type Proteintype = string;
-export type Iscreatedbysamplesheet = number;
 export type Sequence = string;
-export type ModId = string;
-export type Componenttypeid = number;
-export type Concentrationtypeid = number;
+export type Iscreatedbysamplesheet = number;
 export type Externalid = number;
-export type Density = number;
-export type Abundance = number;
-export type Isotropy = string;
+export type Componenttypeid = number;
+export type Modid = string;
+export type Concentrationtypeid = number;
 export type Siteid = number;
 export type Personuuid = string;
 export type Familyname = string;
@@ -30,9 +27,10 @@ export type Title = string;
 export type Emailaddress = string;
 export type Phonenumber = string;
 export type Login = string;
+export type Passwd = string;
 export type Faxnumber = string;
-export type Cache = string;
 export type Externalid1 = number;
+export type Cache = string;
 /**
  * The Laboratory name
  */
@@ -71,15 +69,12 @@ export interface UPProtein {
   safetyLevel?: Safetylevel;
   molecularMass?: Molecularmass;
   proteinType?: Proteintype;
-  isCreatedBySampleSheet?: Iscreatedbysamplesheet;
   sequence?: Sequence;
-  MOD_ID?: ModId;
-  componentTypeId?: Componenttypeid;
-  concentrationTypeId?: Concentrationtypeid;
+  isCreatedBySampleSheet?: Iscreatedbysamplesheet;
   externalId?: Externalid;
-  density?: Density;
-  abundance?: Abundance;
-  isotropy?: Isotropy;
+  componentTypeId?: Componenttypeid;
+  modId?: Modid;
+  concentrationTypeId?: Concentrationtypeid;
   person: PersonProposalLaboratory;
 }
 export interface PersonProposalLaboratory {
@@ -91,9 +86,10 @@ export interface PersonProposalLaboratory {
   emailAddress?: Emailaddress;
   phoneNumber?: Phonenumber;
   login?: Login;
+  passwd?: Passwd;
   faxNumber?: Faxnumber;
-  cache?: Cache;
   externalId?: Externalid1;
+  cache?: Cache;
   laboratory?: LaboratoryCreate;
 }
 export interface LaboratoryCreate {
@@ -117,15 +113,12 @@ export function withUPProtein<TBase extends Constructor>(Base: TBase) {
     safetyLevel?: Safetylevel;
     molecularMass?: Molecularmass;
     proteinType?: Proteintype;
-    isCreatedBySampleSheet?: Iscreatedbysamplesheet;
     sequence?: Sequence;
-    MOD_ID?: ModId;
-    componentTypeId?: Componenttypeid;
-    concentrationTypeId?: Concentrationtypeid;
+    isCreatedBySampleSheet?: Iscreatedbysamplesheet;
     externalId?: Externalid;
-    density?: Density;
-    abundance?: Abundance;
-    isotropy?: Isotropy;
+    componentTypeId?: Componenttypeid;
+    modId?: Modid;
+    concentrationTypeId?: Concentrationtypeid;
     person: PersonProposalLaboratory;
   };
 }
@@ -141,9 +134,10 @@ export function withPersonProposalLaboratory<TBase extends Constructor>(
     emailAddress?: Emailaddress;
     phoneNumber?: Phonenumber;
     login?: Login;
+    passwd?: Passwd;
     faxNumber?: Faxnumber;
-    cache?: Cache;
     externalId?: Externalid1;
+    cache?: Cache;
     laboratory?: LaboratoryCreate;
   };
 }

@@ -20,9 +20,10 @@ export type Title1 = string;
 export type Emailaddress = string;
 export type Phonenumber = string;
 export type Login = string;
+export type Passwd = string;
 export type Faxnumber = string;
-export type Cache = string;
 export type Externalid1 = number;
+export type Cache = string;
 /**
  * The Laboratory name
  */
@@ -58,8 +59,8 @@ export type Billingreference = string;
 export type Dewaravgcustomsvalue = number;
 export type Dewaravgtransportvalue = number;
 export type Labcontacts = UPLabContact[];
+export type Expsessionpk = number;
 export type Beamlinesetupid = number;
-export type Beamcalendarid = number;
 export type Projectcode = string;
 export type Startdate = string;
 export type Enddate = string;
@@ -74,12 +75,11 @@ export type Structuredeterminations = number;
 export type Dewartransport = number;
 export type Databackupfrance = number;
 export type Databackupeurope = number;
-export type Expsessionpk = number;
 export type Operatorsitenumber = string;
 export type Lastupdate = string;
 export type Protecteddata = string;
 export type Externalid2 = number;
-export type Archived = number;
+export type Nbreimbdewars = number;
 export type Siteid1 = number;
 export type Personuuid1 = string;
 export type Familyname1 = string;
@@ -88,9 +88,10 @@ export type Title2 = string;
 export type Emailaddress1 = string;
 export type Phonenumber1 = string;
 export type Login1 = string;
+export type Passwd1 = string;
 export type Faxnumber1 = string;
-export type Cache1 = string;
 export type Externalid3 = number;
+export type Cache1 = string;
 export type Role =
   | 'Local Contact'
   | 'Local Contact 2'
@@ -110,15 +111,12 @@ export type Containmentlevel = number;
 export type Safetylevel = string;
 export type Molecularmass = number;
 export type Proteintype = string;
-export type Iscreatedbysamplesheet = number;
 export type Sequence = string;
-export type ModId = string;
-export type Componenttypeid = number;
-export type Concentrationtypeid = number;
+export type Iscreatedbysamplesheet = number;
 export type Externalid4 = number;
-export type Density = number;
-export type Abundance = number;
-export type Isotropy = string;
+export type Componenttypeid = number;
+export type Modid = string;
+export type Concentrationtypeid = number;
 export type Proteins = UPProtein[];
 
 export interface UserPortalProposalSync {
@@ -145,9 +143,10 @@ export interface PersonProposalLaboratory {
   emailAddress?: Emailaddress;
   phoneNumber?: Phonenumber;
   login?: Login;
+  passwd?: Passwd;
   faxNumber?: Faxnumber;
-  cache?: Cache;
   externalId?: Externalid1;
+  cache?: Cache;
   laboratory?: LaboratoryCreate;
 }
 export interface LaboratoryCreate {
@@ -169,8 +168,8 @@ export interface UPLabContact {
   person: PersonProposalLaboratory;
 }
 export interface UPSession {
+  expSessionPk?: Expsessionpk;
   beamLineSetupId?: Beamlinesetupid;
-  beamCalendarId?: Beamcalendarid;
   projectCode?: Projectcode;
   startDate?: Startdate;
   endDate?: Enddate;
@@ -185,12 +184,11 @@ export interface UPSession {
   dewarTransport?: Dewartransport;
   databackupFrance?: Databackupfrance;
   databackupEurope?: Databackupeurope;
-  expSessionPk?: Expsessionpk;
   operatorSiteNumber?: Operatorsitenumber;
   lastUpdate?: Lastupdate;
   protectedData?: Protecteddata;
   externalId?: Externalid2;
-  archived?: Archived;
+  nbReimbDewars?: Nbreimbdewars;
   persons?: Persons1;
 }
 export interface PersonSessionLaboratory {
@@ -202,9 +200,10 @@ export interface PersonSessionLaboratory {
   emailAddress?: Emailaddress1;
   phoneNumber?: Phonenumber1;
   login?: Login1;
+  passwd?: Passwd1;
   faxNumber?: Faxnumber1;
-  cache?: Cache1;
   externalId?: Externalid3;
+  cache?: Cache1;
   laboratory?: LaboratoryCreate;
   session_options?: PersonSessionOptions;
 }
@@ -221,15 +220,12 @@ export interface UPProtein {
   safetyLevel?: Safetylevel;
   molecularMass?: Molecularmass;
   proteinType?: Proteintype;
-  isCreatedBySampleSheet?: Iscreatedbysamplesheet;
   sequence?: Sequence;
-  MOD_ID?: ModId;
-  componentTypeId?: Componenttypeid;
-  concentrationTypeId?: Concentrationtypeid;
+  isCreatedBySampleSheet?: Iscreatedbysamplesheet;
   externalId?: Externalid4;
-  density?: Density;
-  abundance?: Abundance;
-  isotropy?: Isotropy;
+  componentTypeId?: Componenttypeid;
+  modId?: Modid;
+  concentrationTypeId?: Concentrationtypeid;
   person: PersonProposalLaboratory;
 }
 
@@ -267,9 +263,10 @@ export function withPersonProposalLaboratory<TBase extends Constructor>(
     emailAddress?: Emailaddress;
     phoneNumber?: Phonenumber;
     login?: Login;
+    passwd?: Passwd;
     faxNumber?: Faxnumber;
-    cache?: Cache;
     externalId?: Externalid1;
+    cache?: Cache;
     laboratory?: LaboratoryCreate;
   };
 }
@@ -297,8 +294,8 @@ export function withUPLabContact<TBase extends Constructor>(Base: TBase) {
 }
 export function withUPSession<TBase extends Constructor>(Base: TBase) {
   return class WithUPSession extends Base {
+    expSessionPk?: Expsessionpk;
     beamLineSetupId?: Beamlinesetupid;
-    beamCalendarId?: Beamcalendarid;
     projectCode?: Projectcode;
     startDate?: Startdate;
     endDate?: Enddate;
@@ -313,12 +310,11 @@ export function withUPSession<TBase extends Constructor>(Base: TBase) {
     dewarTransport?: Dewartransport;
     databackupFrance?: Databackupfrance;
     databackupEurope?: Databackupeurope;
-    expSessionPk?: Expsessionpk;
     operatorSiteNumber?: Operatorsitenumber;
     lastUpdate?: Lastupdate;
     protectedData?: Protecteddata;
     externalId?: Externalid2;
-    archived?: Archived;
+    nbReimbDewars?: Nbreimbdewars;
     persons?: Persons1;
   };
 }
@@ -334,9 +330,10 @@ export function withPersonSessionLaboratory<TBase extends Constructor>(
     emailAddress?: Emailaddress1;
     phoneNumber?: Phonenumber1;
     login?: Login1;
+    passwd?: Passwd1;
     faxNumber?: Faxnumber1;
-    cache?: Cache1;
     externalId?: Externalid3;
+    cache?: Cache1;
     laboratory?: LaboratoryCreate;
     session_options?: PersonSessionOptions;
   };
@@ -359,15 +356,12 @@ export function withUPProtein<TBase extends Constructor>(Base: TBase) {
     safetyLevel?: Safetylevel;
     molecularMass?: Molecularmass;
     proteinType?: Proteintype;
-    isCreatedBySampleSheet?: Iscreatedbysamplesheet;
     sequence?: Sequence;
-    MOD_ID?: ModId;
-    componentTypeId?: Componenttypeid;
-    concentrationTypeId?: Concentrationtypeid;
+    isCreatedBySampleSheet?: Iscreatedbysamplesheet;
     externalId?: Externalid4;
-    density?: Density;
-    abundance?: Abundance;
-    isotropy?: Isotropy;
+    componentTypeId?: Componenttypeid;
+    modId?: Modid;
+    concentrationTypeId?: Concentrationtypeid;
     person: PersonProposalLaboratory;
   };
 }

@@ -88,7 +88,7 @@ function SessionList({
             <br />
             {session.beamLineName}:
             <Link
-              to={`/proposals/${session.proposal}/sessions/${session.session}`}
+              to={`/proposals/${session.proposal}/sessions/${session.sessionId}`}
             >
               {session.session}
             </Link>{' '}
@@ -103,7 +103,11 @@ function SessionList({
 }
 
 function CalendarDays({ year, month }: { year: number; month: number }) {
-  const sessions = useSuspense(SessionResource.list(), { year, month });
+  const sessions = useSuspense(SessionResource.list(), {
+    year,
+    month,
+    limit: 9999,
+  });
 
   const now = DateTime.now();
   const monthObj = DateTime.fromObject({ year: year, month: month });

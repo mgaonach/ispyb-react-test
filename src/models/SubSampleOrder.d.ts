@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type SubSampleOrder = 'blSubSampleId' | 'datacollections' | 'type';
+export type SubSampleOrder = 'blSubSampleId' | 'datacollections';
 
 type Constructor<T = {}> = new (...args: any[]) => T;

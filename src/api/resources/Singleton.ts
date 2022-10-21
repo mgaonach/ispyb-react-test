@@ -17,6 +17,12 @@ export class AuthenticatedSingletonResource extends AuthenticatedResource {
     return '1';
   }
 
+  static list<T extends typeof Resource>(this: T) {
+    return super.list().extend({
+      schema: this,
+    });
+  }
+
   static url<T extends typeof Resource>(this: T): string {
     return `${config.baseUrl}/${this.urlRoot}`;
   }

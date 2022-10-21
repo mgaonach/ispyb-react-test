@@ -1,19 +1,46 @@
-import { Col, Row, Container } from 'react-bootstrap';
-import { FileEarmark, Link45deg } from 'react-bootstrap-icons';
-import { Link, useNavigate } from 'react-router-dom';
-
-import { LazyImage } from 'api/resources/XHRFile';
-import LightBox from 'components/LightBox';
-
-import { EventHeader } from './Events';
-import Metadata from './Metadata';
-import { DataCollection as DataCollectionType, Event } from 'models/Event.d';
-import { DataCollectionFileAttachmentsModal } from './DataCollectionFileAttachments';
 import { useState } from 'react';
+import { Container } from 'react-bootstrap';
+import { FileEarmark, Link45deg } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
+
+import { DataCollection as DataCollectionType, Event } from 'models/Event.d';
+import { ProcessingStatuses as ProcessingStatusesType } from 'models/ProcessingStatusesList.d';
+import { AutoProcProgramMessageStatus as AutoProcProgramMessageStatusType } from 'models/AutoProcProgramMessageStatuses.d';
+import { EventHeader } from './Events';
+import { DataCollectionFileAttachmentsModal } from './DataCollectionFileAttachments';
+import { ProcessingStatuses } from './Processing';
+import MessageStatus from './MessageStatus';
+import Workflow from './Workflow';
+
+import Default from './DataCollections/Default';
+import Mesh from './DataCollections/Mesh';
+import EM from './DataCollections/EM';
+
+function renderInner({
+  item,
+  parent,
+}: {
+  item: DataCollectionType;
+  parent: Event;
+}) {
+  const renderMap: Record<string, any> = {
+    Mesh: Mesh,
+    EM: EM,
+  };
+
+  const Component =
+    item.DataCollectionGroup.experimentType in renderMap
+      ? renderMap[item.DataCollectionGroup.experimentType]
+      : Default;
+
+  return <Component item={item} parent={parent} isGroup={parent.count > 1} />;
+}
 
 export default function DataCollection(props: {
   item: DataCollectionType;
   parent: Event;
+  processingStatuses?: ProcessingStatusesType;
+  messageStatuses?: AutoProcProgramMessageStatusType;
 }) {
   const { item, parent } = props;
   const navigate = useNavigate();
@@ -45,90 +72,39 @@ export default function DataCollection(props: {
             icon: <Link45deg />,
             hint: 'Permalink',
             onClick: () =>
-              navigate('?dataCollectionId=' + item.dataCollectionId),
+              navigate(
+                parent.count > 1
+                  ? '?dataCollectionGroupId=' +
+                      item.DataCollectionGroup.dataCollectionGroupId
+                  : '?dataCollectionId=' + item.dataCollectionId
+              ),
           },
           {
             icon: <FileEarmark />,
             content: parent.attachments,
             hint: 'Attachments',
+            disabled: parent.attachments === 0,
             onClick: () => setShowAttachments(true),
+          },
+          {
+            icon: <MessageStatus statuses={props.messageStatuses} />,
+            variant: 'outline-primary',
+            hint: 'Processing Status Messages',
+            hidden:
+              !props.messageStatuses ||
+              (props.messageStatuses?.errors === 0 &&
+                props.messageStatuses?.warnings === 0),
           },
         ]}
       />
-      <Container className="g-0">
-        <Row className="g-0">
-          <Col md="6">
-            <Metadata
-              properties={[
-                {
-                  title: 'Sample',
-                  test: parent.blSample,
-                  content: (
-                    <Link
-                      to={`/proposals/${parent.proposal}/samples/${parent.blSampleId}`}
-                    >
-                      {parent.blSample}
-                    </Link>
-                  ),
-                },
-                {
-                  title: 'Group',
-                  test: parent.count > 1,
-                  content: (
-                    <Link
-                      to={`/proposals/${parent.proposal}/sessions/${parent.session}?dataCollectionGroupId=${item.DataCollectionGroup.dataCollectionGroupId}`}
-                    >
-                      {parent.count} Data Collections
-                    </Link>
-                  ),
-                },
-                {
-                  title: 'Type',
-                  content: item.DataCollectionGroup.experimentType,
-                },
-                { title: 'Status', content: item.runStatus },
-                {
-                  title: 'Finished',
-                  content: parent.endTime,
-                  test: parent.endTime,
-                },
-                { title: 'Wavelength', content: item.wavelength, unit: 'Å' },
-                { title: 'No. Points', content: item.numberOfImages },
-                {
-                  title: 'Exposure Time',
-                  content: item.exposureTime,
-                  unit: 's',
-                },
-                {
-                  title: 'Beamsize',
-                  content: `${item.beamSizeAtSampleX} x ${item.beamSizeAtSampleY}`,
-                  unit: 'µm',
-                },
-              ]}
-            />
-          </Col>
-          <Col className="text-center" xs="12" md="3"></Col>
-          <Col className="text-center bg-light" xs="12" md="3">
-            {item._metadata.snapshots[1] && (
-              <LightBox
-                images={Object.entries(item._metadata.snapshots)
-                  .map(([snapshotId, available]) =>
-                    available
-                      ? `/datacollections/images/${parent.id}?imageId=${snapshotId}`
-                      : ''
-                  )
-                  .filter((image) => !!image)}
-              >
-                <LazyImage
-                  className="img-fluid"
-                  src={`/datacollections/images/${parent.id}?snapshot=true`}
-                  alt="Sample snapshot 1"
-                />
-              </LightBox>
-            )}
-          </Col>
-        </Row>
-      </Container>
+      <Container className="g-0">{renderInner({ item, parent })}</Container>
+      {item.DataCollectionGroup.Workflow && parent.count > 1 && (
+        <Workflow {...item.DataCollectionGroup.Workflow} />
+      )}
+      <ProcessingStatuses
+        statuses={props.processingStatuses}
+        dataCollectionId={parent.id}
+      />
     </>
   );
 }

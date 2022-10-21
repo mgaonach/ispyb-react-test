@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useSuspense } from 'rest-hooks';
 import { Alert, Button, Spinner } from 'react-bootstrap';
-import Form from '@rjsf/bootstrap-4';
+import Form from 'components/RJSF/Form';
 
 import { OptionsResource } from 'api/resources/Options';
 import { useSchema } from 'hooks/useSpec';

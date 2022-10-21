@@ -32,7 +32,7 @@ export default function ColField(props: any) {
   if (props.noLabel) displayLabel = false;
 
   const Wrap = displayLabel ? Col : React.Fragment;
-  const wrapArgs: { sm: number } = { sm: 0 };
+  const wrapArgs = displayLabel ? { sm: 0 } : {};
 
   const colWidth = props.colWidth || 3;
   if (displayLabel) wrapArgs.sm = 12 - colWidth;
@@ -46,13 +46,15 @@ export default function ColField(props: any) {
         </Form.Label>
       )}
       <Wrap {...wrapArgs}>
-        {displayLabel && description ? description : null}
         <InputGroup>
           {children}
           {props.schema.unit && (
             <InputGroup.Text>{props.schema.unit}</InputGroup.Text>
           )}
         </InputGroup>
+        {displayLabel && description ? (
+          <Form.Text className="text-muted">{description}</Form.Text>
+        ) : null}
         {errors}
         {help}
       </Wrap>

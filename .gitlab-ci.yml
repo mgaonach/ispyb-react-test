@@ -9,7 +9,7 @@ stages:
   before_script:
     - >
       if [ ! -d node_modules ]; then
-        npm ci --force --cache .npm
+        npm install --force --cache .npm
       fi
 
 cache:

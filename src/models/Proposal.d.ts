@@ -15,6 +15,10 @@ export type ProposalState = ProposalState1;
  */
 export type ProposalState1 = 'Open' | 'Closed' | 'Cancelled';
 /**
+ * Number of people registered on this proposal (via ProposalHasPerson)
+ */
+export type Persons = number;
+/**
  * Number of sessions
  */
 export type Sessions = number;
@@ -32,12 +36,13 @@ export interface Proposal {
   proposalCode: ProposalCode;
   proposalNumber: ProposalNumber;
   proposal: Proposal1;
-  title: ProposalTitle;
+  title?: ProposalTitle;
   state?: ProposalState;
   _metadata: ProposalMetaData;
   proposalId: Proposalid;
 }
 export interface ProposalMetaData {
+  persons: Persons;
   sessions: Sessions;
   beamLines: Beamlines;
   uiGroups?: Uigroups;
@@ -49,7 +54,7 @@ export function withProposal<TBase extends Constructor>(Base: TBase) {
     proposalCode: ProposalCode;
     proposalNumber: ProposalNumber;
     proposal: Proposal1;
-    title: ProposalTitle;
+    title?: ProposalTitle;
     state?: ProposalState;
     _metadata: ProposalMetaData;
     proposalId: Proposalid;
@@ -57,6 +62,7 @@ export function withProposal<TBase extends Constructor>(Base: TBase) {
 }
 export function withProposalMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithProposalMetaData extends Base {
+    persons: Persons;
     sessions: Sessions;
     beamLines: Beamlines;
     uiGroups?: Uigroups;

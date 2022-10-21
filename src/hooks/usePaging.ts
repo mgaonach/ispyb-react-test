@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
  * @param defaultLimit - default limit (25)
  * @returns - the paging parameters
  */
-export function usePaging(defaultSkip: number = 0, defaultLimit: number = 25) {
+export function usePaging(defaultLimit: number = 25, defaultSkip: number = 0) {
   const [searchParams] = useSearchParams();
   const skipParam = searchParams.get('skip');
   const skip = skipParam !== null ? parseInt(skipParam) : defaultSkip;

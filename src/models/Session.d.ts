@@ -15,8 +15,6 @@ export type Beamlinename = string;
 export type Beamlineoperator = string;
 export type Scheduled = boolean;
 export type Sessionid = number;
-export type Typename = string;
-export type Sessiontype = SessionType[];
 /**
  * Number of datacollections
  */
@@ -26,7 +24,7 @@ export type Datacollections = number;
  */
 export type Uigroups = string[];
 /**
- * Number of people registered on this session
+ * Number of people registered on this session (via SessionHasPerson)
  */
 export type Persons = number;
 /**
@@ -37,6 +35,10 @@ export type Active = boolean;
  * Whether this session is due to start soon or has ended recently (+/-20 min)
  */
 export type ActiveSoon = boolean;
+/**
+ * Session types for this session
+ */
+export type Sessiontypes = string[];
 
 export interface Session {
   proposalId: Proposalid;
@@ -49,11 +51,7 @@ export interface Session {
   beamLineOperator?: Beamlineoperator;
   scheduled?: Scheduled;
   sessionId: Sessionid;
-  SessionType: Sessiontype;
   _metadata: SessionMetaData;
-}
-export interface SessionType {
-  typeName: Typename;
 }
 export interface SessionMetaData {
   datacollections?: Datacollections;
@@ -61,6 +59,7 @@ export interface SessionMetaData {
   persons: Persons;
   active: Active;
   active_soon: ActiveSoon;
+  sessionTypes: Sessiontypes;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -76,13 +75,7 @@ export function withSession<TBase extends Constructor>(Base: TBase) {
     beamLineOperator?: Beamlineoperator;
     scheduled?: Scheduled;
     sessionId: Sessionid;
-    SessionType: Sessiontype;
     _metadata: SessionMetaData;
-  };
-}
-export function withSessionType<TBase extends Constructor>(Base: TBase) {
-  return class WithSessionType extends Base {
-    typeName: Typename;
   };
 }
 export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
@@ -92,5 +85,6 @@ export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
     persons: Persons;
     active: Active;
     active_soon: ActiveSoon;
+    sessionTypes: Sessiontypes;
   };
 }
