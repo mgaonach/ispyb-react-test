@@ -6,7 +6,7 @@ export default function LoadingProgress() {
   const pending = useShowLoading();
 
   return (
-    <div className="bg-primary">
+    <div className="bg-primary loading-progress sticky-top">
       {pending && (
         <ProgressBar
           animated
@@ -16,7 +16,10 @@ export default function LoadingProgress() {
         />
       )}
       {!pending && (
-        <ProgressBar className="rounded-0 bg-primary" style={{ height: 5 }} />
+        <ProgressBar
+          className="rounded-0 bg-primary"
+          style={{ height: 5, top: 59 }}
+        />
       )}
     </div>
   );

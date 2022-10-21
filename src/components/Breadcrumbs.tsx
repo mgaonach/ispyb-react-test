@@ -22,7 +22,7 @@ export default function Breadcrumbs() {
       .join(' » ');
 
   return (
-    <div className="breadcrumbs">
+    <div className="breadcrumbs sticky-top">
       <Container>
         <nav
           style={{ '--bs-breadcrumb-divider': "'»'" } as CustomCSS}

@@ -6,6 +6,11 @@ html {
   scroll-margin-top: calc(59px + 10px);
 }
 
+/* Bring z-index up for main header to dropdowns are above breadcrumbs */
+.main-header {
+  z-index: 1021;
+}
+
 .breadcrumbs {
   background-color: $tertiary;
   box-shadow: rgb(0 0 0 / 10%) 0 0 0.2rem, rgb(0 0 0 / 20%) 0 0.2rem 0.4rem;
@@ -13,6 +18,15 @@ html {
   font-size: 12px;
   font-weight: 400;
   padding: 0.25rem 0;
+}
+
+@include media-breakpoint-up(md) {
+  .loading-progress {
+    top: 59px;
+  }
+  .breadcrumbs {
+    top: 64px;
+  }
 }
 
 .main-wrapper {
