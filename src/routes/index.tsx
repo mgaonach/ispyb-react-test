@@ -37,7 +37,7 @@ const routes: TitledBreadcrumbsRoute[] = [
         ],
       },
 
-      { path: 'login', element: <Login /> },
+      { path: 'login', element: <Login />, breadcrumb: 'Login' },
       { path: '*', element: <NotFound /> },
     ],
   },
