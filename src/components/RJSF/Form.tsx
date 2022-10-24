@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 interface IFormProps extends Omit<FormProps, 'validator'> {
   button?: boolean;
   submitText?: string;
+  children?: JSX.Element;
 }
 
 export default function Form(props: IFormProps) {
@@ -17,6 +18,7 @@ export default function Form(props: IFormProps) {
       templates={{ FieldTemplate: ColField }}
       {...props}
     >
+      {props.children && <>{props.children}</>}
       {props.button ? (
         <Button type="submit">{props.submitText || 'Submit'}</Button>
       ) : (
