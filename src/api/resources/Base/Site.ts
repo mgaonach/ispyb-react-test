@@ -12,7 +12,7 @@ export abstract class SiteResource extends Resource {
   }
 
   static get key(): string {
-    /* istanbul ignore else */
+    /* override key method to include base url */
     if (process.env.NODE_ENV !== 'production') {
       if (this.urlRoot === undefined) {
         throw new Error(`urlRoot is not defined for Resource "${this.name}"
@@ -22,6 +22,6 @@ export abstract class SiteResource extends Resource {
 `);
       }
     }
-    return `${SiteResource.baseUrl}::${this.urlRoot}`;
+    return `${SiteResource.baseUrl}/${this.urlRoot}`;
   }
 }
