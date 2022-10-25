@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from './Singleton';
+import { AuthenticatedSingletonResource } from './Base/Singleton';
 import { withOneTimeToken } from 'models/OneTimeToken.d';
 
 class _SignResource extends AuthenticatedSingletonResource {

@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withProposal } from 'models/Proposal.d';
 
 export class _ProposalResource extends PaginatedResource {

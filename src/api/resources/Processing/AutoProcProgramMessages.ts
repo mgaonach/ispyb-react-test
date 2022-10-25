@@ -1,4 +1,4 @@
-import PaginatedResource from '../Paginated';
+import PaginatedResource from '../Base/Paginated';
 import { withAutoProcProgramMessage } from 'models/AutoProcProgramMessage.d';
 
 export class _AutoProcProgramMessageResource extends PaginatedResource {

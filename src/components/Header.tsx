@@ -165,7 +165,7 @@ export default function Header() {
               <Nav>
                 <AuthErrorBoundary>
                   <Suspense fallback={<span>...</span>}>
-                    <PersonMenu />
+                    {/* <PersonMenu /> */}
                   </Suspense>
                 </AuthErrorBoundary>
                 <Logout />

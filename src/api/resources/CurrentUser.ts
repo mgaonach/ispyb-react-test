@@ -1,6 +1,6 @@
 import { EndpointExtraOptions } from '@rest-hooks/rest';
 
-import { AuthenticatedSingletonResource } from './Singleton';
+import { AuthenticatedSingletonResource } from './Base/Singleton';
 import { withCurrentUser } from 'models/CurrentUser.d';
 
 class _CurrentUserResource extends AuthenticatedSingletonResource {

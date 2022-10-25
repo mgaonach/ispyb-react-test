@@ -1,4 +1,4 @@
-import PaginatedResource from '../Paginated';
+import PaginatedResource from '../Base/Paginated';
 import { withAutoProcProgramAttachment } from 'models/AutoProcProgramAttachment.d';
 
 export class _AutoProcProgramAttachmentResource extends PaginatedResource {

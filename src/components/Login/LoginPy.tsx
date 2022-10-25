@@ -16,7 +16,7 @@ import { useAuth } from 'hooks/useAuth';
 import { LocationState } from 'components/PrivateRoute';
 import { AuthConfigResource } from 'api/resources/AuthConfig';
 
-export default function Login() {
+export default function LoginPy() {
   const authConfig = useSuspense(AuthConfigResource.detail(), {});
 
   const [error, setError] = useState<string>('');

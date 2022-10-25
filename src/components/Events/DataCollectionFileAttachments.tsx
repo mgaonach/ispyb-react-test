@@ -9,10 +9,11 @@ import Table from 'components/Layout/Table';
 import Loading from 'components/Loading';
 import ButtonFileViewer from 'components/FileViewer';
 import { useSign } from 'hooks/useSign';
-import config from 'config/config';
+import { useAuth } from 'hooks/useAuth';
 
 function ActionsCell(row: DataCollectionFileAttachment) {
   const { signHandler } = useSign();
+  const { site } = useAuth();
   return (
     <>
       {['log', 'params'].includes(row.fileType) && (
@@ -23,7 +24,7 @@ function ActionsCell(row: DataCollectionFileAttachment) {
         />
       )}
       <a
-        href={config.host + row._metadata.url}
+        href={site.host + row._metadata.url}
         className="btn btn-primary btn-sm"
         onClick={(e) => signHandler(e)}
       >

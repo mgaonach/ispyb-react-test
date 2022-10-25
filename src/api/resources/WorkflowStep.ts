@@ -1,4 +1,4 @@
-import PaginatedResource from './Paginated';
+import PaginatedResource from './Base/Paginated';
 import { withWorkflowStep } from 'models/WorkflowStep.d';
 
 export class _WorkflowStepResource extends PaginatedResource {

@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from '../Singleton';
+import { AuthenticatedSingletonResource } from '../Base/Singleton';
 import { withProcessingStatusesList } from 'models/ProcessingStatusesList.d';
 
 class _ProcessingStatus extends AuthenticatedSingletonResource {

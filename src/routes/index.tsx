@@ -8,7 +8,7 @@ import ProposalRoutes from 'routes/Proposal';
 import AdminRoutes from 'routes/Admin';
 import BeamLineRoutes from 'routes/BeamLine';
 
-import Login from 'components/Login';
+import Login from 'components/Login/Login';
 import PrivateRoute from 'components/PrivateRoute';
 import Home from 'components/Home';
 import Calendar from 'components/Calendar';

@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from '../Singleton';
+import { AuthenticatedSingletonResource } from '../Base/Singleton';
 import { withTimes } from 'models/Times.d';
 
 class _TimesResource extends AuthenticatedSingletonResource {

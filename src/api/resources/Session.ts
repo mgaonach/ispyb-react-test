@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withSession } from 'models/Session.d';
 
 export class _SessionResource extends PaginatedResource {

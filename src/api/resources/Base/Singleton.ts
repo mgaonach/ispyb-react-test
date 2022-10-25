@@ -1,14 +1,14 @@
 import { Resource } from '@rest-hooks/rest';
 import { AuthenticatedResource } from './Authenticated';
-import config from 'config/config';
+import { SiteResource } from './Site';
 
-export class SingletonResource extends Resource {
+export class SingletonResource extends SiteResource {
   pk() {
     return '1';
   }
 
   static url<T extends typeof Resource>(this: T): string {
-    return `${config.baseUrl}/${this.urlRoot}`;
+    return `${SiteResource.baseUrl}/${this.urlRoot}`;
   }
 }
 
@@ -24,6 +24,6 @@ export class AuthenticatedSingletonResource extends AuthenticatedResource {
   }
 
   static url<T extends typeof Resource>(this: T): string {
-    return `${config.baseUrl}/${this.urlRoot}`;
+    return `${SiteResource.baseUrl}/${this.urlRoot}`;
   }
 }

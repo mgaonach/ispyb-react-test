@@ -1,4 +1,4 @@
-import PaginatedResource from './Paginated';
+import PaginatedResource from './Base/Paginated';
 import { withDataCollectionFileAttachment } from 'models/DataCollectionFileAttachment.d';
 
 export class _DataCollectionFileAttachmentResource extends PaginatedResource {

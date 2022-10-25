@@ -1,5 +1,5 @@
 import { useSuspense } from 'rest-hooks';
-import { OpenAPIResource } from 'api/resources/OpenAPI';
+import { OpenAPIResource } from 'api/resources/Base/OpenAPI';
 
 /**
  * Get the OpenAPI spec from the server
