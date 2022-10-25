@@ -2,6 +2,7 @@ import { AuthenticatedResource } from 'api/resources/Base/Authenticated';
 import { SiteResource } from 'api/resources/Base/Site';
 import { SiteConfig, SITES } from 'config/sites';
 import React from 'react';
+import { useController } from 'rest-hooks';
 
 interface AuthData {
   token: string;
@@ -22,6 +23,7 @@ export function useAuth(): AuthData {
   const [tokenState, setTokenState] = React.useState('');
   const [siteState, setSiteState] = React.useState<SiteConfig>(SITES[0]);
   const [siteInitialized, setSiteInitialized] = React.useState(false);
+  const { resetEntireStore } = useController();
 
   React.useEffect(() => {
     const tokenSession = window.sessionStorage.getItem('token');
@@ -57,16 +59,10 @@ export function useAuth(): AuthData {
   const setSite = (newSite: SiteConfig) => {
     window.sessionStorage.setItem('site', newSite.name);
     SiteResource.baseUrl = `${newSite.host}${newSite.apiPrefix}`;
+    resetEntireStore();
     setSiteState(newSite);
     setSiteInitialized(true);
   };
-
-  // let site = SITES[0];
-  // SITES.forEach((siteI) => {
-  //   if (siteI.name === siteName) {
-  //     site = siteI;
-  //   }
-  // });
 
   return {
     token: tokenState,
