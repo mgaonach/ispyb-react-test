@@ -32,11 +32,16 @@ export function useAuth(): AuthData {
     }
     const siteSession = window.sessionStorage.getItem('site');
     if (siteSession != null) {
+      let found = false;
       SITES.forEach((siteI) => {
         if (siteI.name === siteSession) {
           setSite(siteI);
+          found = true;
         }
       });
+      if (!found) {
+        setSite(SITES[0]);
+      }
     } else {
       setSite(SITES[0]);
     }
