@@ -1,6 +1,8 @@
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap';
 import { useProposal } from 'hooks/useProposal';
 import { Logout } from 'components/Header';
+import { PersonBadge } from 'react-bootstrap-icons';
+import { useAuth } from 'hooks/useAuth';
 
 export function JavaHeader() {
   const { proposalName } = useProposal();
@@ -25,9 +27,28 @@ export function JavaHeader() {
         </Nav>
 
         <Nav>
+          <PersonMenu />
           <Logout />
         </Nav>
       </Navbar.Collapse>
     </>
+  );
+}
+
+function PersonMenu() {
+  const { javaPerson } = useAuth();
+  return (
+    <NavDropdown
+      title={
+        <>
+          <PersonBadge className="me-1" />
+          {javaPerson?.username}
+        </>
+      }
+      id="admin-nav-dropdown"
+      align="end"
+    >
+      <NavDropdown.Header>{javaPerson?.roles}</NavDropdown.Header>
+    </NavDropdown>
   );
 }

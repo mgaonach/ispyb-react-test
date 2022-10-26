@@ -4,6 +4,10 @@ import { SiteConfig, SITES } from 'config/sites';
 import React, { createContext, useContext } from 'react';
 import { useController } from 'rest-hooks';
 
+export interface JavaPerson {
+  username: string;
+  roles: string[];
+}
 export interface AuthData {
   token: string;
   site: SiteConfig;
@@ -13,6 +17,8 @@ export interface AuthData {
   restoreToken: () => void;
   clearToken: () => void;
   setSite: (site: SiteConfig) => void;
+  javaPerson?: JavaPerson;
+  setJavaPerson: (javaPerson: JavaPerson) => void;
 }
 
 const AuthContext = createContext<AuthData>({
@@ -24,6 +30,7 @@ const AuthContext = createContext<AuthData>({
   restoreToken: () => undefined,
   clearToken: () => undefined,
   setSite: (site: SiteConfig) => undefined,
+  setJavaPerson: (javaPerson: JavaPerson) => undefined,
 });
 
 export function AuthProvider({ children }: { children?: React.ReactNode }) {
@@ -31,6 +38,9 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [siteState, setSiteState] = React.useState<SiteConfig>(SITES[0]);
   const [siteInitialized, setSiteInitialized] = React.useState(false);
+  const [javaPersonState, setJavaPersonState] = React.useState<
+    undefined | JavaPerson
+  >(undefined);
   const { resetEntireStore } = useController();
 
   React.useEffect(() => {
@@ -53,8 +63,22 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
     } else {
       setSite(SITES[0]);
     }
+    const javaPersonSession = window.sessionStorage.getItem('javaPerson');
+    if (javaPersonSession != null && javaPersonSession.length > 0) {
+      setJavaPerson(JSON.parse(javaPersonSession));
+    } else {
+      setJavaPerson(undefined);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const setJavaPerson = (javaPerson: JavaPerson | undefined) => {
+    window.sessionStorage.setItem(
+      'javaPerson',
+      javaPerson ? JSON.stringify(javaPerson) : ''
+    );
+    setJavaPersonState(javaPerson);
+  };
 
   const setToken = (token: string) => {
     window.sessionStorage.setItem('token', token);
@@ -62,6 +86,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
     resetEntireStore();
     setTokenState(token);
     setIsAuthenticated(token.length > 0);
+    if (!token || token.length === 0) setJavaPerson(undefined);
   };
 
   const restoreToken = () => {
@@ -87,10 +112,12 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
         isAuthenticated,
         site: siteState,
         siteInitialized,
+        javaPerson: javaPersonState,
         setToken,
         restoreToken,
         clearToken,
         setSite,
+        setJavaPerson,
       }}
     >
       {children}

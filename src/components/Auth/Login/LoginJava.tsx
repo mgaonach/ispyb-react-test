@@ -18,7 +18,7 @@ export default function LoginJava() {
   const [error, setError] = useState<string>('');
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
-  const { setToken, site } = useAuth();
+  const { setToken, setJavaPerson, site } = useAuth();
 
   const userRef = useRef<any>();
   const passRef = useRef<any>();
@@ -61,6 +61,7 @@ export default function LoginJava() {
           if (token && roles) {
             resetPending();
             setToken(token);
+            setJavaPerson({ roles, username: userRef.current?.value });
           } else {
             resetPending();
             setError('Authentication failed');
@@ -78,7 +79,7 @@ export default function LoginJava() {
           }
         });
     },
-    [setToken, resetPending, site]
+    [setToken, setJavaPerson, resetPending, site]
   );
 
   return (
