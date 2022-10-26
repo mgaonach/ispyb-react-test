@@ -1,11 +1,9 @@
+import SessionsPage from 'legacy/pages/sessionspage';
 import { TitledBreadcrumbsRoute } from 'routes';
 
-function Home() {
-  return <></>;
-}
-
 const javaRoutes: TitledBreadcrumbsRoute[] = [
-  { index: true, element: <Home />, breadcrumb: null },
+  { index: true, element: <SessionsPage />, breadcrumb: null },
+  { path: 'sessions', element: <SessionsPage />, breadcrumb: 'Sessions' },
 ];
 
 export default javaRoutes;

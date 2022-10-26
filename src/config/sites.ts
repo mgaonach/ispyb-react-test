@@ -8,7 +8,7 @@ export interface SiteConfig {
 }
 
 export interface JavaSiteConfig {
-  techniques: Record<string, Beamline>;
+  techniques: Record<string, Technique>;
 }
 
 export type sampleChangerType =
@@ -16,6 +16,7 @@ export type sampleChangerType =
   | 'FlexHCDUnipuckPlate'
   | 'ISARA'
   | 'P11SC';
+export type containerType = 'Spinepuck' | 'Unipuck';
 
 export interface Beamline {
   name: string;
@@ -38,5 +39,23 @@ export const SITES: SiteConfig[] = [
     host: 'https://ispyb.esrf.fr',
     apiPrefix: '/ispyb/ispyb-ws/rest',
     javaMode: true,
+    javaConfig: {
+      techniques: {
+        SAXS: { beamlines: [{ name: 'BM29' }] },
+        EM: { beamlines: [{ name: 'CM01' }] },
+        MX: {
+          beamlines: [
+            { name: 'ID23-1', sampleChangerType: 'FlexHCDDual' },
+            { name: 'ID23-2', sampleChangerType: 'FlexHCDUnipuckPlate' },
+            { name: 'ID29', sampleChangerType: 'FlexHCDDual' },
+            { name: 'ID30A-1', sampleChangerType: 'FlexHCDUnipuckPlate' },
+            { name: 'ID30A-2', sampleChangerType: 'FlexHCDDual' },
+            { name: 'ID30A-3', sampleChangerType: 'FlexHCDDual' },
+            { name: 'ID30B', sampleChangerType: 'FlexHCDDual' },
+            { name: 'BM30A', sampleChangerType: 'FlexHCDDual' },
+          ],
+        },
+      },
+    },
   },
 ];
