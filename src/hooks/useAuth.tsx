@@ -4,7 +4,7 @@ import { SiteConfig, SITES } from 'config/sites';
 import React, { createContext, useContext } from 'react';
 import { useController } from 'rest-hooks';
 
-interface AuthData {
+export interface AuthData {
   token: string;
   site: SiteConfig;
   siteInitialized: boolean;

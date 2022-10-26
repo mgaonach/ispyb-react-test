@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback, FormEvent } from 'react';
 import {
   Form,
   Button,
@@ -8,13 +8,18 @@ import {
   Alert,
   Spinner,
 } from 'react-bootstrap';
+import qs from 'qs';
 
 import { useAuth } from 'hooks/useAuth';
+import axios from 'axios';
+import { getLogin } from 'legacy/api/ispyb';
 
 export default function LoginJava() {
   const [error, setError] = useState<string>('');
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
+  const { setToken, site } = useAuth();
+
   const userRef = useRef<any>();
   const passRef = useRef<any>();
 
@@ -22,12 +27,66 @@ export default function LoginJava() {
     userRef.current?.focus();
   }, [userRef]);
 
+  const resetPending = useCallback(() => {
+    setTimeout(() => {
+      setPending(false);
+    }, 500);
+  }, [setPending]);
+
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      setPending(true);
+      e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        return;
+      }
+
+      setValidated(true);
+
+      setError('');
+      axios
+        .post(
+          `${site.host}${site.apiPrefix}${getLogin(site)}`,
+          qs.stringify({
+            login: userRef.current?.value,
+            password: passRef.current?.value,
+          })
+          // config:{ 'content-type': 'application/json' }
+        )
+        .then((response) => {
+          /** ISPYB  does not respond with an error code when authentication is failed this is why it is checked if token and roles and retrieved **/
+          const { token, roles } = response.data;
+          if (token && roles) {
+            resetPending();
+            setToken(token);
+          } else {
+            resetPending();
+            setError('Authentication failed');
+          }
+        })
+        .catch((err) => {
+          resetPending();
+          if (err.response) {
+            err.response.json().then((json: any) => {
+              setError(json.detail);
+              console.log('error', err, json);
+            });
+          } else {
+            setError(`Network Error: ${err.message}`);
+          }
+        });
+    },
+    [setToken, resetPending, site]
+  );
+
   return (
     <Container>
       <Row>
         <Col xs={12} md={4}></Col>
         <Col xs={12} md={4}>
-          <Form validated={validated}>
+          <Form onSubmit={onSubmit} validated={validated}>
             {error && (
               <Row>
                 <Col>

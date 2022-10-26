@@ -159,16 +159,17 @@ export default function Header() {
                   </NavDropdown>
                 )}
               </Nav>
-              {!site.javaMode && (
-                <Nav>
+
+              <Nav>
+                {!site.javaMode && (
                   <AuthErrorBoundary>
                     <Suspense fallback={<span>...</span>}>
                       <PersonMenu />
                     </Suspense>
                   </AuthErrorBoundary>
-                  <Logout />
-                </Nav>
-              )}
+                )}
+                <Logout />
+              </Nav>
             </Navbar.Collapse>
           </>
         )}

@@ -4,6 +4,7 @@ export interface SiteConfig {
   apiPrefix: string;
   javaMode?: boolean;
   javaConfig?: JavaSiteConfig;
+  javaName?: string;
 }
 
 export interface JavaSiteConfig {
@@ -33,6 +34,7 @@ export const SITES: SiteConfig[] = [
   },
   {
     name: 'ESRF-java',
+    javaName: 'ESRF',
     host: 'https://ispyb.esrf.fr',
     apiPrefix: '/ispyb/ispyb-ws/rest',
     javaMode: true,

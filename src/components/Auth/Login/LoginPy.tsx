@@ -1,5 +1,4 @@
 import { useRef, useState, useCallback, useEffect, FormEvent } from 'react';
-import { useNavigate } from 'react-router';
 import { useController, useSuspense } from 'rest-hooks';
 import {
   Form,
@@ -22,7 +21,6 @@ export default function LoginPy() {
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
   const { setToken } = useAuth();
-  const navigate = useNavigate();
   const { fetch } = useController();
   const userRef = useRef<any>();
   const passRef = useRef<any>();
@@ -80,7 +78,7 @@ export default function LoginPy() {
           }
         });
     },
-    [setToken, navigate, fetch, resetPending, authConfig.plugins]
+    [setToken, fetch, resetPending, authConfig.plugins]
   );
 
   return (
