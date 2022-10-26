@@ -16,17 +16,23 @@ export function JavaHeader() {
           <Nav.Link as={Link} to="/legacy/sessions">
             My sessions
           </Nav.Link>
+          <Nav.Link as={Link} to="/legacy/proposals">
+            My proposals
+          </Nav.Link>
           {!proposalName && (
             <Nav.Link className="nav-link" eventKey="disabled" disabled>
               No Proposal
             </Nav.Link>
           )}
           {proposalName && (
-            <NavDropdown
-              title={proposalName}
-              id="proposal-nav-dropdown"
-              children={undefined}
-            ></NavDropdown>
+            <NavDropdown title={proposalName} id="proposal-nav-dropdown">
+              <NavDropdown.Item
+                as={Link}
+                to={`/legacy/proposals/${proposalName}/sessions`}
+              >
+                Sessions
+              </NavDropdown.Item>
+            </NavDropdown>
           )}
         </Nav>
 

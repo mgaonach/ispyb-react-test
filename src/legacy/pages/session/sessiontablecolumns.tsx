@@ -20,7 +20,7 @@ const dateFormatter = (cell: string, row: Session) => {
 
 export function SessionSearch({ session }: { session: Session }) {
   const technique = useGetTechniqueByBeamline(session.beamLineName);
-  const url = `/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}`;
+  const url = `/legacy/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}`;
 
   return (
     <OverlayTrigger
@@ -85,8 +85,18 @@ const getHeaderStats = () => {
   return {
     xs: { hidden: true },
     sm: { hidden: true },
-    md: { width: '30px', textAlign: 'center', verticalAlign: 'sub' },
-    lg: { width: '60px', textAlign: 'center', verticalAlign: 'sub' },
+    md: {
+      width: '70px',
+      textAlign: 'center',
+      verticalAlign: 'sub',
+      fontSize: 15,
+    },
+    lg: {
+      width: '70px',
+      textAlign: 'center',
+      verticalAlign: 'sub',
+      fontSize: 15,
+    },
   };
 };
 

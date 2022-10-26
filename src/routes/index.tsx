@@ -51,7 +51,7 @@ const routes: TitledBreadcrumbsRoute[] = [
     ],
   },
   {
-    path: '/legacy',
+    path: 'legacy',
     children: [
       {
         element: <PrivateRoute />,
