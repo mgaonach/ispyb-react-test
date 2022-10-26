@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useEffect, FormEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useController, useSuspense } from 'rest-hooks';
 import {
   Form,
@@ -13,7 +13,6 @@ import {
 
 import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
-import { LocationState } from 'components/PrivateRoute';
 import { AuthConfigResource } from 'api/resources/AuthConfig';
 
 export default function LoginPy() {
@@ -22,8 +21,6 @@ export default function LoginPy() {
   const [error, setError] = useState<string>('');
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
-  const location = useLocation();
-  const { from, message } = location.state as LocationState;
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { fetch } = useController();
@@ -70,7 +67,6 @@ export default function LoginPy() {
           console.log('login', response);
           resetPending();
           setToken(response.token);
-          navigate(from ? from : '/');
         })
         .catch((err) => {
           resetPending();
@@ -84,7 +80,7 @@ export default function LoginPy() {
           }
         });
     },
-    [setToken, navigate, fetch, resetPending, from, authConfig.plugins]
+    [setToken, navigate, fetch, resetPending, authConfig.plugins]
   );
 
   return (
@@ -93,13 +89,6 @@ export default function LoginPy() {
         <Col xs={12} md={4}></Col>
         <Col xs={12} md={4}>
           <Form onSubmit={onSubmit} validated={validated}>
-            {message && (
-              <Row>
-                <Col>
-                  <Alert variant="warning">{message}</Alert>
-                </Col>
-              </Row>
-            )}
             {error && (
               <Row>
                 <Col>

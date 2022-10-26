@@ -6,15 +6,18 @@ import SuspenseRouter from './SuspenseRouter';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import './scss/main.scss';
+import { AuthProvider } from 'hooks/useAuth';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <CacheProvider>
-      <SuspenseRouter>
-        <App />
-      </SuspenseRouter>
+      <AuthProvider>
+        <SuspenseRouter>
+          <App />
+        </SuspenseRouter>
+      </AuthProvider>
     </CacheProvider>
   </React.StrictMode>
 );

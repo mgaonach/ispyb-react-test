@@ -1,6 +1,4 @@
-import { useRef, useState, useCallback, useEffect, FormEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { useController, useSuspense } from 'rest-hooks';
+import { useRef, useState, useEffect } from 'react';
 import {
   Form,
   Button,
@@ -11,23 +9,14 @@ import {
   Spinner,
 } from 'react-bootstrap';
 
-import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
-import { LocationState } from 'components/PrivateRoute';
-import { AuthConfigResource } from 'api/resources/AuthConfig';
 
 export default function LoginJava() {
   const [error, setError] = useState<string>('');
   const [pending, setPending] = useState<boolean>(false);
   const [validated, setValidated] = useState<boolean>(false);
-  const location = useLocation();
-  const { from, message } = location.state as LocationState;
-  const { setToken } = useAuth();
-  const navigate = useNavigate();
-  const { fetch } = useController();
   const userRef = useRef<any>();
   const passRef = useRef<any>();
-  const typeRef = useRef<any>();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -39,13 +28,6 @@ export default function LoginJava() {
         <Col xs={12} md={4}></Col>
         <Col xs={12} md={4}>
           <Form validated={validated}>
-            {message && (
-              <Row>
-                <Col>
-                  <Alert variant="warning">{message}</Alert>
-                </Col>
-              </Row>
-            )}
             {error && (
               <Row>
                 <Col>

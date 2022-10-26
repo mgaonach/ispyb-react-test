@@ -1,18 +1,13 @@
-import { Navigate, useLocation, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 import AuthErrorBoundary from 'components/AuthErrorBoundary';
-
-export interface LocationState {
-  from: string;
-  message?: string;
-}
+import Login from './Login/Login';
 
 const PrivateRoute = () => {
-  const location = useLocation();
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (!token) {
-    return <Navigate to="/login" state={{ from: location }} />;
+  if (!isAuthenticated) {
+    return <Login />;
   }
 
   return (

@@ -5,5 +5,5 @@ export class LoginResource extends SiteResource {
     return '1';
   }
 
-  static urlRoot = `/auth/login`;
+  static urlRoot = `auth/login`;
 }

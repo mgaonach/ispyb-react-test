@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
 import { useController } from 'rest-hooks';
 import { Navbar, NavDropdown, Container, Nav, Button } from 'react-bootstrap';
 import { PersonBadge } from 'react-bootstrap-icons';
@@ -33,7 +32,6 @@ function PersonMenu() {
 }
 
 function Logout() {
-  const navigate = useNavigate();
   const { clearToken } = useAuth();
   const { clearProposal } = useProposal();
   const { resetEntireStore } = useController();
@@ -43,7 +41,6 @@ function Logout() {
         clearToken();
         clearProposal();
         resetEntireStore();
-        navigate('/login', { state: { from: '/home' } });
       }}
     >
       Logout
@@ -94,7 +91,7 @@ function BeamlineMenu() {
 }
 
 export default function Header() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, site } = useAuth();
   const { proposalName } = useProposal();
 
   return (
@@ -162,14 +159,16 @@ export default function Header() {
                   </NavDropdown>
                 )}
               </Nav>
-              <Nav>
-                <AuthErrorBoundary>
-                  <Suspense fallback={<span>...</span>}>
-                    {/* <PersonMenu /> */}
-                  </Suspense>
-                </AuthErrorBoundary>
-                <Logout />
-              </Nav>
+              {!site.javaMode && (
+                <Nav>
+                  <AuthErrorBoundary>
+                    <Suspense fallback={<span>...</span>}>
+                      <PersonMenu />
+                    </Suspense>
+                  </AuthErrorBoundary>
+                  <Logout />
+                </Nav>
+              )}
             </Navbar.Collapse>
           </>
         )}
