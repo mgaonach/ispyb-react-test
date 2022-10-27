@@ -71,10 +71,10 @@ function useGet<T = any>(
   const fetcher = (url: string) =>
     axios
       .get(url)
-      // .catch((e) => {
-      //   clearToken();
-      // })
-      .then((res) => res.data);
+      .catch((e) => {
+        clearToken();
+      })
+      .then((res) => res?.data);
 
   const { data, error, mutate } = useSWR<T>(
     `${site.host}${site.apiPrefix}/${token}${url}`,
