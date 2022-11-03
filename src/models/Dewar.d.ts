@@ -6,14 +6,55 @@
  */
 
 export type Name = string;
+export type Proposalid = number;
 export type Name1 = string;
+export type SendingLabContact = number;
+export type ReturnLabContact = number;
+export type SafetyLevel = SafetyLevelEnum;
+/**
+ * An enumeration.
+ */
+export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
+export type Comments = string;
+export type Shippingid = number;
+export type Bltimestamp = string;
+/**
+ * Number of dewars
+ */
+export type Dewars = number;
+export type ReturnLabContact1 = ShippingLabContact;
+export type Cardname = string;
+export type Givenname = string;
+export type Familyname = string;
+export type SendingLabContact1 = ShippingLabContact;
 
 export interface Dewar {
   code: Name;
   Shipping: Shipping;
 }
 export interface Shipping {
+  proposalId: Proposalid;
   shippingName: Name1;
+  sendingLabContactId?: SendingLabContact;
+  returnLabContactId?: ReturnLabContact;
+  safetyLevel?: SafetyLevel;
+  comments?: Comments;
+  shippingId: Shippingid;
+  bltimeStamp?: Bltimestamp;
+  _metadata?: ShippingMetaData;
+  LabContact?: ReturnLabContact1;
+  LabContact1?: SendingLabContact1;
+}
+export interface ShippingMetaData {
+  dewars: Dewars;
+}
+export interface ShippingLabContact {
+  cardName: Cardname;
+  Person: ShippingLabContactPerson;
+}
+export interface ShippingLabContactPerson {
+  givenName: Givenname;
+  familyName: Familyname;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -25,6 +66,35 @@ export function withDewar<TBase extends Constructor>(Base: TBase) {
 }
 export function withShipping<TBase extends Constructor>(Base: TBase) {
   return class WithShipping extends Base {
+    proposalId: Proposalid;
     shippingName: Name1;
+    sendingLabContactId?: SendingLabContact;
+    returnLabContactId?: ReturnLabContact;
+    safetyLevel?: SafetyLevel;
+    comments?: Comments;
+    shippingId: Shippingid;
+    bltimeStamp?: Bltimestamp;
+    _metadata?: ShippingMetaData;
+    LabContact?: ReturnLabContact1;
+    LabContact1?: SendingLabContact1;
+  };
+}
+export function withShippingMetaData<TBase extends Constructor>(Base: TBase) {
+  return class WithShippingMetaData extends Base {
+    dewars: Dewars;
+  };
+}
+export function withShippingLabContact<TBase extends Constructor>(Base: TBase) {
+  return class WithShippingLabContact extends Base {
+    cardName: Cardname;
+    Person: ShippingLabContactPerson;
+  };
+}
+export function withShippingLabContactPerson<TBase extends Constructor>(
+  Base: TBase
+) {
+  return class WithShippingLabContactPerson extends Base {
+    givenName: Givenname;
+    familyName: Familyname;
   };
 }

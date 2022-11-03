@@ -16,7 +16,7 @@ export type Datacollections = number;
 /**
  * Types of data collections
  */
-export type Types = string[];
+export type Types = null | string[];
 /**
  * Whether this sample is queued for data collection
  */
@@ -32,7 +32,7 @@ export type Autointegrations = number;
 /**
  * Highest integration resolution
  */
-export type Integratedresolution = number;
+export type Integratedresolution = null | number;
 /**
  * The associated proposal
  */

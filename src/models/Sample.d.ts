@@ -23,7 +23,7 @@ export type Datacollections = number;
 /**
  * Types of data collections
  */
-export type Types = string[];
+export type Types = null | string[];
 /**
  * Whether this sample is queued for data collection
  */
@@ -39,7 +39,7 @@ export type Autointegrations = number;
 /**
  * Highest integration resolution
  */
-export type Integratedresolution = number;
+export type Integratedresolution = null | number;
 /**
  * The associated proposal
  */
@@ -57,27 +57,27 @@ export type Proposalid = string;
 export type Name1 = string;
 export type Acronym = string;
 export type Crystalid = number;
-export type Name2 = string;
+export type Protein1 = number;
+export type Container = SampleContainer;
+export type Code = string;
 /**
  * Position in sample change
  */
-export type Samplechangerlocation = string;
+export type SampleChangerLocation = string;
 /**
  * Beamline if container is assigned
  */
-export type Beamlinelocation = string;
-export type Name3 = string;
-export type Name4 = string;
+export type BeamlineLocation = string;
 
 export interface Sample {
   name: Name;
   comments?: Comments;
   location?: Location;
-  containerId: Containerid;
+  containerId?: Containerid;
   _metadata?: SampleMetaData;
   blSampleId: Blsampleid;
   Crystal: Crystal;
-  Container: Container;
+  Container?: Container;
 }
 export interface SampleMetaData {
   subsamples: Subsamples;
@@ -98,24 +98,17 @@ export interface SampleCrystal {
   cell_gamma?: CellGamma;
   Protein: Protein;
   crystalId: Crystalid;
+  proteinId: Protein1;
 }
 export interface SampleProtein {
   proposalId: Proposalid;
   name: Name1;
   acronym: Acronym;
 }
-export interface Container {
-  code: Name2;
-  sampleChangerLocation?: Samplechangerlocation;
-  beamlineLocation?: Beamlinelocation;
-  Dewar: Dewar;
-}
-export interface Dewar {
-  code: Name3;
-  Shipping: Shipping;
-}
-export interface Shipping {
-  shippingName: Name4;
+export interface SampleContainer {
+  code: Code;
+  sampleChangerLocation?: SampleChangerLocation;
+  beamlineLocation?: BeamlineLocation;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -124,11 +117,11 @@ export function withSample<TBase extends Constructor>(Base: TBase) {
     name: Name;
     comments?: Comments;
     location?: Location;
-    containerId: Containerid;
+    containerId?: Containerid;
     _metadata?: SampleMetaData;
     blSampleId: Blsampleid;
     Crystal: Crystal;
-    Container: Container;
+    Container?: Container;
   };
 }
 export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
@@ -153,6 +146,7 @@ export function withSampleCrystal<TBase extends Constructor>(Base: TBase) {
     cell_gamma?: CellGamma;
     Protein: Protein;
     crystalId: Crystalid;
+    proteinId: Protein1;
   };
 }
 export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
@@ -162,22 +156,10 @@ export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
     acronym: Acronym;
   };
 }
-export function withContainer<TBase extends Constructor>(Base: TBase) {
-  return class WithContainer extends Base {
-    code: Name2;
-    sampleChangerLocation?: Samplechangerlocation;
-    beamlineLocation?: Beamlinelocation;
-    Dewar: Dewar;
-  };
-}
-export function withDewar<TBase extends Constructor>(Base: TBase) {
-  return class WithDewar extends Base {
-    code: Name3;
-    Shipping: Shipping;
-  };
-}
-export function withShipping<TBase extends Constructor>(Base: TBase) {
-  return class WithShipping extends Base {
-    shippingName: Name4;
+export function withSampleContainer<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleContainer extends Base {
+    code: Code;
+    sampleChangerLocation?: SampleChangerLocation;
+    beamlineLocation?: BeamlineLocation;
   };
 }

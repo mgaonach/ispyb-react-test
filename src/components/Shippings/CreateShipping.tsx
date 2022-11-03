@@ -1,41 +1,55 @@
 import { useRef } from 'react';
 import { Spinner, Button } from 'react-bootstrap';
-import { PersonPlus } from 'react-bootstrap-icons';
+import { Truck } from 'react-bootstrap-icons';
 
 import Form from 'components/RJSF/Form';
 import { useSchema } from 'hooks/useSpec';
 import { useInformativeSubmit } from 'hooks/useInformativeSubmit';
-import { LabContactResource } from 'api/resources/LabContact';
+import { ShippingResource } from 'api/resources/Shipping';
 import ParsedError from 'components/ParsedError';
 import { useProposalInfo } from '../../hooks/useProposalInfo';
+import { LabContactResource } from 'api/resources/LabContact';
 
-export default function CreateLabContact() {
+export default function CreateShipping() {
   const proposal = useProposalInfo();
   const alertRef = useRef<any>();
   const { onSubmit, pending, error, lastFormData } = useInformativeSubmit({
-    resource: LabContactResource,
-    redirect: `/proposals/${proposal.proposal}/contacts`,
-    redirectKey: 'labContactId',
+    resource: ShippingResource,
+    redirect: `/proposals/${proposal.proposal}/shipments`,
+    redirectKey: 'shippingId',
     alertRef,
     initialFormData: {
       proposalId: proposal.proposalId,
     },
   });
 
-  const schema = useSchema('LabContactCreate', 'Create Lab Contact');
+  const schema = useSchema('ShippingCreate', 'Create Shipment');
   const uiSchema = {
     proposalId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
-    Person: {
-      Laboratory: {
-        laboratoryExtPk: {
-          'ui:classNames': 'hidden-row',
-          'ui:widget': 'hidden',
+    sendingLabContactId: {
+      'ui:options': {
+        resource: LabContactResource,
+        params: {
+          proposalId: proposal.proposalId,
         },
-        recordTimeStamp: {
-          'ui:classNames': 'hidden-row',
-          'ui:widget': 'hidden',
-        },
+        key: 'cardName',
+        value: 'labContactId',
       },
+      'ui:widget': 'remoteSelect',
+    },
+    returnLabContactId: {
+      'ui:options': {
+        resource: LabContactResource,
+        params: {
+          proposalId: proposal.proposalId,
+        },
+        key: 'cardName',
+        value: 'labContactId',
+      },
+      'ui:widget': 'remoteSelect',
+    },
+    comments: {
+      'ui:widget': 'textarea',
     },
   };
 
@@ -64,8 +78,8 @@ export default function CreateLabContact() {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               )}
-              {!pending && <PersonPlus className="me-1" />}
-              Create Contact
+              {!pending && <Truck className="me-1" />}
+              Create Shipment
             </>
           </Button>
         </div>

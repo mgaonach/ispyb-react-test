@@ -24,16 +24,16 @@ export type Country = string;
 /**
  * The Laboratory optional URL
  */
-export type URL = string;
+export type URL = null | string;
 /**
  * External Id from the User Portal
  */
-export type LaboratoryExtPk = number;
+export type LaboratoryExtPk = null | number;
+export type Laboratoryid = number;
 /**
  * Time Laboratory was created
  */
 export type RecordTimeStamp = string;
-export type Laboratoryid = number;
 
 export interface Laboratory {
   name?: LaboratoryName;
@@ -42,8 +42,8 @@ export interface Laboratory {
   country?: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
-  recordTimeStamp?: RecordTimeStamp;
   laboratoryId: Laboratoryid;
+  recordTimeStamp?: RecordTimeStamp;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -55,7 +55,7 @@ export function withLaboratory<TBase extends Constructor>(Base: TBase) {
     country?: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-    recordTimeStamp?: RecordTimeStamp;
     laboratoryId: Laboratoryid;
+    recordTimeStamp?: RecordTimeStamp;
   };
 }

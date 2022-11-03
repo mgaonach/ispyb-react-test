@@ -57,15 +57,11 @@ export type Country = string;
 /**
  * The Laboratory optional URL
  */
-export type URL = string;
+export type URL = null | string;
 /**
  * External Id from the User Portal
  */
-export type LaboratoryExtPk = number;
-/**
- * Time Laboratory was created
- */
-export type RecordTimeStamp = string;
+export type LaboratoryExtPk = null | number;
 export type Role =
   | 'Local Contact'
   | 'Local Contact 2'
@@ -124,7 +120,6 @@ export interface LaboratoryCreate {
   country: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
-  recordTimeStamp?: RecordTimeStamp;
 }
 export interface PersonSessionOptions {
   role?: Role;
@@ -186,7 +181,6 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-    recordTimeStamp?: RecordTimeStamp;
   };
 }
 export function withPersonSessionOptions<TBase extends Constructor>(

@@ -6,13 +6,20 @@
  */
 
 export type BeamlineName = string;
+export type SampleChangerType = null | string;
 /**
- * Whether this beamline is archived
+ * If no specific type is available a capacity can be defined for the generic view
+ */
+export type SampleChangerCapacity = null | number;
+/**
+ * Whether this beamline is archived (no longer displayed on landing page)
  */
 export type Archived = boolean;
 
 export interface BeamLineGroupBeamLine {
   beamLineName: BeamlineName;
+  sampleChangerType?: SampleChangerType;
+  sampleChangerCapacity?: SampleChangerCapacity;
   archived?: Archived;
 }
 
@@ -22,6 +29,8 @@ export function withBeamLineGroupBeamLine<TBase extends Constructor>(
 ) {
   return class WithBeamLineGroupBeamLine extends Base {
     beamLineName: BeamlineName;
+    sampleChangerType?: SampleChangerType;
+    sampleChangerCapacity?: SampleChangerCapacity;
     archived?: Archived;
   };
 }

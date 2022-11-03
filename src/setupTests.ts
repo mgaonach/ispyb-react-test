@@ -6,3 +6,5 @@ import '@testing-library/jest-dom';
 
 // blobUrl
 window.URL.createObjectURL = jest.fn(() => '');
+
+// HTMLCanvasElement.prototype.getContext = () => {};

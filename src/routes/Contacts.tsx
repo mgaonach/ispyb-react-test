@@ -25,7 +25,7 @@ const ContactRoutes = {
   children: [
     { index: true, element: <LabContactList />, breadcrumb: 'Lab Contacts' },
     { path: 'new', element: <CreateLabContact />, breadcrumb: 'Create' },
-    { path: ':id', element: <ViewLabContact />, breadcrumb: 'View' },
+    { path: ':labContactId', element: <ViewLabContact />, breadcrumb: 'View' },
   ],
 };
 
