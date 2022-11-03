@@ -42,15 +42,11 @@ export type Country = string;
 /**
  * The Laboratory optional URL
  */
-export type URL = string;
+export type URL = null | string;
 /**
  * External Id from the User Portal
  */
-export type LaboratoryExtPk = number;
-/**
- * Time Laboratory was created
- */
-export type RecordTimeStamp = string;
+export type LaboratoryExtPk = null | number;
 
 export interface UPLabContact {
   cardName: Cardname;
@@ -83,7 +79,6 @@ export interface LaboratoryCreate {
   country: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
-  recordTimeStamp?: RecordTimeStamp;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -125,6 +120,5 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-    recordTimeStamp?: RecordTimeStamp;
   };
 }

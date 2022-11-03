@@ -54,6 +54,10 @@ export default function LabContactList() {
             key: 'person',
             formatter: personFormatter,
           },
+          {
+            label: 'Laboratory',
+            key: 'Person.Laboratory.name',
+          },
         ]}
         emptyText="No lab contact yet"
       />

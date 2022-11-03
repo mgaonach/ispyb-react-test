@@ -4,6 +4,7 @@ import type {
 } from 'use-react-router-breadcrumbs';
 
 import ContactRoutes from './Contacts';
+import ShippingRoutes from './Shippings';
 import EventsRoutes from './Events';
 import StatsRoutes from './Stats';
 import { SessionRoutes } from './Proposals';
@@ -24,6 +25,7 @@ const ProposalRoutes = {
     SampleRoutes,
     ProteinRoutes,
     ContactRoutes,
+    ShippingRoutes,
     EventsRoutes,
     StatsRoutes,
   ],

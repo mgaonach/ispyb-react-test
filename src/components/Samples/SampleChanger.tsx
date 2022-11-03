@@ -49,8 +49,10 @@ export default function SampleChanger(props: ISampleChanger) {
         containers[sample.Container.sampleChangerLocation] = {};
       }
 
-      containers[sample.Container.sampleChangerLocation][sample.containerId] =
-        sample.Container.code;
+      if (sample.containerId) {
+        containers[sample.Container.sampleChangerLocation][sample.containerId] =
+          sample.Container.code;
+      }
     }
   });
 

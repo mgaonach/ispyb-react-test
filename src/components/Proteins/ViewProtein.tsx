@@ -1,5 +1,6 @@
-import { useSuspense } from 'rest-hooks';
+import { useSuspense, useController } from 'rest-hooks';
 import { useParams } from 'react-router-dom';
+import { set } from 'lodash';
 
 import NetworkErrorPage from 'components/NetworkErrorPage';
 import { useSchema } from 'hooks/useSpec';
@@ -11,7 +12,7 @@ import SamplesList from 'components/Samples/SamplesList';
 
 function ViewProteinMain() {
   const { proteinId } = useParams();
-
+  const controller = useController();
   const protein = useSuspense(ProteinResource.detail(), {
     proteinId,
   });
@@ -20,14 +21,19 @@ function ViewProteinMain() {
   const uiSchema = {
     proposalId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
     proteinId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
+    sequence: { 'ui:widget': 'textarea' },
     _metadata: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
-    ComponentType: {
-      componentTypeId: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
-    },
+    ComponentType: { 'ui:classNames': 'hidden-row', 'ui:widget': 'hidden' },
   };
 
   function onChange({ field, value }: { field: string; value: any }) {
-    console.log('edited', field, value);
+    const obj = {};
+    set(obj, field, value);
+    return controller.fetch(
+      ProteinResource.partialUpdate(),
+      { proteinId },
+      obj
+    );
   }
 
   const editable = [

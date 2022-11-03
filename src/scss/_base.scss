@@ -8,6 +8,7 @@ html {
 
 /* Bring z-index up for main header to dropdowns are above breadcrumbs */
 .main-header {
+  min-height: 59px;
   z-index: 1021;
 }
 

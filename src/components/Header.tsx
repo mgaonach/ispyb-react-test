@@ -142,6 +142,12 @@ export default function Header() {
                       </NavDropdown.Item>
                       <NavDropdown.Item
                         as={Link}
+                        to={`/proposals/${proposalName}/shipments`}
+                      >
+                        Shipments
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        as={Link}
                         to={`/proposals/${proposalName}/proteins`}
                       >
                         Proteins

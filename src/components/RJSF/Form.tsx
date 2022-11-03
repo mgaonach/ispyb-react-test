@@ -3,6 +3,7 @@ import validator from '@rjsf/validator-ajv6';
 import BS4Form from '@rjsf/bootstrap-4';
 
 import ColField from './ColField';
+import RemoteSelect from './RemoteSelect';
 import { Button } from 'react-bootstrap';
 
 interface IFormProps extends Omit<FormProps, 'validator'> {
@@ -12,10 +13,14 @@ interface IFormProps extends Omit<FormProps, 'validator'> {
 }
 
 export default function Form(props: IFormProps) {
+  const widgets = {
+    remoteSelect: RemoteSelect,
+  };
   return (
     <BS4Form
       validator={validator}
       templates={{ FieldTemplate: ColField }}
+      widgets={widgets}
       {...props}
     >
       {props.children && <>{props.children}</>}

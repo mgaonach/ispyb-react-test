@@ -10,13 +10,7 @@ import {
   optionsList,
 } from '@rjsf/utils';
 import { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  InputGroup,
-  OverlayTrigger,
-  Tooltip,
-} from 'react-bootstrap';
+import { Button, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 interface StaticFieldProps {
   name: string;
@@ -44,7 +38,7 @@ function StaticField(props: StaticFieldProps) {
     >
       <Button
         variant="light"
-        className="form-control editable text-start"
+        className="form-control editable text-start border"
         onClick={onClick}
         aria-label={`edit-${title || name}`}
       >
@@ -78,6 +72,7 @@ function EditableField(props: EditableFieldProps) {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
+    unmounted.current = false;
     return () => {
       unmounted.current = true;
     };
@@ -120,33 +115,26 @@ function EditableField(props: EditableFieldProps) {
         }}
         {...otherProps}
       />
-      {error && <span className="editable-error text-danger">{error}</span>}
-      <InputGroup.Text>
-        <ButtonGroup>
-          <Button
-            variant="success"
-            size="sm"
-            onClick={handleSave}
-            disabled={saving || hasErrors}
-          >
-            <i
-              className={`fa ${
-                saving ? 'fa-spin fa-spinner mr-1' : 'fa-check'
-              }`}
-            />
-            <span className="sr-only">{saving ? 'Saving' : 'Save'}</span>
-          </Button>
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={onCancel}
-            disabled={saving}
-          >
-            <i className="fa fa-times" />
-            <span className="sr-only">Cancel</span>
-          </Button>
-        </ButtonGroup>
-      </InputGroup.Text>
+      {error && (
+        <InputGroup.Text>
+          <span className="editable-error text-danger">{error}</span>
+        </InputGroup.Text>
+      )}
+      <Button
+        variant="success"
+        size="sm"
+        onClick={handleSave}
+        disabled={saving || hasErrors}
+      >
+        <i
+          className={`fa ${saving ? 'fa-spin fa-spinner mr-1' : 'fa-check'}`}
+        />
+        <span className="sr-only">{saving ? 'Saving' : 'Save'}</span>
+      </Button>
+      <Button variant="danger" size="sm" onClick={onCancel} disabled={saving}>
+        <i className="fa fa-times" />
+        <span className="sr-only">Cancel</span>
+      </Button>
     </>
   );
 }
@@ -193,7 +181,7 @@ function StringField(props: FieldProps) {
 
   const onSave = () => {
     return formContext.onSave({
-      field: name,
+      field: idSchema && idSchema.$id.replace('root_', '').replaceAll('_', '.'),
       value: formData,
     }) as Promise<void>;
   };
@@ -236,17 +224,17 @@ function StringField(props: FieldProps) {
           <StaticField
             name={name}
             title={title}
-            value={formContext.staticValues[name] || formData}
+            value={
+              (idSchema && formContext.staticValues[idSchema.$id]) || formData
+            }
             isEditable={
               idSchema &&
               (formContext.editable as string[]).includes(idSchema.$id)
             }
             onClick={onClick}
           />
-          {formContext.extraComponents[name] && (
-            <InputGroup.Text>
-              {formContext.extraComponents[name]}
-            </InputGroup.Text>
+          {idSchema && formContext.extraComponents[idSchema.$id] && (
+            <>{formContext.extraComponents[idSchema.$id]}</>
           )}
         </>
       )}

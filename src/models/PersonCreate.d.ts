@@ -9,6 +9,7 @@ export type FirstName = string;
 export type Surname = string;
 export type EmailAddress = null | string;
 export type PhoneNumber = null | string;
+export type Laboratory = LaboratoryCreate;
 /**
  * The Laboratory name
  */
@@ -28,22 +29,18 @@ export type Country = string;
 /**
  * The Laboratory optional URL
  */
-export type URL = string;
+export type URL = null | string;
 /**
  * External Id from the User Portal
  */
-export type LaboratoryExtPk = number;
-/**
- * Time Laboratory was created
- */
-export type RecordTimeStamp = string;
+export type LaboratoryExtPk = null | number;
 
 export interface PersonCreate {
   givenName: FirstName;
   familyName: Surname;
   emailAddress?: EmailAddress;
   phoneNumber?: PhoneNumber;
-  Laboratory?: LaboratoryCreate;
+  Laboratory?: Laboratory;
 }
 export interface LaboratoryCreate {
   name: LaboratoryName;
@@ -52,7 +49,6 @@ export interface LaboratoryCreate {
   country: Country;
   url?: URL;
   laboratoryExtPk?: LaboratoryExtPk;
-  recordTimeStamp?: RecordTimeStamp;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -62,7 +58,7 @@ export function withPersonCreate<TBase extends Constructor>(Base: TBase) {
     familyName: Surname;
     emailAddress?: EmailAddress;
     phoneNumber?: PhoneNumber;
-    Laboratory?: LaboratoryCreate;
+    Laboratory?: Laboratory;
   };
 }
 export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
@@ -73,6 +69,5 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-    recordTimeStamp?: RecordTimeStamp;
   };
 }

@@ -16,6 +16,7 @@ export type Proposalid = string;
 export type Name = string;
 export type Acronym = string;
 export type Crystalid = number;
+export type Protein1 = number;
 
 export interface SampleCrystal {
   cell_a?: CellA;
@@ -26,6 +27,7 @@ export interface SampleCrystal {
   cell_gamma?: CellGamma;
   Protein: Protein;
   crystalId: Crystalid;
+  proteinId: Protein1;
 }
 export interface SampleProtein {
   proposalId: Proposalid;
@@ -44,6 +46,7 @@ export function withSampleCrystal<TBase extends Constructor>(Base: TBase) {
     cell_gamma?: CellGamma;
     Protein: Protein;
     crystalId: Crystalid;
+    proteinId: Protein1;
   };
 }
 export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
