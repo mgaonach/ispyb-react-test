@@ -1,4 +1,4 @@
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import { AbstractSampleChanger } from './abstractsamplechanger';
 
 export class ISARA extends AbstractSampleChanger {

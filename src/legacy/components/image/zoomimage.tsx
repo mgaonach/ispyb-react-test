@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import './zoomimage.css';
 import LazyWrapper from 'legacy/components/loading/lazywrapper';
 import { CSSProperties } from 'react';
+import { useAuth } from 'hooks/useAuth';
 
 const placeholder = (
   <div className="zoom-image-placeholder">
@@ -26,6 +27,10 @@ export default function ZoomImage({
   lazy = true,
   legend,
 }: props) {
+  const { site, token } = useAuth();
+
+  const fullUrl = `${site.host}${site.apiPrefix}/${token}${src}`;
+
   const [error, setError] = useState(false);
 
   const [loaded, setLoaded] = useState(false);
@@ -38,13 +43,13 @@ export default function ZoomImage({
       <Image
         width="100%"
         thumbnail
-        src={src}
+        src={fullUrl}
         alt={alt}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
       />
     );
-  }, [src]);
+  }, [fullUrl]);
 
   if (error) {
     return (

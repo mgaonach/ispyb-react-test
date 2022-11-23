@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { range } from 'lodash';
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import React from 'react';
 
 export abstract class AbstractSampleChanger {

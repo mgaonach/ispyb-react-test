@@ -44,11 +44,11 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const { resetEntireStore } = useController();
 
   React.useEffect(() => {
-    const tokenSession = window.sessionStorage.getItem('token');
+    const tokenSession = window.localStorage.getItem('token');
     if (tokenSession != null) {
       setToken(tokenSession);
     }
-    const siteSession = window.sessionStorage.getItem('site');
+    const siteSession = window.localStorage.getItem('site');
     if (siteSession != null) {
       let found = false;
       SITES.forEach((siteI) => {
@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
     } else {
       setSite(SITES[0]);
     }
-    const javaPersonSession = window.sessionStorage.getItem('javaPerson');
+    const javaPersonSession = window.localStorage.getItem('javaPerson');
     if (javaPersonSession != null && javaPersonSession.length > 0) {
       setJavaPerson(JSON.parse(javaPersonSession));
     } else {
@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   }, []);
 
   const setJavaPerson = (javaPerson: JavaPerson | undefined) => {
-    window.sessionStorage.setItem(
+    window.localStorage.setItem(
       'javaPerson',
       javaPerson ? JSON.stringify(javaPerson) : ''
     );
@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   };
 
   const setToken = (token: string) => {
-    window.sessionStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
     AuthenticatedResource.accessToken = token;
     resetEntireStore();
     setTokenState(token);
@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   };
 
   const setSite = (newSite: SiteConfig) => {
-    window.sessionStorage.setItem('site', newSite.name);
+    window.localStorage.setItem('site', newSite.name);
     SiteResource.baseUrl = `${newSite.host}${newSite.apiPrefix}`;
     resetEntireStore();
     setSiteState(newSite);

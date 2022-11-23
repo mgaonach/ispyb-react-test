@@ -2,6 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import { useAuth } from 'hooks/useAuth';
 import NotificationToast from 'legacy/components/notification/notificationtoast';
 import { useState } from 'react';
 import { Anchor, Dropdown, Spinner } from 'react-bootstrap';
@@ -13,6 +14,7 @@ export default function DownloadOptions({
   title: string;
   options: { href: string; fileName: string; title: string; icon?: IconProp }[];
 }) {
+  const { site, token } = useAuth();
   const [notif, setNotif] = useState<JSX.Element | undefined>(undefined);
   const [downloading, setDownloading] = useState(false);
 
@@ -69,10 +71,11 @@ export default function DownloadOptions({
 
         <Dropdown.Menu>
           {options.map((option) => {
+            const fullUrl = `${site.host}${site.apiPrefix}/${token}${option.href}`;
             return (
               <Dropdown.Item
                 as={Anchor}
-                onClick={() => download(option.href, option.fileName)}
+                onClick={() => download(fullUrl, option.fileName)}
               >
                 {option.icon && (
                   <FontAwesomeIcon

@@ -1,5 +1,5 @@
 import { range } from 'lodash';
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import { AbstractSampleChanger } from './abstractsamplechanger';
 
 function getSectionAnle(n: number) {

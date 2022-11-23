@@ -62,7 +62,6 @@ export default function LoginPy() {
         }
       )
         .then((response) => {
-          console.log('login', response);
           resetPending();
           setToken(response.token);
         })

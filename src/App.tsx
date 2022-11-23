@@ -24,7 +24,6 @@ function App() {
     restoreToken();
   }, [restoreToken]);
 
-  console.log('render app');
   const routesElement = useRoutes(routes);
   return (
     <div className="App">

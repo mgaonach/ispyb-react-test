@@ -6,6 +6,7 @@ import NotificationToast from 'legacy/components/notification/notificationtoast'
 import { useState } from 'react';
 import { Button, ButtonProps, Spinner } from 'react-bootstrap';
 import { saveAs } from 'file-saver';
+import { useAuth } from 'hooks/useAuth';
 
 export default function DownloadButton({
   title,
@@ -21,6 +22,10 @@ export default function DownloadButton({
 } & ButtonProps) {
   const [notif, setNotif] = useState<JSX.Element | undefined>(undefined);
   const [downloading, setDownloading] = useState(false);
+
+  const { site, token } = useAuth();
+
+  const fullUrl = `${site.host}${site.apiPrefix}/${token}${url}`;
 
   const download = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -55,7 +60,7 @@ export default function DownloadButton({
   return (
     <>
       {notif}
-      <Button {...btnprops} onClick={(e) => download(e, url, fileName)}>
+      <Button {...btnprops} onClick={(e) => download(e, fullUrl, fileName)}>
         {downloading ? (
           <Spinner style={{ marginRight: 5 }} animation="border" size="sm" />
         ) : (

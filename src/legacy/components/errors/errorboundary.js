@@ -1,6 +1,5 @@
 import React from 'react';
 import ErrorUserMessage from 'components/usermessages/errorusermessage';
-import Page from 'pages/page';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -16,9 +15,11 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Page>
-          <ErrorUserMessage title={'Something went wrong.'} message={this.state.message} stack={this.state.stack}></ErrorUserMessage>
-        </Page>
+        <ErrorUserMessage
+          title={'Something went wrong.'}
+          message={this.state.message}
+          stack={this.state.stack}
+        ></ErrorUserMessage>
       );
     }
     return this.props.children;

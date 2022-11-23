@@ -1,4 +1,4 @@
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import { AbstractSampleChanger } from './abstractsamplechanger';
 import React from 'react';
 

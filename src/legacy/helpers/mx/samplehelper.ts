@@ -1,5 +1,4 @@
-import { sampleChangerType } from 'config/sites';
-import { Beamline, containerType } from 'config/sites';
+import { Beamline, containerType, sampleChangerType } from 'legacy/models';
 import { ContainerDewar } from 'legacy/pages/model';
 import { AbstractSampleChanger } from 'legacy/pages/prepareexperiment/samplechanger/abstractsamplechanger';
 import { FlexHCDDual } from 'legacy/pages/prepareexperiment/samplechanger/flexhcddual';
@@ -28,16 +27,18 @@ export function getSampleChanger(
 export function getContainerType(
   type: string | undefined
 ): containerType | undefined {
-  if (type === 'Unipuck') {
+  if (type == undefined) return undefined;
+
+  if (type?.toLowerCase() === 'unipuck') {
     return 'Unipuck';
   }
-  if (type === 'Spinepuck' || type === 'Puck') {
+  if (type?.toLowerCase() === 'spinepuck' || type?.toLowerCase() === 'puck') {
     return 'Spinepuck';
   }
-  if (type === 'Spinepuck' || type === 'Puck') {
-    return 'Spinepuck';
+  if (type?.toLowerCase() === 'plate') {
+    return 'PLATE';
   }
-  return undefined;
+  return 'OTHER';
 }
 
 export function containerCanGoInLocation(

@@ -1,4 +1,4 @@
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import { AbstractFlexHCD } from './abstractflexhcd';
 
 export class FlexHCDDual extends AbstractFlexHCD {

@@ -50,7 +50,6 @@ function Select(props: SelectWidgetProps) {
   // }, [setValue]);
 
   useEffect(() => {
-    console.log('ref change');
     if (value === undefined) setValue();
   }, [value, setValue, ref]);
 

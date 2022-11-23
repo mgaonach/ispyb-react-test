@@ -8,13 +8,13 @@ interface ProposalData {
 }
 
 /**
- * Get and set the current proposal from sessionStorage
+ * Get and set the current proposal from localStorage
  */
 export function useProposal(): ProposalData {
-  const proposalName = window.sessionStorage.getItem('proposal') || '';
+  const proposalName = window.localStorage.getItem('proposal') || '';
 
   const setProposalName = (proposal: string) => {
-    window.sessionStorage.setItem('proposal', proposal);
+    window.localStorage.setItem('proposal', proposal);
   };
 
   const clearProposal = () => {

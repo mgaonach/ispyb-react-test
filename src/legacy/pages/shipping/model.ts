@@ -1,4 +1,4 @@
-import { containerType } from 'config/sites';
+import { containerType } from 'legacy/models';
 import { Crystal, DiffractionPlan } from 'legacy/pages/model';
 
 export type LabContact = {

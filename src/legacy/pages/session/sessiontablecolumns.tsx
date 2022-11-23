@@ -20,7 +20,7 @@ const dateFormatter = (cell: string, row: Session) => {
 
 export function SessionSearch({ session }: { session: Session }) {
   const technique = useGetTechniqueByBeamline(session.beamLineName);
-  const url = `/legacy/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}`;
+  const url = `/legacy/proposals/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}`;
 
   return (
     <OverlayTrigger
