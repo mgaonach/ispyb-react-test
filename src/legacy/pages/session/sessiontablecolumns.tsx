@@ -10,6 +10,7 @@ import { Session } from 'legacy/pages/model';
 import { OverlayChildren } from 'react-bootstrap/esm/Overlay';
 import { ResponsiveColumnDescription } from 'legacy/hooks/bootstraptable';
 import { textFilter } from 'react-bootstrap-table2-filter';
+import { Link } from 'react-router-dom';
 
 const dateFormatter = (cell: string, row: Session) => {
   return `${formatDateTo(cell, 'dd/MM/yyyy')} ⇨ ${formatDateTo(
@@ -20,16 +21,18 @@ const dateFormatter = (cell: string, row: Session) => {
 
 export function SessionSearch({ session }: { session: Session }) {
   const technique = useGetTechniqueByBeamline(session.beamLineName);
-  const url = `/legacy/proposals/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}`;
+  const url = `/legacy/proposals/${session.Proposal_proposalCode}${session.Proposal_ProposalNumber}/${technique}/${session.sessionId}/summary`;
 
   return (
     <OverlayTrigger
       placement="right"
       overlay={<Tooltip>Open session {session.sessionId}</Tooltip>}
     >
-      <Button variant="link" href={url}>
-        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-      </Button>
+      <Link to={url}>
+        <Button variant="link">
+          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+        </Button>
+      </Link>
     </OverlayTrigger>
   );
 }

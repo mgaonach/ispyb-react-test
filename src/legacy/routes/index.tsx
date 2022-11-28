@@ -28,8 +28,12 @@ const ProposalBreadCrumb: BreadcrumbComponentType<'proposalName'> = ({
 
 const javaRoutes: TitledBreadcrumbsRoute[] = [
   { index: true, element: <SessionsPage />, breadcrumb: null },
-  { path: 'sessions', element: <SessionsPage />, breadcrumb: 'Sessions' },
-  { path: 'proposals', element: <ProposalsPage />, breadcrumb: 'Proposals' },
+  { path: 'sessions/list', element: <SessionsPage />, breadcrumb: 'Sessions' },
+  {
+    path: 'proposals/list',
+    element: <ProposalsPage />,
+    breadcrumb: 'Proposals',
+  },
   {
     path: 'proposals/:proposalName',
     breadcrumb: ProposalBreadCrumb,
@@ -79,7 +83,7 @@ const javaRoutes: TitledBreadcrumbsRoute[] = [
           {
             path: ':sessionId',
             children: [
-              { index: true, element: <EMSessionPage /> },
+              { path: 'summary', element: <EMSessionPage /> },
               {
                 path: 'classification',
                 element: <SessionClassificationPage />,
@@ -104,7 +108,7 @@ const javaRoutes: TitledBreadcrumbsRoute[] = [
           {
             path: ':sessionId',
             children: [
-              { index: true, element: <MXDataCollectionGroupPage /> },
+              { path: 'summary', element: <MXDataCollectionGroupPage /> },
               {
                 path: 'energy',
                 element: <MXEnergyScanPage />,

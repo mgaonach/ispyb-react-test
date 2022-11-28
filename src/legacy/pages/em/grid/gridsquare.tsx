@@ -4,7 +4,7 @@ import React from 'react';
 import { getCrystalImage } from 'legacy/api/ispyb';
 import 'react-medium-image-zoom/dist/styles.css';
 import 'legacy/pages/em/styles.scss';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function GridSquare({
   startTime,
@@ -13,6 +13,7 @@ export default function GridSquare({
   movieCount,
   progressMotionCor,
   progressCtf,
+  sessionId,
 }: {
   startTime: string;
   proposalName: string;
@@ -20,8 +21,8 @@ export default function GridSquare({
   movieCount: number;
   progressMotionCor: number;
   progressCtf: number;
+  sessionId: string;
 }) {
-  const navigate = useNavigate();
   return (
     <Card style={{ width: '18rem' }}>
       <Zoom>
@@ -57,16 +58,11 @@ export default function GridSquare({
             label={`CTF: ${progressCtf}%`}
           />
         </Card.Text>
-        <Button
-          variant="primary"
-          onClick={() =>
-            navigate(
-              `/legacy/proposals/${proposalName}/EM/${dataCollectionId}/movies`
-            )
-          }
+        <Link
+          to={`/legacy/proposals/${proposalName}/EM/${sessionId}/${dataCollectionId}/movies`}
         >
-          Open
-        </Button>
+          <Button variant="primary">Open</Button>
+        </Link>
       </Card.Body>
     </Card>
   );

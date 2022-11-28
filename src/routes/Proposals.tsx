@@ -22,7 +22,7 @@ export const SessionRoutes = {
 };
 
 export const ProposalsRoutes = {
-  path: 'proposals',
+  path: 'proposals/list',
   children: [
     { index: true, element: <ProposalsList />, breadcrumb: 'Proposals' },
   ],

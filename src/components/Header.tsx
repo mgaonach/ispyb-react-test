@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useController } from 'rest-hooks';
 import { Navbar, NavDropdown, Container, Nav, Button } from 'react-bootstrap';
 import { PersonBadge } from 'react-bootstrap-icons';
@@ -115,16 +115,17 @@ export default function Header() {
 
 function PyHeader() {
   const { proposalName } = useProposal();
+  const { pathname } = useLocation();
 
   return (
     <>
       <Navbar.Toggle aria-controls="main-navbar" />
       <Navbar.Collapse id="main-navbar">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/calendar">
+          <Nav.Link as={NavLink} to="/calendar">
             Calendar
           </Nav.Link>
-          <Nav.Link as={Link} to="/proposals">
+          <Nav.Link as={NavLink} to="/proposals/list">
             Proposals
           </Nav.Link>
           {!proposalName && (
@@ -133,34 +134,38 @@ function PyHeader() {
             </Nav.Link>
           )}
           {proposalName && (
-            <NavDropdown title={proposalName} id="proposal-nav-dropdown">
+            <NavDropdown
+              active={pathname.includes(proposalName)}
+              title={proposalName}
+              id="proposal-nav-dropdown"
+            >
               <>
                 <NavDropdown.Item
-                  as={Link}
+                  as={NavLink}
                   to={`/proposals/${proposalName}/sessions`}
                 >
                   Sessions
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link}
+                  as={NavLink}
                   to={`/proposals/${proposalName}/contacts`}
                 >
                   Contacts
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link}
+                  as={NavLink}
                   to={`/proposals/${proposalName}/shipments`}
                 >
                   Shipments
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link}
+                  as={NavLink}
                   to={`/proposals/${proposalName}/proteins`}
                 >
                   Proteins
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  as={Link}
+                  as={NavLink}
                   to={`/proposals/${proposalName}/samples`}
                 >
                   Samples

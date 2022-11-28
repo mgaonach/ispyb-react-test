@@ -3,20 +3,21 @@ import { useProposal } from 'hooks/useProposal';
 import { Logout } from 'components/Header';
 import { PersonBadge } from 'react-bootstrap-icons';
 import { useAuth } from 'hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export function JavaHeader() {
   const { proposalName } = useProposal();
+  const { pathname } = useLocation();
 
   return (
     <>
       <Navbar.Toggle aria-controls="main-navbar" />
       <Navbar.Collapse id="main-navbar">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/legacy/sessions">
+          <Nav.Link as={NavLink} to="/legacy/sessions/list">
             My sessions
           </Nav.Link>
-          <Nav.Link as={Link} to="/legacy/proposals">
+          <Nav.Link as={NavLink} to="/legacy/proposals/list">
             My proposals
           </Nav.Link>
           {!proposalName && (
@@ -25,12 +26,30 @@ export function JavaHeader() {
             </Nav.Link>
           )}
           {proposalName && (
-            <NavDropdown title={proposalName} id="proposal-nav-dropdown">
+            <NavDropdown
+              active={pathname.includes(proposalName)}
+              title={proposalName}
+              id="proposal-nav-dropdown"
+            >
               <NavDropdown.Item
-                as={Link}
+                as={NavLink}
                 to={`/legacy/proposals/${proposalName}/sessions`}
               >
                 Sessions
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                as={NavLink}
+                to={`/legacy/proposals/${proposalName}/shipping`}
+              >
+                Shipping
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Header>Prepare experiment</NavDropdown.Header>
+              <NavDropdown.Item
+                as={NavLink}
+                to={`/legacy/proposals/${proposalName}/MX/prepare`}
+              >
+                {'> MX'}
               </NavDropdown.Item>
             </NavDropdown>
           )}

@@ -8,8 +8,10 @@ import { SampleList } from 'legacy/pages/em/model';
 
 export default function GridSquarePanel({
   sampleList,
+  sessionId,
 }: {
   sampleList: SampleList;
+  sessionId: string;
 }) {
   const { proposalName, grids } = sampleList;
   return (
@@ -27,6 +29,7 @@ export default function GridSquarePanel({
                   movieCount={grid.movieCount}
                   progressMotionCor={grid.progressMotionCor}
                   progressCtf={grid.progressCtf}
+                  sessionId={sessionId}
                 ></GridSquare>
               </Col>
             ))}

@@ -12,16 +12,22 @@ type Param = {
 };
 
 export default function EMSessionPage() {
-  const { sessionId, proposalName = '' } = useParams<Param>();
-  const dataCollectionResponse = useEMDataCollectionsBy({ proposalName, sessionId });
-  const sampleList = useDataCollectionToGridSquares(dataCollectionResponse.data, proposalName);
+  const { sessionId = '', proposalName = '' } = useParams<Param>();
+  const dataCollectionResponse = useEMDataCollectionsBy({
+    proposalName,
+    sessionId,
+  });
+  const sampleList = useDataCollectionToGridSquares(
+    dataCollectionResponse.data,
+    proposalName
+  );
 
   return (
     <EMPage sessionId={sessionId} proposalName={proposalName}>
       <Card>
         <div style={{ margin: 10 }}>
           {sampleList.map((sample) => (
-            <GridSquarePanel sampleList={sample} />
+            <GridSquarePanel sampleList={sample} sessionId={sessionId} />
           ))}
         </div>
       </Card>

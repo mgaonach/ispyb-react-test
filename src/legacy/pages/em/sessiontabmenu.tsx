@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { useLocation, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function SessionTabMenu({
   proposalName,
@@ -9,28 +9,19 @@ export default function SessionTabMenu({
   proposalName: string | undefined;
   sessionId: string | undefined;
 }) {
-  const location = useLocation();
   return (
-    <Nav variant="tabs" defaultActiveKey="/home">
+    <Nav variant="tabs">
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/EM/${sessionId}`
-          }
-          to={`/legacy/proposals/${proposalName}/EM/${sessionId}`}
+          as={NavLink}
+          to={`/legacy/proposals/${proposalName}/EM/${sessionId}/summary`}
         >
           Summary
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/EM/${sessionId}/statistics`
-          }
+          as={NavLink}
           to={`/legacy/proposals/${proposalName}/EM/${sessionId}/statistics`}
         >
           Statistics
@@ -38,11 +29,7 @@ export default function SessionTabMenu({
       </Nav.Item>
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/EM/${sessionId}/classification`
-          }
+          as={NavLink}
           to={`/legacy/proposals/${proposalName}/EM/${sessionId}/classification`}
         >
           2D Classification

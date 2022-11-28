@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, NavLink } from 'react-router-dom';
 
 export default function SessionTabMenu({
   proposalName,
@@ -9,29 +9,19 @@ export default function SessionTabMenu({
   proposalName: string | undefined;
   sessionId: string | undefined;
 }) {
-  const location = useLocation();
-
   return (
-    <Nav variant="tabs" defaultActiveKey={location.pathname}>
+    <Nav variant="tabs">
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/MX/${sessionId}`
-          }
-          to={`/legacy/proposals/${proposalName}/MX/${sessionId}`}
+          as={NavLink}
+          to={`/legacy/proposals/${proposalName}/MX/${sessionId}/summary`}
         >
           Data Collections
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/MX/${sessionId}/energy`
-          }
+          as={NavLink}
           to={`/legacy/proposals/${proposalName}/MX/${sessionId}/energy`}
         >
           Energy Scans
@@ -39,11 +29,7 @@ export default function SessionTabMenu({
       </Nav.Item>
       <Nav.Item>
         <Nav.Link
-          as={Link}
-          active={
-            location.pathname ===
-            `/legacy/proposals/${proposalName}/MX/${sessionId}/xrf`
-          }
+          as={NavLink}
           to={`/legacy/proposals/${proposalName}/MX/${sessionId}/xrf`}
         >
           Flourescence Spectra
