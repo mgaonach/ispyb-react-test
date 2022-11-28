@@ -15,9 +15,12 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   data?: Session[];
-  areMXColumnsVisible?: boolean;
-  areSAXSColumnsVisible?: boolean;
-  areEMColumnsVisible?: boolean;
+  areMXColumnsVisible: boolean;
+  areSAXSColumnsVisible: boolean;
+  areEMColumnsVisible: boolean;
+  setAreMXColumnsVisible: (_: boolean) => void;
+  setAreSAXSColumnsVisible: (_: boolean) => void;
+  setAreEMColumnsVisible: (_: boolean) => void;
   startDate?: string;
   // eslint-disable-next-line no-unused-vars
   setStartDate?: (_: string) => void;
@@ -42,9 +45,12 @@ export default function SessionTable({
   setStartDate,
   endDate,
   setEndDate,
-  areMXColumnsVisible = true,
-  areSAXSColumnsVisible = true,
-  areEMColumnsVisible = true,
+  areMXColumnsVisible,
+  areSAXSColumnsVisible,
+  areEMColumnsVisible,
+  setAreMXColumnsVisible,
+  setAreSAXSColumnsVisible,
+  setAreEMColumnsVisible,
   userPortalLink,
   showDatePicker = true,
   showEmptySessions,
@@ -69,6 +75,23 @@ export default function SessionTable({
         showDatePicker={showDatePicker}
         showEmptySessions={showEmptySessions}
         setShowEmptySessions={setShowEmptySessions}
+        checkList={[
+          {
+            value: 'MX',
+            checked: areMXColumnsVisible,
+            onClick: () => setAreMXColumnsVisible(!areMXColumnsVisible),
+          },
+          {
+            value: 'EM',
+            checked: areEMColumnsVisible,
+            onClick: () => setAreEMColumnsVisible(!areEMColumnsVisible),
+          },
+          {
+            value: 'SAXS',
+            checked: areSAXSColumnsVisible,
+            onClick: () => setAreSAXSColumnsVisible(!areSAXSColumnsVisible),
+          },
+        ]}
       />
       {data && data.length ? (
         <BootstrapTable

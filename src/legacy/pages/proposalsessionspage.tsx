@@ -16,9 +16,9 @@ export default function ProposalSessionsPage() {
   const isManager = javaPerson?.roles.includes('Manager') || false;
   const username = javaPerson?.username || '';
   const { proposalName } = useParams<Param>();
-  const areEMColumnsVisible = true;
-  const areMXColumnsVisible = true;
-  const areSAXSColumnsVisible = false;
+  const [areEMColumnsVisible, setAreEMColumnsVisible] = useState(true);
+  const [areMXColumnsVisible, setAreMXColumnsVisible] = useState(true);
+  const [areSAXSColumnsVisible, setAreSAXSColumnsVisible] = useState(false);
   const beamlines: string[] = useGetBeamlines({
     areMXColumnsVisible,
     areSAXSColumnsVisible,
@@ -41,12 +41,15 @@ export default function ProposalSessionsPage() {
       data={filteredData?.filter((d: any) =>
         new Set(beamlines).has(d.beamLineName)
       )}
-      areEMColumnsVisible={areEMColumnsVisible}
-      areMXColumnsVisible={areMXColumnsVisible}
-      areSAXSColumnsVisible={areSAXSColumnsVisible}
       userPortalLink={UI.sessionsPage.userPortalLink}
       showEmptySessions={showEmptySessions}
       setShowEmptySessions={setShowEmptySessions}
+      areEMColumnsVisible={areEMColumnsVisible}
+      areMXColumnsVisible={areMXColumnsVisible}
+      areSAXSColumnsVisible={areSAXSColumnsVisible}
+      setAreEMColumnsVisible={setAreEMColumnsVisible}
+      setAreMXColumnsVisible={setAreMXColumnsVisible}
+      setAreSAXSColumnsVisible={setAreSAXSColumnsVisible}
     ></SessionTable>
   );
 }

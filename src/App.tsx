@@ -32,7 +32,13 @@ function App() {
       <Breadcrumbs />
       <Suspense fallback={<Loading />}>
         <section className="main-wrapper">
-          <Container className="main">{routesElement}</Container>
+          <Container
+            style={{ paddingLeft: 100, paddingRight: 100 }}
+            fluid
+            className="main"
+          >
+            {routesElement}
+          </Container>
         </section>
       </Suspense>
       <Footer />

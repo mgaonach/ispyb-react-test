@@ -6,8 +6,11 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker, FocusedInputShape } from 'react-dates';
 import { ButtonGroup } from 'react-bootstrap';
+import { ToggleButtonProps } from 'react-bootstrap/esm/ToggleButton';
+import { ToggleButton } from 'react-bootstrap';
 
 interface SessionTableMenuType {
+  checkList: Array<ToggleButtonProps>;
   showDatePicker: boolean;
   startDate?: string;
   // eslint-disable-next-line no-unused-vars
@@ -21,6 +24,7 @@ interface SessionTableMenuType {
 }
 
 export default function SessionTableMenu({
+  checkList,
   showDatePicker,
   startDate,
   setStartDate,
@@ -52,7 +56,7 @@ export default function SessionTableMenu({
   }) => {
     setLocalStartDate(startDate);
     setLocalEndDate(endDate);
-    if (focusedInput == null || focusedInput == 'endDate') {
+    if (focusedInput == null || focusedInput === 'endDate') {
       if (startDate && setStartDate) {
         setStartDate(moment(startDate).format('YYYYMMDD'));
       }
@@ -72,6 +76,17 @@ export default function SessionTableMenu({
 
   return (
     <Menu>
+      <ButtonGroup className="mb-2">
+        {checkList &&
+          checkList.map((item: ToggleButtonProps) => (
+            <ToggleButton
+              {...item}
+              variant={item.checked ? 'primary' : 'outline-primary'}
+            >
+              {item.value}
+            </ToggleButton>
+          ))}
+      </ButtonGroup>
       {showDatePicker && (
         <DateRangePicker
           startDate={localStartDate}
