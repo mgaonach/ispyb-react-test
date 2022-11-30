@@ -9,8 +9,9 @@ import classNames from 'classnames';
 
 import { useSuspense } from 'rest-hooks';
 import { SessionResource } from 'api/resources/Session';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import { Session } from 'models/Session.d';
+import { usePath } from 'hooks/usePath';
 
 function CalendarNav({ year, month }: { year: number; month: number }) {
   const navigate = useNavigate();
@@ -25,7 +26,6 @@ function CalendarNav({ year, month }: { year: number; month: number }) {
 
   function goto(date: DateTime) {
     navigate({
-      pathname: '/calendar',
       search: createSearchParams({
         year: date.year.toString(),
         month: date.month.toString(),
@@ -34,19 +34,34 @@ function CalendarNav({ year, month }: { year: number; month: number }) {
   }
 
   return (
-    <>
-      <ButtonGroup className="calendar-nav mb-1">
-        <Button onClick={() => goto(prevYear)}>{prevYear.year}</Button>
-        <Button onClick={() => goto(prevMonth)}>{prevMonth.monthLong}</Button>
-
-        <Button onClick={() => goto(nextMonth)}>{nextMonth.monthLong}</Button>
-        <Button onClick={() => goto(nextYear)}>{nextYear.year}</Button>
-
-        <Button variant="secondary" onClick={() => goto(today)}>
-          {today.monthLong} {today.year}
-        </Button>
-      </ButtonGroup>
-    </>
+    <Row>
+      <Col md={4}>
+        <ButtonGroup className="calendar-nav mb-1">
+          <Button variant="secondary" onClick={() => goto(today)}>
+            Go to today
+          </Button>
+        </ButtonGroup>
+      </Col>
+      <Col>
+        <ButtonGroup className="calendar-nav mb-1">
+          <Button variant="outline-primary" onClick={() => goto(prevYear)}>
+            {'<<'} {prevYear.year}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(prevMonth)}>
+            {'<'} {prevMonth.monthLong}
+          </Button>
+          <Button disabled variant="dark">
+            {currentMonth.monthLong} {currentMonth.year}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(nextMonth)}>
+            {nextMonth.monthLong} {'>'}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(nextYear)}>
+            {nextYear.year} {'>>'}
+          </Button>
+        </ButtonGroup>
+      </Col>
+    </Row>
   );
 }
 
@@ -103,10 +118,12 @@ function SessionList({
 }
 
 function CalendarDays({ year, month }: { year: number; month: number }) {
+  const proposal = usePath('proposal');
   const sessions = useSuspense(SessionResource.list(), {
     year,
     month,
     limit: 9999,
+    ...(proposal ? { proposal } : {}),
   });
 
   const now = DateTime.now();

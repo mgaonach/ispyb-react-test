@@ -148,6 +148,12 @@ function PyHeader() {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
+                  to={`/proposals/${proposalName}/calendar`}
+                >
+                  Calendar
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
                   to={`/proposals/${proposalName}/contacts`}
                 >
                   Contacts

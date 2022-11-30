@@ -1,3 +1,4 @@
+import Calendar from 'components/Calendar';
 import React from 'react';
 
 const ProposalsList = React.lazy(() =>
@@ -19,6 +20,12 @@ export const SessionRoutes = {
   children: [
     { index: true, element: <SessionsList />, breadcrumb: 'Sessions' },
   ],
+};
+
+export const CalendarRoutes = {
+  path: 'calendar',
+  element: <Calendar />,
+  breadcrumb: 'Calendar',
 };
 
 export const ProposalsRoutes = {

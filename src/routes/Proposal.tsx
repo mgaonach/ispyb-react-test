@@ -7,7 +7,7 @@ import ContactRoutes from './Contacts';
 import ShippingRoutes from './Shippings';
 import EventsRoutes from './Events';
 import StatsRoutes from './Stats';
-import { SessionRoutes } from './Proposals';
+import { SessionRoutes, CalendarRoutes } from './Proposals';
 import SampleRoutes from './Samples';
 import ProteinRoutes from './Proteins';
 
@@ -22,6 +22,7 @@ const ProposalRoutes = {
     match.params.proposal,
   children: [
     SessionRoutes,
+    CalendarRoutes,
     SampleRoutes,
     ProteinRoutes,
     ContactRoutes,
