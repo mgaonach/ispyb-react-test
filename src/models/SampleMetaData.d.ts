@@ -60,5 +60,5 @@ export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
     autoIntegrations?: Autointegrations;
     integratedResolution?: Integratedresolution;
     proposal?: Proposal;
-  };
+  }
 }

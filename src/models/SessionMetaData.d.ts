@@ -48,5 +48,5 @@ export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
     active: Active;
     active_soon: ActiveSoon;
     sessionTypes: Sessiontypes;
-  };
+  }
 }

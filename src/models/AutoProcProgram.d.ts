@@ -37,7 +37,7 @@ export type Message = string;
 /**
  * An enumeration.
  */
-export type AutoProcProgramMessageSeverity = 'ERROR' | 'WARNING' | 'INFO';
+export type AutoProcProgramMessageSeverity = "ERROR" | "WARNING" | "INFO";
 export type Recordtimestamp2 = string;
 export type Autoprocprogrammessages = AutoProcProgramMessage[];
 export type Imagesweepcount = number;
@@ -96,7 +96,7 @@ export function withAutoProcProgram<TBase extends Constructor>(Base: TBase) {
     recordTimeStamp: Recordtimestamp;
     ProcessingJob?: ProcessingJob;
     _metadata: AutoProcProgramMetadata;
-  };
+  }
 }
 export function withProcessingJob<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingJob extends Base {
@@ -107,28 +107,22 @@ export function withProcessingJob<TBase extends Constructor>(Base: TBase) {
     recipe?: Recipe;
     automatic: Automatic;
     ProcessingJobParameters?: Processingjobparameters;
-  };
+  }
 }
-export function withProcessingJobParameter<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withProcessingJobParameter<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingJobParameter extends Base {
     parameterKey: Parameterkey;
     parameterValue: Parametervalue;
-  };
+  }
 }
-export function withAutoProcProgramMetadata<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMetadata<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMetadata extends Base {
     attachments?: Attachments;
     autoProcProgramMessages?: Autoprocprogrammessages;
     imageSweepCount?: Imagesweepcount;
-  };
+  }
 }
-export function withAutoProcProgramMessage<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessage<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessage extends Base {
     autoProcProgramMessageId: Autoprocprogrammessageid;
     autoProcProgramId: Autoprocprogramid1;
@@ -136,5 +130,5 @@ export function withAutoProcProgramMessage<TBase extends Constructor>(
     message: Message;
     severity: AutoProcProgramMessageSeverity;
     recordTimeStamp: Recordtimestamp2;
-  };
+  }
 }

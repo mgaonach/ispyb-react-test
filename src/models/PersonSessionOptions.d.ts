@@ -6,13 +6,13 @@
  */
 
 export type Role =
-  | 'Local Contact'
-  | 'Local Contact 2'
-  | 'Staff'
-  | 'Team Leader'
-  | 'Co-Investigator'
-  | 'Principal Investigator'
-  | 'Alternate Contact';
+  | "Local Contact"
+  | "Local Contact 2"
+  | "Staff"
+  | "Team Leader"
+  | "Co-Investigator"
+  | "Principal Investigator"
+  | "Alternate Contact";
 export type Remote = number;
 
 export interface PersonSessionOptions {
@@ -21,11 +21,9 @@ export interface PersonSessionOptions {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withPersonSessionOptions<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonSessionOptions<TBase extends Constructor>(Base: TBase) {
   return class WithPersonSessionOptions extends Base {
     role?: Role;
     remote?: Remote;
-  };
+  }
 }

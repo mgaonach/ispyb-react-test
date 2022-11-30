@@ -13,7 +13,7 @@ export type SafetyLevel = SafetyLevelEnum;
 /**
  * An enumeration.
  */
-export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
+export type SafetyLevelEnum = "GREEN" | "YELLOW" | "RED";
 export type Comments = string;
 export type Shippingid = number;
 export type CreatedAt = string;
@@ -66,24 +66,22 @@ export function withShipping<TBase extends Constructor>(Base: TBase) {
     _metadata?: ShippingMetaData;
     LabContact?: ReturnLabContact1;
     LabContact1?: SendingLabContact1;
-  };
+  }
 }
 export function withShippingMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithShippingMetaData extends Base {
     dewars: Dewars;
-  };
+  }
 }
 export function withShippingLabContact<TBase extends Constructor>(Base: TBase) {
   return class WithShippingLabContact extends Base {
     cardName: Cardname;
     Person: ShippingLabContactPerson;
-  };
+  }
 }
-export function withShippingLabContactPerson<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withShippingLabContactPerson<TBase extends Constructor>(Base: TBase) {
   return class WithShippingLabContactPerson extends Base {
     givenName: Givenname;
     familyName: Familyname;
-  };
+  }
 }

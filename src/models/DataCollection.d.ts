@@ -46,6 +46,12 @@ export type OmegaStart = number;
 export type ChiStart = number;
 export type BeamSizeX = number;
 export type BeamSizeY = number;
+export type Undulatorgap1 = number;
+export type Undulatorgap2 = number;
+export type Undulatorgap3 = number;
+export type Beamshape = string;
+export type Polarisation = number;
+export type Imageprefix = string;
 export type Magnification = number;
 export type Binning = number;
 export type ParticleDiameter = number;
@@ -56,6 +62,7 @@ export type Objaperture = number;
 export type Datacollectionid = number;
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
+export type Blsampleid = number;
 export type Workflowid = number;
 export type Comments = string;
 export type Status1 = string;
@@ -76,6 +83,39 @@ export type SnapshotOffsetxpixel = number;
 export type SnapshotOffsetypixel = number;
 export type Snaked = boolean;
 export type Gridinfo = GridInfo[];
+export type Datacollectionid1 = number;
+export type Repetitionrate = number;
+export type Energybandwidth = number;
+export type Monostripe = string;
+export type Jetspeed = number;
+export type Jetsize = number;
+export type Chippattern = string;
+export type Chipmodel = string;
+export type Reactionduration = number;
+export type Laserenergy = number;
+export type Experimentname = string;
+export type Detectorid = number;
+export type Detectortype = string;
+export type Detectormanufacturer = string;
+export type Detectormodel = string;
+export type Detectorpixelsizehorizontal = number;
+export type Detectorpixelsizevertical = number;
+export type Detectorserialnumber = string;
+export type Detectordistancemin = number;
+export type Detectordistancemax = number;
+export type Trustedpixelvaluerangelower = number;
+export type Trustedpixelvaluerangeupper = number;
+export type Sensorthickness = number;
+export type Overload = number;
+export type Xgeocorr = string;
+export type Ygeocorr = string;
+export type Detectormode = string;
+export type Detectormaxresolution = number;
+export type Detectorminresolution = number;
+export type Cs = number;
+export type Density = number;
+export type Composition = string;
+export type Localname = string;
 
 export interface DataCollection {
   runStatus?: Status;
@@ -104,6 +144,12 @@ export interface DataCollection {
   chiStart?: ChiStart;
   xBeamPix?: BeamSizeX;
   yBeamPix?: BeamSizeY;
+  undulatorGap1?: Undulatorgap1;
+  undulatorGap2?: Undulatorgap2;
+  undulatorGap3?: Undulatorgap3;
+  beamShape?: Beamshape;
+  polarisation?: Polarisation;
+  imagePrefix?: Imageprefix;
   magnification?: Magnification;
   binning?: Binning;
   particleDiameter?: ParticleDiameter;
@@ -114,11 +160,14 @@ export interface DataCollection {
   dataCollectionId: Datacollectionid;
   DataCollectionGroup: DataCollectionGroup;
   GridInfo?: Gridinfo;
+  SSXDataCollection?: SSXDataCollection;
+  Detector?: Detector;
   _metadata: DataCollectionMetaData;
 }
 export interface DataCollectionGroup {
   dataCollectionGroupId: Datacollectiongroupid;
-  experimentType: Experimenttype;
+  experimentType?: Experimenttype;
+  blSampleId?: Blsampleid;
   Workflow?: Workflow;
 }
 export interface Workflow {
@@ -143,6 +192,43 @@ export interface GridInfo {
   snapshot_offsetXPixel?: SnapshotOffsetxpixel;
   snapshot_offsetYPixel?: SnapshotOffsetypixel;
   snaked?: Snaked;
+}
+export interface SSXDataCollection {
+  dataCollectionId: Datacollectionid1;
+  repetitionRate?: Repetitionrate;
+  energyBandwidth?: Energybandwidth;
+  monoStripe?: Monostripe;
+  jetSpeed?: Jetspeed;
+  jetSize?: Jetsize;
+  chipPattern?: Chippattern;
+  chipModel?: Chipmodel;
+  reactionDuration?: Reactionduration;
+  laserEnergy?: Laserenergy;
+  experimentName?: Experimentname;
+}
+export interface Detector {
+  detectorId: Detectorid;
+  detectorType?: Detectortype;
+  detectorManufacturer?: Detectormanufacturer;
+  detectorModel?: Detectormodel;
+  detectorPixelSizeHorizontal?: Detectorpixelsizehorizontal;
+  detectorPixelSizeVertical?: Detectorpixelsizevertical;
+  detectorSerialNumber?: Detectorserialnumber;
+  detectorDistanceMin?: Detectordistancemin;
+  detectorDistanceMax?: Detectordistancemax;
+  trustedPixelValueRangeLower?: Trustedpixelvaluerangelower;
+  trustedPixelValueRangeUpper?: Trustedpixelvaluerangeupper;
+  sensorThickness?: Sensorthickness;
+  overload?: Overload;
+  XGeoCorr?: Xgeocorr;
+  YGeoCorr?: Ygeocorr;
+  detectorMode?: Detectormode;
+  detectorMaxResolution?: Detectormaxresolution;
+  detectorMinResolution?: Detectorminresolution;
+  CS?: Cs;
+  density?: Density;
+  composition?: Composition;
+  localName?: Localname;
 }
 export interface DataCollectionMetaData {
   snapshots: Snapshots;
@@ -183,6 +269,12 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     chiStart?: ChiStart;
     xBeamPix?: BeamSizeX;
     yBeamPix?: BeamSizeY;
+    undulatorGap1?: Undulatorgap1;
+    undulatorGap2?: Undulatorgap2;
+    undulatorGap3?: Undulatorgap3;
+    beamShape?: Beamshape;
+    polarisation?: Polarisation;
+    imagePrefix?: Imageprefix;
     magnification?: Magnification;
     binning?: Binning;
     particleDiameter?: ParticleDiameter;
@@ -193,17 +285,18 @@ export function withDataCollection<TBase extends Constructor>(Base: TBase) {
     dataCollectionId: Datacollectionid;
     DataCollectionGroup: DataCollectionGroup;
     GridInfo?: Gridinfo;
+    SSXDataCollection?: SSXDataCollection;
+    Detector?: Detector;
     _metadata: DataCollectionMetaData;
-  };
+  }
 }
-export function withDataCollectionGroup<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDataCollectionGroup<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionGroup extends Base {
     dataCollectionGroupId: Datacollectiongroupid;
-    experimentType: Experimenttype;
+    experimentType?: Experimenttype;
+    blSampleId?: Blsampleid;
     Workflow?: Workflow;
-  };
+  }
 }
 export function withWorkflow<TBase extends Constructor>(Base: TBase) {
   return class WithWorkflow extends Base {
@@ -212,7 +305,7 @@ export function withWorkflow<TBase extends Constructor>(Base: TBase) {
     status?: Status1;
     workflowTitle?: Workflowtitle;
     workflowType?: Workflowtype;
-  };
+  }
 }
 export function withGridInfo<TBase extends Constructor>(Base: TBase) {
   return class WithGridInfo extends Base {
@@ -230,14 +323,53 @@ export function withGridInfo<TBase extends Constructor>(Base: TBase) {
     snapshot_offsetXPixel?: SnapshotOffsetxpixel;
     snapshot_offsetYPixel?: SnapshotOffsetypixel;
     snaked?: Snaked;
-  };
+  }
 }
-export function withDataCollectionMetaData<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withSSXDataCollection<TBase extends Constructor>(Base: TBase) {
+  return class WithSSXDataCollection extends Base {
+    dataCollectionId: Datacollectionid1;
+    repetitionRate?: Repetitionrate;
+    energyBandwidth?: Energybandwidth;
+    monoStripe?: Monostripe;
+    jetSpeed?: Jetspeed;
+    jetSize?: Jetsize;
+    chipPattern?: Chippattern;
+    chipModel?: Chipmodel;
+    reactionDuration?: Reactionduration;
+    laserEnergy?: Laserenergy;
+    experimentName?: Experimentname;
+  }
+}
+export function withDetector<TBase extends Constructor>(Base: TBase) {
+  return class WithDetector extends Base {
+    detectorId: Detectorid;
+    detectorType?: Detectortype;
+    detectorManufacturer?: Detectormanufacturer;
+    detectorModel?: Detectormodel;
+    detectorPixelSizeHorizontal?: Detectorpixelsizehorizontal;
+    detectorPixelSizeVertical?: Detectorpixelsizevertical;
+    detectorSerialNumber?: Detectorserialnumber;
+    detectorDistanceMin?: Detectordistancemin;
+    detectorDistanceMax?: Detectordistancemax;
+    trustedPixelValueRangeLower?: Trustedpixelvaluerangelower;
+    trustedPixelValueRangeUpper?: Trustedpixelvaluerangeupper;
+    sensorThickness?: Sensorthickness;
+    overload?: Overload;
+    XGeoCorr?: Xgeocorr;
+    YGeoCorr?: Ygeocorr;
+    detectorMode?: Detectormode;
+    detectorMaxResolution?: Detectormaxresolution;
+    detectorMinResolution?: Detectorminresolution;
+    CS?: Cs;
+    density?: Density;
+    composition?: Composition;
+    localName?: Localname;
+  }
+}
+export function withDataCollectionMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionMetaData extends Base {
     snapshots: Snapshots;
-  };
+  }
   /**
    * Snapshot statuses with ids 1-4
    */
@@ -245,5 +377,5 @@ export function withDataCollectionMetaData<TBase extends Constructor>(
 export function withSnapshots<TBase extends Constructor>(Base: TBase) {
   return class WithSnapshots extends Base {
     [k: string]: boolean;
-  };
+  }
 }

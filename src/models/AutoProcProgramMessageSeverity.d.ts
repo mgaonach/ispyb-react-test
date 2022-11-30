@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type AutoProcProgramMessageSeverity = 'ERROR' | 'WARNING' | 'INFO';
+export type AutoProcProgramMessageSeverity = "ERROR" | "WARNING" | "INFO";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

@@ -63,13 +63,13 @@ export type URL = null | string;
  */
 export type LaboratoryExtPk = null | number;
 export type Role =
-  | 'Local Contact'
-  | 'Local Contact 2'
-  | 'Staff'
-  | 'Team Leader'
-  | 'Co-Investigator'
-  | 'Principal Investigator'
-  | 'Alternate Contact';
+  | "Local Contact"
+  | "Local Contact 2"
+  | "Staff"
+  | "Team Leader"
+  | "Co-Investigator"
+  | "Principal Investigator"
+  | "Alternate Contact";
 export type Remote = number;
 export type Persons = PersonSessionLaboratory[];
 
@@ -151,11 +151,9 @@ export function withUPSession<TBase extends Constructor>(Base: TBase) {
     externalId?: Externalid;
     nbReimbDewars?: Nbreimbdewars;
     persons?: Persons;
-  };
+  }
 }
-export function withPersonSessionLaboratory<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonSessionLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithPersonSessionLaboratory extends Base {
     siteId?: Siteid;
     personUUID?: Personuuid;
@@ -171,7 +169,7 @@ export function withPersonSessionLaboratory<TBase extends Constructor>(
     cache?: Cache;
     laboratory?: LaboratoryCreate;
     session_options?: PersonSessionOptions;
-  };
+  }
 }
 export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreate extends Base {
@@ -181,13 +179,11 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-  };
+  }
 }
-export function withPersonSessionOptions<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonSessionOptions<TBase extends Constructor>(Base: TBase) {
   return class WithPersonSessionOptions extends Base {
     role?: Role;
     remote?: Remote;
-  };
+  }
 }

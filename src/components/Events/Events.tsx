@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Event } from 'models/Event.d';
 import { usePath } from 'hooks/usePath';
 
-interface IButtonProps {
+export interface IButtonProps {
   icon?: ReactElement;
   content?: ReactElement;
   hint: string;
@@ -22,8 +22,9 @@ interface IButtonsProps {
 export function Buttons(props: IButtonsProps) {
   return (
     <>
-      {props.buttons.map((button) =>
-        button.hidden ? null : (
+      {props.buttons.map((button) => {
+        if (button.hidden) return null;
+        return (
           <Button
             className="me-1"
             size="sm"
@@ -38,8 +39,8 @@ export function Buttons(props: IButtonsProps) {
             )}
             <span className="visually-hidden">{button.hint}</span>
           </Button>
-        )
-      )}
+        );
+      })}
     </>
   );
 }
@@ -47,7 +48,7 @@ export function Buttons(props: IButtonsProps) {
 interface IEventHeader {
   event: Event;
   title: string;
-  buttons?: Array<any>;
+  buttons?: Array<IButtonProps>;
 }
 
 export function EventHeader(props: IEventHeader) {
@@ -68,7 +69,8 @@ export function EventHeader(props: IEventHeader) {
             </Link>{' '}
           </>
         )}
-        {event.startTime} - {title}
+        {event.startTime}
+        {title.length ? <> - {title}</> : null}
       </h3>
     </div>
   );

@@ -42,5 +42,5 @@ export function withBreakdownPoint<TBase extends Constructor>(Base: TBase) {
     title?: Title;
     session?: Session;
     sessionId?: Sessionid;
-  };
+  }
 }

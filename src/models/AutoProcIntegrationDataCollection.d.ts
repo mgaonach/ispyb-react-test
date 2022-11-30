@@ -14,11 +14,9 @@ export interface AutoProcIntegrationDataCollection {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcIntegrationDataCollection<
-  TBase extends Constructor
->(Base: TBase) {
+export function withAutoProcIntegrationDataCollection<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcIntegrationDataCollection extends Base {
     xBeam?: Xbeam;
     yBeam?: Ybeam;
-  };
+  }
 }

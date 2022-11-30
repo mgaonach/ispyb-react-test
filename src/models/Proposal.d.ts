@@ -13,7 +13,7 @@ export type ProposalState = ProposalState1;
 /**
  * An enumeration.
  */
-export type ProposalState1 = 'Open' | 'Closed' | 'Cancelled';
+export type ProposalState1 = "Open" | "Closed" | "Cancelled";
 /**
  * Number of people registered on this proposal (via ProposalHasPerson)
  */
@@ -58,7 +58,7 @@ export function withProposal<TBase extends Constructor>(Base: TBase) {
     state?: ProposalState;
     _metadata: ProposalMetaData;
     proposalId: Proposalid;
-  };
+  }
 }
 export function withProposalMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithProposalMetaData extends Base {
@@ -66,5 +66,5 @@ export function withProposalMetaData<TBase extends Constructor>(Base: TBase) {
     sessions: Sessions;
     beamLines: Beamlines;
     uiGroups?: Uigroups;
-  };
+  }
 }

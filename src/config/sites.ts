@@ -30,7 +30,7 @@ export interface Technique {
 export const SITES: SiteConfig[] = [
   {
     name: 'ESRF-py',
-    host: 'http://daiquiri.esrf.fr:8000',
+    host: 'http://localhost:8000',
     apiPrefix: '/ispyb/api/v1',
   },
   {

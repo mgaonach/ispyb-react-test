@@ -16,7 +16,7 @@ export type Message = string;
 /**
  * An enumeration.
  */
-export type AutoProcProgramMessageSeverity = 'ERROR' | 'WARNING' | 'INFO';
+export type AutoProcProgramMessageSeverity = "ERROR" | "WARNING" | "INFO";
 export type Recordtimestamp = string;
 export type Autoprocprogrammessages = AutoProcProgramMessage[];
 export type Imagesweepcount = number;
@@ -36,18 +36,14 @@ export interface AutoProcProgramMessage {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramMetadata<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMetadata<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMetadata extends Base {
     attachments?: Attachments;
     autoProcProgramMessages?: Autoprocprogrammessages;
     imageSweepCount?: Imagesweepcount;
-  };
+  }
 }
-export function withAutoProcProgramMessage<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessage<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessage extends Base {
     autoProcProgramMessageId: Autoprocprogrammessageid;
     autoProcProgramId: Autoprocprogramid;
@@ -55,5 +51,5 @@ export function withAutoProcProgramMessage<TBase extends Constructor>(
     message: Message;
     severity: AutoProcProgramMessageSeverity;
     recordTimeStamp: Recordtimestamp;
-  };
+  }
 }

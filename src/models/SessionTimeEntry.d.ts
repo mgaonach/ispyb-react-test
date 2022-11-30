@@ -48,5 +48,5 @@ export function withSessionTimeEntry<TBase extends Constructor>(Base: TBase) {
     remaining?: TimeRemaining;
     thinking?: TimeNotUsedByOtherTypes;
     sessionId: TheSessionId;
-  };
+  }
 }

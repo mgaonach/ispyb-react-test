@@ -16,7 +16,7 @@ export type Comments = string;
 /**
  * An enumeration.
  */
-export type ScalingStatisticsType = 'overall' | 'innerShell' | 'outerShell';
+export type ScalingStatisticsType = "overall" | "innerShell" | "outerShell";
 export type Resolutionlimitlow = number;
 export type Resolutionlimithigh = number;
 export type Rmerge = number;
@@ -75,18 +75,16 @@ export interface AutoProcScalingStatistics {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcScalingHasInt<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcScalingHasInt<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcScalingHasInt extends Base {
     AutoProcScaling?: AutoProcScaling;
-  };
+  }
 }
 export function withAutoProcScaling<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcScaling extends Base {
     AutoProc?: AutoProc;
     AutoProcScalingStatistics?: Autoprocscalingstatistics;
-  };
+  }
 }
 export function withAutoProc<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProc extends Base {
@@ -97,11 +95,9 @@ export function withAutoProc<TBase extends Constructor>(Base: TBase) {
     refinedCell_alpha: RefinedcellAlpha;
     refinedCell_beta: RefinedcellBeta;
     refinedCell_gamma: RefinedcellGamma;
-  };
+  }
 }
-export function withAutoProcScalingStatistics<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcScalingStatistics<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcScalingStatistics extends Base {
     comments?: Comments;
     scalingStatisticsType?: ScalingStatisticsType;
@@ -122,5 +118,5 @@ export function withAutoProcScalingStatistics<TBase extends Constructor>(
     ccHalf?: Cchalf;
     ccAnomalous?: Ccanomalous;
     resIOverSigI2?: Resioversigi2;
-  };
+  }
 }

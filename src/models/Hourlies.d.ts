@@ -22,11 +22,11 @@ export function withHourlies<TBase extends Constructor>(Base: TBase) {
   return class WithHourlies extends Base {
     datacollections: Hourly;
     loaded: Hourly;
-  };
+  }
 }
 export function withHourly<TBase extends Constructor>(Base: TBase) {
   return class WithHourly extends Base {
     hour: Hour;
     average: Average;
-  };
+  }
 }

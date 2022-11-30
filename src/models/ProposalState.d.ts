@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type ProposalState = 'Open' | 'Closed' | 'Cancelled';
+export type ProposalState = "Open" | "Closed" | "Cancelled";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

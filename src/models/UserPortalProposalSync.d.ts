@@ -89,13 +89,13 @@ export type Faxnumber1 = string;
 export type Externalid3 = number;
 export type Cache1 = string;
 export type Role =
-  | 'Local Contact'
-  | 'Local Contact 2'
-  | 'Staff'
-  | 'Team Leader'
-  | 'Co-Investigator'
-  | 'Principal Investigator'
-  | 'Alternate Contact';
+  | "Local Contact"
+  | "Local Contact 2"
+  | "Staff"
+  | "Team Leader"
+  | "Co-Investigator"
+  | "Principal Investigator"
+  | "Alternate Contact";
 export type Remote = number;
 export type Persons1 = PersonSessionLaboratory[];
 export type Sessions = UPSession[];
@@ -225,14 +225,12 @@ export interface UPProtein {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withUserPortalProposalSync<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withUserPortalProposalSync<TBase extends Constructor>(Base: TBase) {
   return class WithUserPortalProposalSync extends Base {
     proposal: UPProposal;
     sessions?: Sessions;
     proteins?: Proteins;
-  };
+  }
 }
 export function withUPProposal<TBase extends Constructor>(Base: TBase) {
   return class WithUPProposal extends Base {
@@ -244,11 +242,9 @@ export function withUPProposal<TBase extends Constructor>(Base: TBase) {
     state?: State;
     persons: Persons;
     labcontacts?: Labcontacts;
-  };
+  }
 }
-export function withPersonProposalLaboratory<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonProposalLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithPersonProposalLaboratory extends Base {
     siteId?: Siteid;
     personUUID?: Personuuid;
@@ -263,7 +259,7 @@ export function withPersonProposalLaboratory<TBase extends Constructor>(
     externalId?: Externalid1;
     cache?: Cache;
     laboratory?: LaboratoryCreate;
-  };
+  }
 }
 export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreate extends Base {
@@ -273,7 +269,7 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-  };
+  }
 }
 export function withUPLabContact<TBase extends Constructor>(Base: TBase) {
   return class WithUPLabContact extends Base {
@@ -284,7 +280,7 @@ export function withUPLabContact<TBase extends Constructor>(Base: TBase) {
     dewarAvgCustomsValue?: Dewaravgcustomsvalue;
     dewarAvgTransportValue?: Dewaravgtransportvalue;
     person: PersonProposalLaboratory;
-  };
+  }
 }
 export function withUPSession<TBase extends Constructor>(Base: TBase) {
   return class WithUPSession extends Base {
@@ -310,11 +306,9 @@ export function withUPSession<TBase extends Constructor>(Base: TBase) {
     externalId?: Externalid2;
     nbReimbDewars?: Nbreimbdewars;
     persons?: Persons1;
-  };
+  }
 }
-export function withPersonSessionLaboratory<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonSessionLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithPersonSessionLaboratory extends Base {
     siteId?: Siteid1;
     personUUID?: Personuuid1;
@@ -330,15 +324,13 @@ export function withPersonSessionLaboratory<TBase extends Constructor>(
     cache?: Cache1;
     laboratory?: LaboratoryCreate;
     session_options?: PersonSessionOptions;
-  };
+  }
 }
-export function withPersonSessionOptions<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonSessionOptions<TBase extends Constructor>(Base: TBase) {
   return class WithPersonSessionOptions extends Base {
     role?: Role;
     remote?: Remote;
-  };
+  }
 }
 export function withUPProtein<TBase extends Constructor>(Base: TBase) {
   return class WithUPProtein extends Base {
@@ -357,5 +349,5 @@ export function withUPProtein<TBase extends Constructor>(Base: TBase) {
     modId?: Modid;
     concentrationTypeId?: Concentrationtypeid;
     person: PersonProposalLaboratory;
-  };
+  }
 }

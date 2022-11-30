@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type ProteinOrder = 'proteinId' | 'acronym' | 'name';
+export type ProteinOrder = "proteinId" | "acronym" | "name";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

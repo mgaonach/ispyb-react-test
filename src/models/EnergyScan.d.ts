@@ -15,5 +15,5 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 export function withEnergyScan<TBase extends Constructor>(Base: TBase) {
   return class WithEnergyScan extends Base {
     energyScanId: Energyscanid;
-  };
+  }
 }

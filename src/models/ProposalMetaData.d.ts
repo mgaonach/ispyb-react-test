@@ -36,5 +36,5 @@ export function withProposalMetaData<TBase extends Constructor>(Base: TBase) {
     sessions: Sessions;
     beamLines: Beamlines;
     uiGroups?: Uigroups;
-  };
+  }
 }

@@ -14,11 +14,9 @@ export interface ProcessingJobParameter {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withProcessingJobParameter<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withProcessingJobParameter<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingJobParameter extends Base {
     parameterKey: Parameterkey;
     parameterValue: Parametervalue;
-  };
+  }
 }

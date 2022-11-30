@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type EventStatus = 'success' | 'failed' | 'processed' | 'processerror';
+export type EventStatus = "success" | "failed" | "processed" | "processerror";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

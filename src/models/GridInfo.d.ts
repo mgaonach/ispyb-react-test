@@ -54,5 +54,5 @@ export function withGridInfo<TBase extends Constructor>(Base: TBase) {
     snapshot_offsetXPixel?: SnapshotOffsetxpixel;
     snapshot_offsetYPixel?: SnapshotOffsetypixel;
     snaked?: Snaked;
-  };
+  }
 }

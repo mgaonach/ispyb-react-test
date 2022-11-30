@@ -5,15 +5,21 @@ import { DataCollection as DataCollectionType, Event } from 'models/Event.d';
 import Metadata from '../Metadata';
 // import PerImageAnalysis from '../PerImageAnalysis';
 import Snapshot, { DiffractionSnapshot, PerImageSnapshot } from './Snapshot';
+import { ProcessingStatuses } from 'models/ProcessingStatusesList.d';
+import { AutoProcProgramMessageStatus } from 'models/AutoProcProgramMessageStatuses.d';
+import { DataCollectionBox } from '../DataCollection';
 
 export interface IDataCollection {
   item: DataCollectionType;
   parent: Event;
   isGroup: boolean;
+  processingStatuses?: ProcessingStatuses;
+  messageStatuses?: AutoProcProgramMessageStatus;
 }
 
-export default function Default({ parent, item }: IDataCollection) {
-  return (
+export default function Default(props: IDataCollection) {
+  const { parent, item } = props;
+  const res = (
     <Row className="g-0">
       <Col md="4">
         <Metadata
@@ -85,4 +91,6 @@ export default function Default({ parent, item }: IDataCollection) {
       </Col>
     </Row>
   );
+
+  return <DataCollectionBox {...props}>{res}</DataCollectionBox>;
 }

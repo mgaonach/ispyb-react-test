@@ -15,10 +15,8 @@ export interface SampleImageMetaData {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withSampleImageMetaData<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withSampleImageMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSampleImageMetaData extends Base {
     url: Url;
-  };
+  }
 }

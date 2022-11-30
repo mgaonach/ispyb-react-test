@@ -16,12 +16,10 @@ export interface Snapshots {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withDataCollectionMetaData<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDataCollectionMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionMetaData extends Base {
     snapshots: Snapshots;
-  };
+  }
   /**
    * Snapshot statuses with ids 1-4
    */
@@ -29,5 +27,5 @@ export function withDataCollectionMetaData<TBase extends Constructor>(
 export function withSnapshots<TBase extends Constructor>(Base: TBase) {
   return class WithSnapshots extends Base {
     [k: string]: boolean;
-  };
+  }
 }

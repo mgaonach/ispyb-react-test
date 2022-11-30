@@ -24,5 +24,5 @@ export function withSubSampleMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSubSampleMetaData extends Base {
     datacollections: Datacollections;
     types?: Types;
-  };
+  }
 }

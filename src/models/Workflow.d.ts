@@ -27,5 +27,5 @@ export function withWorkflow<TBase extends Constructor>(Base: TBase) {
     status?: Status;
     workflowTitle?: Workflowtitle;
     workflowType?: Workflowtype;
-  };
+  }
 }

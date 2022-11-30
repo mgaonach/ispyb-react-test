@@ -23,13 +23,11 @@ export function withShippingLabContact<TBase extends Constructor>(Base: TBase) {
   return class WithShippingLabContact extends Base {
     cardName: Cardname;
     Person: ShippingLabContactPerson;
-  };
+  }
 }
-export function withShippingLabContactPerson<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withShippingLabContactPerson<TBase extends Constructor>(Base: TBase) {
   return class WithShippingLabContactPerson extends Base {
     givenName: Givenname;
     familyName: Familyname;
-  };
+  }
 }

@@ -35,20 +35,16 @@ export interface Datacollectiontypes {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withBreakdownOverviewRun<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownOverviewRun<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownOverviewRun extends Base {
     startDate: Startdate;
     endDate: Enddate;
     duration: Duration;
     run: Run;
     counts: BreakdownOverviewCounts;
-  };
+  }
 }
-export function withBreakdownOverviewCounts<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownOverviewCounts<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownOverviewCounts extends Base {
     datacollections: Datacollections;
     failed: Failed;
@@ -56,12 +52,10 @@ export function withBreakdownOverviewCounts<TBase extends Constructor>(
     robot: Robot;
     edge: Edge;
     xrf: Xrf;
-  };
+  }
 }
-export function withDatacollectiontypes<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDatacollectiontypes<TBase extends Constructor>(Base: TBase) {
   return class WithDatacollectiontypes extends Base {
     [k: string]: number;
-  };
+  }
 }

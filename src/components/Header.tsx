@@ -17,7 +17,7 @@ function PersonMenu() {
       title={
         <>
           <PersonBadge className="me-1" />
-          {currentUser.givenName}
+          {currentUser.login}
         </>
       }
       id="admin-nav-dropdown"

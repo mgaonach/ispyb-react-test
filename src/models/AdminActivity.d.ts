@@ -24,5 +24,5 @@ export function withAdminActivity<TBase extends Constructor>(Base: TBase) {
     action: Action;
     comments: Comments;
     dateTime: Datetime;
-  };
+  }
 }

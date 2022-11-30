@@ -38,9 +38,7 @@ export interface ScreeningStrategySubWedge {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withScreeningStrategySubWedge<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningStrategySubWedge<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategySubWedge extends Base {
     screeningStrategySubWedgeId: Screeningstrategysubwedgeid;
     subWedgeNumber?: Subwedgenumber;
@@ -56,5 +54,5 @@ export function withScreeningStrategySubWedge<TBase extends Constructor>(
     doseTotal?: Dosetotal;
     numberOfImages?: Numberofimages;
     comments?: Comments;
-  };
+  }
 }

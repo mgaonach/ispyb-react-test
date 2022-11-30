@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type ScalingStatisticsType = 'overall' | 'innerShell' | 'outerShell';
+export type ScalingStatisticsType = "overall" | "innerShell" | "outerShell";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

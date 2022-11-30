@@ -15,20 +15,22 @@ export interface PluginConfig {
   name: Name;
   config: Config;
 }
-export interface Config {}
+export interface Config {
+}
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withAuthConfig<TBase extends Constructor>(Base: TBase) {
   return class WithAuthConfig extends Base {
     plugins: Plugins;
-  };
+  }
 }
 export function withPluginConfig<TBase extends Constructor>(Base: TBase) {
   return class WithPluginConfig extends Base {
     name: Name;
     config: Config;
-  };
+  }
 }
 export function withConfig<TBase extends Constructor>(Base: TBase) {
-  return class WithConfig extends Base {};
+  return class WithConfig extends Base {
+  }
 }

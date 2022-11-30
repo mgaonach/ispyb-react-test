@@ -24,19 +24,17 @@ export interface ParameterHistogram {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withParameterHistograms<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withParameterHistograms<TBase extends Constructor>(Base: TBase) {
   return class WithParameterHistograms extends Base {
     parameter: Parameter;
     unit: Unit;
     beamLines: Beamlines;
-  };
+  }
 }
 export function withParameterHistogram<TBase extends Constructor>(Base: TBase) {
   return class WithParameterHistogram extends Base {
     beamLineName: Beamlinename;
     bin: Bin;
     frequency: Frequency;
-  };
+  }
 }

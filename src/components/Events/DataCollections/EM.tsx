@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IDataCollection } from './Default';
 import Metadata from '../Metadata';
 import Snapshot from './Snapshot';
+import { DataCollectionBox } from '../DataCollection';
 
 function EMGridSquare({ parent, item }: IDataCollection) {
   return (
@@ -94,5 +95,10 @@ function EMGroup({ parent, item }: IDataCollection) {
 }
 
 export default function EM(props: IDataCollection) {
-  return props.isGroup ? <EMGroup {...props} /> : <EMGridSquare {...props} />;
+  const res = props.isGroup ? (
+    <EMGroup {...props} />
+  ) : (
+    <EMGridSquare {...props} />
+  );
+  return <DataCollectionBox {...props}>{res}</DataCollectionBox>;
 }

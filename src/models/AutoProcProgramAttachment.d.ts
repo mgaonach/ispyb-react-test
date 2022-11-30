@@ -28,9 +28,7 @@ export interface AutoProcProgramAttachmentMetaData {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramAttachment<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramAttachment<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramAttachment extends Base {
     autoProcProgramAttachmentId: Autoprocprogramattachmentid;
     autoProcProgramId: Autoprocprogramid;
@@ -38,12 +36,10 @@ export function withAutoProcProgramAttachment<TBase extends Constructor>(
     fileType: Filetype;
     importanceRank?: Importancerank;
     _metadata: AutoProcProgramAttachmentMetaData;
-  };
+  }
 }
-export function withAutoProcProgramAttachmentMetaData<
-  TBase extends Constructor
->(Base: TBase) {
+export function withAutoProcProgramAttachmentMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramAttachmentMetaData extends Base {
     url: Url;
-  };
+  }
 }

@@ -20,11 +20,9 @@ export interface DataCollectionFileAttachmentMetaData {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withDataCollectionFileAttachmentMetaData<
-  TBase extends Constructor
->(Base: TBase) {
+export function withDataCollectionFileAttachmentMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionFileAttachmentMetaData extends Base {
     url: Url;
     fileName: Filename;
-  };
+  }
 }

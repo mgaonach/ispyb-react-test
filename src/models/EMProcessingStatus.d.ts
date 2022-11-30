@@ -21,5 +21,5 @@ export function withEMProcessingStatus<TBase extends Constructor>(Base: TBase) {
     movie: Movie;
     motionCorrection: Motioncorrection;
     ctf: Ctf;
-  };
+  }
 }

@@ -14,11 +14,9 @@ export interface ExperimentTypeMessages {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withExperimentTypeMessages<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withExperimentTypeMessages<TBase extends Constructor>(Base: TBase) {
   return class WithExperimentTypeMessages extends Base {
     count: FrequencyOfThisErrorMessage;
     message: TheErrorMessage;
-  };
+  }
 }

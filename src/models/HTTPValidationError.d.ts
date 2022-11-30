@@ -20,17 +20,15 @@ export interface ValidationError {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withHTTPValidationError<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withHTTPValidationError<TBase extends Constructor>(Base: TBase) {
   return class WithHTTPValidationError extends Base {
     detail?: Detail;
-  };
+  }
 }
 export function withValidationError<TBase extends Constructor>(Base: TBase) {
   return class WithValidationError extends Base {
     loc: Location;
     msg: Message;
     type: ErrorType;
-  };
+  }
 }

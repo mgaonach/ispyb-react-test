@@ -17,11 +17,9 @@ export interface ProcessingProcessingStatus {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withProcessingProcessingStatus<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withProcessingProcessingStatus<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingProcessingStatus extends Base {
     status?: StatusEnum;
     autoProcProgramId: Autoprocprogramid;
-  };
+  }
 }

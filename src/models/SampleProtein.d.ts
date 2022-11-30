@@ -21,5 +21,5 @@ export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
     proposalId: Proposalid;
     name: Name;
     acronym: Acronym;
-  };
+  }
 }

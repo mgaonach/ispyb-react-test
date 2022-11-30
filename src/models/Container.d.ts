@@ -6,6 +6,8 @@
  */
 
 export type Name = string;
+export type Dewarid = number;
+export type Containertype = string;
 /**
  * Position in sample change
  */
@@ -14,110 +16,50 @@ export type Samplechangerlocation = string;
  * Beamline if container is assigned
  */
 export type Beamlinelocation = string;
+export type Containerid = number;
 export type Name1 = string;
 export type Proposalid = number;
 export type Name2 = string;
-export type SendingLabContact = number;
-export type ReturnLabContact = number;
-export type SafetyLevel = SafetyLevelEnum;
-/**
- * An enumeration.
- */
-export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
-export type Comments = string;
-export type Shippingid = number;
-export type Bltimestamp = string;
-/**
- * Number of dewars
- */
-export type Dewars = number;
-export type ReturnLabContact1 = ShippingLabContact;
-export type Cardname = string;
-export type Givenname = string;
-export type Familyname = string;
-export type SendingLabContact1 = ShippingLabContact;
 
 export interface Container {
   code: Name;
+  dewarId: Dewarid;
+  containerType: Containertype;
   sampleChangerLocation?: Samplechangerlocation;
   beamlineLocation?: Beamlinelocation;
-  Dewar: Dewar;
+  containerId: Containerid;
+  Dewar: ContainerDewar;
 }
-export interface Dewar {
+export interface ContainerDewar {
   code: Name1;
-  Shipping: Shipping;
+  Shipping: DewarShipping;
 }
-export interface Shipping {
+export interface DewarShipping {
   proposalId: Proposalid;
   shippingName: Name2;
-  sendingLabContactId?: SendingLabContact;
-  returnLabContactId?: ReturnLabContact;
-  safetyLevel?: SafetyLevel;
-  comments?: Comments;
-  shippingId: Shippingid;
-  bltimeStamp?: Bltimestamp;
-  _metadata?: ShippingMetaData;
-  LabContact?: ReturnLabContact1;
-  LabContact1?: SendingLabContact1;
-}
-export interface ShippingMetaData {
-  dewars: Dewars;
-}
-export interface ShippingLabContact {
-  cardName: Cardname;
-  Person: ShippingLabContactPerson;
-}
-export interface ShippingLabContactPerson {
-  givenName: Givenname;
-  familyName: Familyname;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withContainer<TBase extends Constructor>(Base: TBase) {
   return class WithContainer extends Base {
     code: Name;
+    dewarId: Dewarid;
+    containerType: Containertype;
     sampleChangerLocation?: Samplechangerlocation;
     beamlineLocation?: Beamlinelocation;
-    Dewar: Dewar;
-  };
+    containerId: Containerid;
+    Dewar: ContainerDewar;
+  }
 }
-export function withDewar<TBase extends Constructor>(Base: TBase) {
-  return class WithDewar extends Base {
+export function withContainerDewar<TBase extends Constructor>(Base: TBase) {
+  return class WithContainerDewar extends Base {
     code: Name1;
-    Shipping: Shipping;
-  };
+    Shipping: DewarShipping;
+  }
 }
-export function withShipping<TBase extends Constructor>(Base: TBase) {
-  return class WithShipping extends Base {
+export function withDewarShipping<TBase extends Constructor>(Base: TBase) {
+  return class WithDewarShipping extends Base {
     proposalId: Proposalid;
     shippingName: Name2;
-    sendingLabContactId?: SendingLabContact;
-    returnLabContactId?: ReturnLabContact;
-    safetyLevel?: SafetyLevel;
-    comments?: Comments;
-    shippingId: Shippingid;
-    bltimeStamp?: Bltimestamp;
-    _metadata?: ShippingMetaData;
-    LabContact?: ReturnLabContact1;
-    LabContact1?: SendingLabContact1;
-  };
-}
-export function withShippingMetaData<TBase extends Constructor>(Base: TBase) {
-  return class WithShippingMetaData extends Base {
-    dewars: Dewars;
-  };
-}
-export function withShippingLabContact<TBase extends Constructor>(Base: TBase) {
-  return class WithShippingLabContact extends Base {
-    cardName: Cardname;
-    Person: ShippingLabContactPerson;
-  };
-}
-export function withShippingLabContactPerson<TBase extends Constructor>(
-  Base: TBase
-) {
-  return class WithShippingLabContactPerson extends Base {
-    givenName: Givenname;
-    familyName: Familyname;
-  };
+  }
 }

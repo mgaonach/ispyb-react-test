@@ -12,7 +12,7 @@ export type Returnlabcontactid = number;
 /**
  * An enumeration.
  */
-export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
+export type SafetyLevelEnum = "GREEN" | "YELLOW" | "RED";
 export type Comments = string;
 
 export interface ShippingCreateOptional {
@@ -25,9 +25,7 @@ export interface ShippingCreateOptional {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withShippingCreateOptional<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withShippingCreateOptional<TBase extends Constructor>(Base: TBase) {
   return class WithShippingCreateOptional extends Base {
     proposalId?: Proposalid;
     shippingName?: Shippingname;
@@ -35,5 +33,5 @@ export function withShippingCreateOptional<TBase extends Constructor>(
     returnLabContactId?: Returnlabcontactid;
     safetyLevel?: SafetyLevelEnum;
     comments?: Comments;
-  };
+  }
 }

@@ -36,5 +36,5 @@ export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
     crystals?: Crystals;
     samples?: Samples;
     datacollections?: Datacollections;
-  };
+  }
 }

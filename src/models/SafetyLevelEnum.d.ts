@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
+export type SafetyLevelEnum = "GREEN" | "YELLOW" | "RED";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

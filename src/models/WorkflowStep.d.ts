@@ -38,14 +38,12 @@ export function withWorkflowStep<TBase extends Constructor>(Base: TBase) {
     status?: Status;
     comments?: Comments;
     _metadata: WorkflowStepMetaData;
-  };
+  }
 }
-export function withWorkflowStepMetaData<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withWorkflowStepMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithWorkflowStepMetaData extends Base {
     attachments: Attachments;
-  };
+  }
   /**
    * Attachment statuses
    */
@@ -53,5 +51,5 @@ export function withWorkflowStepMetaData<TBase extends Constructor>(
 export function withAttachments<TBase extends Constructor>(Base: TBase) {
   return class WithAttachments extends Base {
     [k: string]: boolean;
-  };
+  }
 }
