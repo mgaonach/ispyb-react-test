@@ -21,5 +21,5 @@ export function withOneTimeToken<TBase extends Constructor>(Base: TBase) {
   return class WithOneTimeToken extends Base {
     validity: Validity;
     token?: Token;
-  };
+  }
 }

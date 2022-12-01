@@ -12,35 +12,8 @@ export type CellAlpha = null | number;
 export type CellBeta = null | number;
 export type CellGamma = null | number;
 export type Name = string;
-/**
- * A short name
- */
 export type Acronym = string;
-export type Proposalid = number;
-/**
- * Sequence or chemical composition
- */
-export type SequenceSMILES = string;
-export type Density = number;
-export type Mass = number;
-export type Containmentlevel = string;
-export type Hazardgroup = string;
-export type Safetylevel = string;
-export type Componenttypeid = number;
-export type Name1 = string;
 export type Proteinid = number;
-/**
- * Number of attached pdbs
- */
-export type Pdbs = number;
-/**
- * Number of child crystals
- */
-export type Crystals = number;
-/**
- * Number of child samples
- */
-export type Samples = number;
 export type Crystalid = number;
 
 export interface Crystal {
@@ -56,25 +29,7 @@ export interface Crystal {
 export interface Protein {
   name: Name;
   acronym: Acronym;
-  proposalId: Proposalid;
-  sequence?: SequenceSMILES;
-  density?: Density;
-  molecularMass?: Mass;
-  containmentLevel?: Containmentlevel;
-  hazardGroup?: Hazardgroup;
-  safetyLevel?: Safetylevel;
-  ComponentType?: ComponentType;
   proteinId: Proteinid;
-  _metadata?: ProteinMetaData;
-}
-export interface ComponentType {
-  componentTypeId: Componenttypeid;
-  name: Name1;
-}
-export interface ProteinMetaData {
-  pdbs?: Pdbs;
-  crystals?: Crystals;
-  samples?: Samples;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -88,34 +43,12 @@ export function withCrystal<TBase extends Constructor>(Base: TBase) {
     cell_gamma?: CellGamma;
     Protein: Protein;
     crystalId: Crystalid;
-  };
+  }
 }
 export function withProtein<TBase extends Constructor>(Base: TBase) {
   return class WithProtein extends Base {
     name: Name;
     acronym: Acronym;
-    proposalId: Proposalid;
-    sequence?: SequenceSMILES;
-    density?: Density;
-    molecularMass?: Mass;
-    containmentLevel?: Containmentlevel;
-    hazardGroup?: Hazardgroup;
-    safetyLevel?: Safetylevel;
-    ComponentType?: ComponentType;
     proteinId: Proteinid;
-    _metadata?: ProteinMetaData;
-  };
-}
-export function withComponentType<TBase extends Constructor>(Base: TBase) {
-  return class WithComponentType extends Base {
-    componentTypeId: Componenttypeid;
-    name: Name1;
-  };
-}
-export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
-  return class WithProteinMetaData extends Base {
-    pdbs?: Pdbs;
-    crystals?: Crystals;
-    samples?: Samples;
-  };
+  }
 }

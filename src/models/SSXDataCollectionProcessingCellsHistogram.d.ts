@@ -8,6 +8,7 @@
 export type X = number[];
 export type Y = number[];
 export type Median = number;
+export type Datacollectionids = number[];
 
 export interface SSXDataCollectionProcessingCellsHistogram {
   a?: Histogram;
@@ -16,6 +17,7 @@ export interface SSXDataCollectionProcessingCellsHistogram {
   alpha?: Histogram;
   beta?: Histogram;
   gamma?: Histogram;
+  dataCollectionIds: Datacollectionids;
 }
 export interface Histogram {
   x: X;
@@ -32,6 +34,7 @@ export function withSSXDataCollectionProcessingCellsHistogram<TBase extends Cons
     alpha?: Histogram;
     beta?: Histogram;
     gamma?: Histogram;
+    dataCollectionIds: Datacollectionids;
   }
 }
 export function withHistogram<TBase extends Constructor>(Base: TBase) {

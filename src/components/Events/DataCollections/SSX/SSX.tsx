@@ -1,15 +1,17 @@
-import { Col, Container, Row, Tab } from 'react-bootstrap';
+import { Tab } from 'react-bootstrap';
 
 import { EventResource } from 'api/resources/Event';
 import { useSuspense } from 'rest-hooks';
 import { IDataCollection } from '../Default';
-import { SessionResource } from 'api/resources/Session';
 import { DataCollectionBox } from '../../DataCollection';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { CompactSSXContent } from './SSXCompact';
+import { SampleResource } from 'api/resources/Sample';
+import { DeployedSSXContent } from './SSXDeployed';
 
 export default function SSXDataCollectionGroup(props: IDataCollection) {
-  const { parent, item } = props;
+  const { item } = props;
   const dataCollectionGroupId = item.DataCollectionGroup.dataCollectionGroupId;
   const dcs = useSuspense(EventResource.list(), {
     dataCollectionGroupId,
@@ -19,8 +21,8 @@ export default function SSXDataCollectionGroup(props: IDataCollection) {
 
   const [tabKey, setTabKey] = useState<string | null>('Summary');
 
-  const session = useSuspense(SessionResource.detail(), {
-    sessionId: parent.sessionId,
+  const sample = useSuspense(SampleResource.detail(), {
+    blSampleId: item.DataCollectionGroup.blSampleId,
   });
 
   const navigate = useNavigate();
@@ -32,8 +34,6 @@ export default function SSXDataCollectionGroup(props: IDataCollection) {
   const onDeploy = () => {
     navigate(`?deployedId=${dataCollectionGroupId}`);
   };
-  const dcg = parent;
-
   return (
     <div
       style={{ margin: 5, cursor: deployed ? undefined : 'pointer' }}
@@ -60,11 +60,19 @@ export default function SSXDataCollectionGroup(props: IDataCollection) {
             },
           ]}
         >
-          <Container fluid>
-            <Row>
-              <Col md="auto"></Col>
-            </Row>
-          </Container>
+          {deployed ? (
+            <DeployedSSXContent
+              dcgItem={item}
+              dcs={dcs.results}
+              sample={sample}
+            />
+          ) : (
+            <CompactSSXContent
+              dcgItem={item}
+              dcs={dcs.results}
+              sample={sample}
+            />
+          )}
         </DataCollectionBox>
       </Tab.Container>
     </div>

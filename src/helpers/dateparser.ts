@@ -3,13 +3,15 @@ import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
 import { isMatch } from 'date-fns';
 
-export function formatDateToDay(dateTime: string): string {
+export function formatDateToDay(dateTime: string | undefined): string {
   return formatDateTo(dateTime, 'dd/MM/yyyy');
 }
-export function formatDateToDayAndTime(dateTime: string): string {
+export function formatDateToDayAndTime(dateTime: string | undefined): string {
   return formatDateTo(dateTime, 'dd/MM/yyyy HH:mm:ss');
 }
-export function formatDateToDayAndPreciseTime(dateTime: string): string {
+export function formatDateToDayAndPreciseTime(
+  dateTime: string | undefined
+): string {
   return formatDateTo(dateTime, 'dd/MM/yyyy HH:mm:ss.SSS');
 }
 
@@ -19,7 +21,11 @@ export function formatDateToDayAndPreciseTime(dateTime: string): string {
  * @param outputFormat
  * @returns
  */
-export function formatDateTo(dateTime: string, outputFormat: string): string {
+export function formatDateTo(
+  dateTime: string | undefined,
+  outputFormat: string
+): string {
+  if (dateTime === undefined) return 'No date';
   try {
     return format(parseDate(dateTime), outputFormat);
   } catch (e) {

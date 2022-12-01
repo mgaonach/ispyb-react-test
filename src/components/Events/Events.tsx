@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Event } from 'models/Event.d';
 import { usePath } from 'hooks/usePath';
+import { formatDateToDayAndTime } from 'helpers/dateparser';
 
 export interface IButtonProps {
   icon?: ReactElement;
@@ -20,10 +21,10 @@ interface IButtonsProps {
 }
 
 export function Buttons(props: IButtonsProps) {
+  const btns = props.buttons.filter((b) => !b.hidden);
   return (
     <>
-      {props.buttons.map((button) => {
-        if (button.hidden) return null;
+      {btns.map((button) => {
         return (
           <Button
             className="me-1"
@@ -41,6 +42,15 @@ export function Buttons(props: IButtonsProps) {
           </Button>
         );
       })}
+      {btns.length ? (
+        <span
+          style={{
+            borderLeft: '1px solid lightgrey',
+            marginLeft: 10,
+            marginRight: 10,
+          }}
+        ></span>
+      ) : null}
     </>
   );
 }
@@ -66,10 +76,17 @@ export function EventHeader(props: IEventHeader) {
               to={`/proposals/${event.proposal}/sessions/${event.sessionId}`}
             >
               {event.session ? event.session : event.proposal}
-            </Link>{' '}
+            </Link>
+            <span
+              style={{
+                borderLeft: '1px solid lightgrey',
+                marginLeft: 10,
+                marginRight: 10,
+              }}
+            ></span>
           </>
         )}
-        {event.startTime}
+        {formatDateToDayAndTime(event.startTime)}
         {title.length ? <> - {title}</> : null}
       </h3>
     </div>

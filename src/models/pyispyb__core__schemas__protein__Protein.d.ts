@@ -5,18 +5,21 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Componenttypeid = number;
 export type Name = string;
+export type Acronym = string;
+export type Proteinid = number;
 
-export interface ComponentType {
-  componentTypeId: Componenttypeid;
+export interface Protein {
   name: Name;
+  acronym: Acronym;
+  proteinId: Proteinid;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withComponentType<TBase extends Constructor>(Base: TBase) {
-  return class WithComponentType extends Base {
-    componentTypeId: Componenttypeid;
+export function withProtein<TBase extends Constructor>(Base: TBase) {
+  return class WithProtein extends Base {
     name: Name;
+    acronym: Acronym;
+    proteinId: Proteinid;
   }
 }

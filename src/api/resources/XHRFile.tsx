@@ -228,8 +228,8 @@ export function LazyImage(props: any) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const { site } = useAuth();
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const { src, ...rest } = props;
-  const source = `${site.host}${site.apiPrefix}${src}`;
+  const { src, local, ...rest } = props;
+  const source = local ? src : `${site.host}${site.apiPrefix}${src}`;
 
   return inView ? (
     <ErrorBoundary image>

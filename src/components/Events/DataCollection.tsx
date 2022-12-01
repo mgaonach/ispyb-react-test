@@ -123,7 +123,9 @@ export function DataCollectionBox(
               ]
         }
       />
-      <Container className="g-0">{children}</Container>
+      <Container fluid className="g-0">
+        {children}
+      </Container>
       {item.DataCollectionGroup.Workflow && parent.count > 1 && (
         <Workflow {...item.DataCollectionGroup.Workflow} />
       )}
