@@ -73,8 +73,9 @@ html {
 }
 
 .event {
+  border: 1px solid $secondary;
   h3 {
-    border-bottom: 1px solid $tertiary;
+    border-bottom: 5px solid $tertiary;
     font-family: Poppins;
     font-size: 1rem;
     font-weight: normal;

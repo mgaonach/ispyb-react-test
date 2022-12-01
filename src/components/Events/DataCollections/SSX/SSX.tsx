@@ -1,16 +1,38 @@
-import { Tab } from 'react-bootstrap';
+import { Placeholder, Tab } from 'react-bootstrap';
 
 import { EventResource } from 'api/resources/Event';
 import { useSuspense } from 'rest-hooks';
 import { IDataCollection } from '../Default';
 import { DataCollectionBox } from '../../DataCollection';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CompactSSXContent } from './SSXCompact';
 import { SampleResource } from 'api/resources/Sample';
 import { DeployedSSXContent } from './SSXDeployed';
+import Loading from 'components/Loading';
 
-export default function SSXDataCollectionGroup(props: IDataCollection) {
+export default function SSX(props: IDataCollection) {
+  return (
+    <Suspense fallback={<LoadingSSXDataCollectionGroup />}>
+      <SSXDataCollectionGroup {...props} />
+    </Suspense>
+  );
+}
+
+function LoadingSSXDataCollectionGroup() {
+  return (
+    <>
+      <div className="event-header mb-1 p-1">
+        <h3 className="pb-1 text-primary">
+          <Placeholder xs={1}></Placeholder>
+        </h3>
+      </div>
+      <Loading />
+    </>
+  );
+}
+
+export function SSXDataCollectionGroup(props: IDataCollection) {
   const { item } = props;
   const dataCollectionGroupId = item.DataCollectionGroup.dataCollectionGroupId;
   const dcs = useSuspense(EventResource.list(), {

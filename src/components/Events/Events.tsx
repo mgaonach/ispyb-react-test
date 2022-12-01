@@ -94,9 +94,5 @@ export function EventHeader(props: IEventHeader) {
 }
 
 export function EventBase({ children }: { children: JSX.Element }) {
-  return (
-    <div className="event border border-secondary rounded p-2 mb-2">
-      {children}
-    </div>
-  );
+  return <div className="event rounded p-2 mb-2">{children}</div>;
 }
