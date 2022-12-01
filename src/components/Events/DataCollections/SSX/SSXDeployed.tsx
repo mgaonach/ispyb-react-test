@@ -2,7 +2,7 @@ import { SSXDataCollectionProcessingStatsResource } from 'api/resources/SSX/SSXD
 import { LazyImage } from 'api/resources/XHRFile';
 import LightBox from 'components/LightBox';
 import Loading from 'components/Loading';
-import { formatDateToDayAndTime, parseDate } from 'helpers/dateparser';
+import { formatDateToDayAndTime } from 'helpers/dateparser';
 import { getColorFromHitPercent } from 'helpers/ssx';
 import { round } from 'lodash';
 import { DataCollection, Event } from 'models/Event';
@@ -43,11 +43,11 @@ export function DeployedSSXContent({
   );
 }
 
-function DataCollectionGroupSummary({ dcs: dcsData }: { dcs: Event[] }) {
-  const dcs = dcsData.sort(
-    (a, b) =>
-      parseDate(a.startTime).getTime() - parseDate(b.startTime).getTime()
-  );
+function DataCollectionGroupSummary({ dcs }: { dcs: Event[] }) {
+  // const dcs = dcsData.sort(
+  //   (a, b) =>
+  //     parseDate(a.startTime).getTime() - parseDate(b.startTime).getTime()
+  // );
 
   return (
     <Col>

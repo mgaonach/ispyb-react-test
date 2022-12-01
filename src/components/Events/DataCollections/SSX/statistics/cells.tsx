@@ -36,7 +36,11 @@ export function UnitCellStatistics({ dcs }: { dcs: Event[] }) {
             const d = data[cell];
             if (!d || !('x' in d)) return null;
             return (
-              <UnitCellParamGraph name={cell} data={d}></UnitCellParamGraph>
+              <UnitCellParamGraph
+                key={cell}
+                name={cell}
+                data={d}
+              ></UnitCellParamGraph>
             );
           })}
         </div>
@@ -45,7 +49,11 @@ export function UnitCellStatistics({ dcs }: { dcs: Event[] }) {
             const d = data[cell];
             if (!d || !('x' in d)) return null;
             return (
-              <UnitCellParamGraph name={cell} data={d}></UnitCellParamGraph>
+              <UnitCellParamGraph
+                key={cell}
+                name={cell}
+                data={d}
+              ></UnitCellParamGraph>
             );
           })}
         </div>

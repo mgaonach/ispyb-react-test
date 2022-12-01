@@ -36,7 +36,7 @@ export function CompactSSXContent({
     <Col>
       <Row>
         {fields.map((field) => (
-          <Col>
+          <Col key={field.title}>
             <MetadataItem {...field} />
           </Col>
         ))}

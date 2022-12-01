@@ -28,7 +28,12 @@ function PlotWidget(props: PlotParams & { compact?: boolean }) {
       <Plot
         {...props}
         layout={{
-          modebar: { bgcolor: 'transparent', color: 'black', activecolor: 'black' },
+          modebar: {
+            bgcolor: 'transparent',
+            color: 'black',
+            activecolor: 'black',
+          },
+          uirevision: 'true',
           ...props.layout,
         }}
         config={{
@@ -55,22 +60,40 @@ function PlotWidget(props: PlotParams & { compact?: boolean }) {
           ...props.config,
         }}
       />
-      <Modal centered size="xl" onHide={() => setFullScreen(false)} show={fullscreen}>
+      <Modal
+        centered
+        size="xl"
+        onHide={() => setFullScreen(false)}
+        show={fullscreen}
+      >
         <Modal.Header closeButton>
-          <h5>Expanded graph {typeof props.layout.title == 'string' ? props.layout.title : props.layout.title?.text}</h5>
+          <h5>
+            Expanded graph{' '}
+            {typeof props.layout.title == 'string'
+              ? props.layout.title
+              : props.layout.title?.text}
+          </h5>
         </Modal.Header>
         <Modal.Body>
           <Plot
             {...props}
             config={{
               displayModeBar: true,
-              modeBarButtons: [['toImage'], ['pan2d', 'zoom2d'], ['zoomIn2d', 'zoomOut2d', 'resetScale2d']],
+              modeBarButtons: [
+                ['toImage'],
+                ['pan2d', 'zoom2d'],
+                ['zoomIn2d', 'zoomOut2d', 'resetScale2d'],
+              ],
               ...props.config,
             }}
             layout={{
               paper_bgcolor: 'transparent',
               plot_bgcolor: 'transparent',
-              modebar: { bgcolor: 'transparent', color: 'black', activecolor: 'black' },
+              modebar: {
+                bgcolor: 'transparent',
+                color: 'black',
+                activecolor: 'black',
+              },
               ...props.layout,
               height: undefined,
               width: undefined,

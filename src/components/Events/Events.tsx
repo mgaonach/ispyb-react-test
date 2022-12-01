@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Button, Nav } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Event } from 'models/Event.d';

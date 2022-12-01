@@ -5,7 +5,7 @@ class _ProcessingStatus extends AuthenticatedSingletonResource {
   static getEndpointExtra() {
     return {
       ...super.getEndpointExtra(),
-      pollFrequency: 5000,
+      pollFrequency: 10000,
     };
   }
 
