@@ -5,7 +5,11 @@ import { useSuspense } from 'rest-hooks';
 import { IDataCollection } from '../Default';
 import { DataCollectionBox } from '../../DataCollection';
 import { Suspense, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { CompactSSXContent } from './SSXCompact';
 import { SampleResource } from 'api/resources/Sample';
 import { DeployedSSXContent } from './SSXDeployed';
@@ -22,8 +26,8 @@ export default function SSX(props: IDataCollection) {
 function LoadingSSXDataCollectionGroup() {
   return (
     <>
-      <div className="event-header mb-1 p-1">
-        <h3 className="pb-1 text-primary">
+      <div className="event-header ">
+        <h3 className="text-white rounded p-3 mb-3">
           <Placeholder xs={1}></Placeholder>
         </h3>
       </div>
@@ -54,7 +58,13 @@ export function SSXDataCollectionGroup(props: IDataCollection) {
 
   const deployed = Number(deployedId) === dataCollectionGroupId;
   const onDeploy = () => {
-    navigate(`?deployedId=${dataCollectionGroupId}`);
+    navigate({
+      pathname: '',
+      search: createSearchParams({
+        ...Object.fromEntries([...searchParams]),
+        deployedId: dataCollectionGroupId.toString(),
+      }).toString(),
+    });
   };
   return (
     <div

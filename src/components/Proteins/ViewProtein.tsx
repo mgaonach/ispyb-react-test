@@ -46,7 +46,7 @@ function ViewProteinMain() {
 
   return (
     <div>
-      <section>
+      {/* <section>
         <InlineEditable
           editable={editable}
           schema={schema}
@@ -54,7 +54,7 @@ function ViewProteinMain() {
           formData={protein}
           onChange={onChange}
         />
-      </section>
+      </section> */}
       <section>
         <SamplesList proteinId={proteinId} />
       </section>

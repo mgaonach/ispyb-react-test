@@ -67,7 +67,7 @@ export function EventHeader(props: IEventHeader) {
 
   return (
     <div className="event-header">
-      <h3 className=" text-white rounded p-3 mb-3">
+      <h3 className="text-white rounded p-3 mb-3">
         {buttons && <Buttons buttons={buttons} />}
         {!sessionId && (
           <>

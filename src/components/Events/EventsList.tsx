@@ -81,13 +81,13 @@ function EventListButtons() {
   const sessionInfo = useSessionInfo(sessionId);
   return (
     <>
-      <Link
+      {/* <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}`}
       >
         <PeopleFill className="me-1" />
         Users
-      </Link>
+      </Link> */}
       <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}/stats/${sessionId}`}
@@ -95,13 +95,13 @@ function EventListButtons() {
         <PieChartFill className="me-1" />
         Stats
       </Link>
-      <Link
+      {/* <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}`}
       >
         <Wrench className="me-1" />
         Beamline Status
-      </Link>
+      </Link> */}
       {sessionInfo && sessionInfo._metadata.uiGroups?.includes('mx') && (
         <Link
           className="btn btn-primary btn-sm me-1"

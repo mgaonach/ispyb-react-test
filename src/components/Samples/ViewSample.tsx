@@ -95,7 +95,7 @@ function ViewSampleMain() {
 
   return (
     <div>
-      <section>
+      {/* <section>
         <InlineEditable
           editable={editable}
           schema={schema}
@@ -105,7 +105,7 @@ function ViewSampleMain() {
           staticValues={staticValues}
           extraComponents={extraComponents}
         />
-      </section>
+      </section> */}
       <section>
         <EventList blSampleId={blSampleId} limit={5} />
       </section>
