@@ -1,7 +1,7 @@
 import { JSXElementConstructor, Suspense } from 'react';
 import { useSuspense, useSubscription } from 'rest-hooks';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Alert } from 'react-bootstrap';
+import { Alert, Col } from 'react-bootstrap';
 import { Gear, PieChartFill } from 'react-bootstrap-icons';
 
 import { EventResource } from 'api/resources/Event';
@@ -22,6 +22,7 @@ import Default from './Default';
 import RobotAction from './RobotAction';
 import DataCollection from './DataCollection';
 import { useSessionInfo } from 'hooks/useSessionInfo';
+import SessionOverview from 'components/Stats/SessionOverview';
 
 function EventTypeFilter({
   urlKey,
@@ -209,15 +210,16 @@ function EventListMain({
   );
 
   const title = dataCollectionGroupId
-    ? `group ${dataCollectionGroupId}`
-    : sessionId
-    ? sessionId
+    ? `Data Collections for group ${dataCollectionGroupId}`
     : '';
 
   return (
     <section>
       <h1 className="d-flex justify-content-between">
-        <span>Data Collections{title ? `: ${title}` : ''}</span>
+        <Col>
+          <span>{title ? `: ${title}` : 'Session'}</span>
+          {sessionId && <SessionOverview />}
+        </Col>
         {sessionId && <TimesBar />}
       </h1>
 
