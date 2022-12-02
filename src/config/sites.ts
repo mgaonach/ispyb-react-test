@@ -1,5 +1,6 @@
 export interface SiteConfig {
   name: string;
+  description?: string;
   host: string;
   apiPrefix: string;
   javaMode?: boolean;
@@ -30,11 +31,13 @@ export interface Technique {
 export const SITES: SiteConfig[] = [
   {
     name: 'ESRF-py',
+    description: 'For SSX',
     host: 'http://py-ispyb-development:8888',
     apiPrefix: '/ispyb/api/v1',
   },
   {
     name: 'ESRF-java',
+    description: 'For MX/EM',
     javaName: 'ESRF',
     host: 'https://ispyb.esrf.fr',
     apiPrefix: '/ispyb/ispyb-ws/rest',

@@ -1,4 +1,4 @@
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import { useAuth } from 'hooks/useAuth';
 import Select from 'react-select';
@@ -18,22 +18,37 @@ export default function Login() {
       {siteInitialized && (
         <>
           {SITES.length > 1 && (
-            <Row>
-              <Col xs={12} md={4}></Col>
-              <Col xs={12} md={4}>
-                <h5>Please select your site</h5>
-                <Select
-                  isSearchable={true}
-                  className="mb-2"
-                  value={{ label: site.name, value: site }}
-                  options={options}
-                  onChange={(newValue) => {
-                    if (newValue) setSite(newValue.value);
-                  }}
-                ></Select>
-                <div style={{ borderTop: '1px solid gray', height: 10 }}></div>
-              </Col>
-            </Row>
+            <Col>
+              <Row>
+                <Col xs={12} md={4}></Col>
+                <Col xs={12} md={4}>
+                  <h5>Please select your site</h5>
+                  <Row>
+                    {SITES.map((siteBtn, index) => {
+                      return (
+                        <Col key={index}>
+                          <Button
+                            variant={
+                              site === siteBtn ? 'primary' : 'outline-primary'
+                            }
+                            onClick={() => setSite(siteBtn)}
+                            className="mb-3 w-100 lh-1"
+                          >
+                            {siteBtn.name}
+                            <br />
+                            <small className="fs-12 fw-light fst-italic">
+                              {siteBtn.description}
+                            </small>
+                          </Button>
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                  <hr className="mb-4" />
+                </Col>
+              </Row>
+              <Row></Row>
+            </Col>
           )}
           <Row>
             {site.javaMode ? <LoginJava></LoginJava> : <LoginPy></LoginPy>}

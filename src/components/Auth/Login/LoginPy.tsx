@@ -13,6 +13,8 @@ import {
 import { LoginResource } from 'api/resources/Login';
 import { useAuth } from 'hooks/useAuth';
 import { AuthConfigResource } from 'api/resources/AuthConfig';
+import { PluginConfig } from 'models/AuthConfig';
+import Keycloak from 'keycloak-js';
 
 export default function LoginPy() {
   const authConfig = useSuspense(AuthConfigResource.detail(), {});
@@ -36,6 +38,14 @@ export default function LoginPy() {
     }, 500);
   }, [setPending]);
 
+  const ssoPlugin =
+    authConfig.plugins.filter((p) => p.name === 'keycloak').length >= 1
+      ? authConfig.plugins.filter((p) => p.name === 'keycloak')[0]
+      : undefined;
+  const passwordPlugins = authConfig.plugins.filter(
+    (p) => p.name !== 'keycloak'
+  );
+
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       setPending(true);
@@ -54,8 +64,8 @@ export default function LoginPy() {
         {},
         {
           plugin:
-            authConfig.plugins.length === 1
-              ? authConfig.plugins[0].name
+            passwordPlugins.length === 1
+              ? passwordPlugins[0].name
               : typeRef.current?.value,
           login: userRef.current?.value,
           password: passRef.current?.value,
@@ -77,77 +87,154 @@ export default function LoginPy() {
           }
         });
     },
-    [setToken, fetch, resetPending, authConfig.plugins]
+    [setToken, fetch, resetPending, passwordPlugins]
   );
+
+  const ssoForm = ssoPlugin ? (
+    <Row>
+      <Col xs={12} md={4}></Col>
+      <Col xs={12} md={4}>
+        <SSOLoginPy plugin={ssoPlugin} />
+      </Col>
+    </Row>
+  ) : null;
+
+  const passwordForm = passwordPlugins.length ? (
+    <Row>
+      <Col xs={12} md={4}></Col>
+      <Col xs={12} md={4}>
+        <Form onSubmit={onSubmit} validated={validated}>
+          {error && (
+            <Row>
+              <Col>
+                <Alert variant="danger">{error}</Alert>
+              </Col>
+            </Row>
+          )}
+          <Form.Group as={Row} className="mb-2">
+            <Form.Label column>Username</Form.Label>
+            <Col md={12} lg={8}>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                ref={userRef}
+                disabled={pending}
+                required
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-2">
+            <Form.Label column>Password</Form.Label>
+            <Col md={12} lg={8}>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                ref={passRef}
+                disabled={pending}
+                required
+              />
+            </Col>
+          </Form.Group>
+          {passwordPlugins.length > 1 && (
+            <Form.Group as={Row}>
+              <Form.Label column>Type</Form.Label>
+              <Col md={12} lg={8}>
+                <Form.Control
+                  as="select"
+                  ref={typeRef}
+                  disabled={pending}
+                  required
+                >
+                  {passwordPlugins.map((plugin) => (
+                    <option value={plugin.name}>{plugin.name}</option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Form.Group>
+          )}
+          <div className="d-grid gap-2 mt-4">
+            <Button variant="primary" type="submit" disabled={pending}>
+              {!pending && <>Login</>}
+              {pending && (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              )}
+            </Button>
+          </div>
+        </Form>
+      </Col>
+      <Col xs={12} md={4}></Col>
+    </Row>
+  ) : null;
 
   return (
     <Container>
-      <Row>
-        <Col xs={12} md={4}></Col>
-        <Col xs={12} md={4}>
-          <Form onSubmit={onSubmit} validated={validated}>
-            {error && (
-              <Row>
+      {ssoForm && passwordForm ? (
+        <>
+          {ssoForm}
+          <Row>
+            <Col xs={12} md={4}></Col>
+            <Col xs={12} md={4}>
+              <Row className="mb-2">
                 <Col>
-                  <Alert variant="danger">{error}</Alert>
+                  <hr />
+                </Col>
+                <Col sm={'auto'}>OR</Col>
+                <Col>
+                  <hr />
                 </Col>
               </Row>
-            )}
-            <Form.Group as={Row} className="mb-2">
-              <Form.Label column>Username</Form.Label>
-              <Col md={12} lg={8}>
-                <Form.Control
-                  type="text"
-                  placeholder="Username"
-                  ref={userRef}
-                  disabled={pending}
-                  required
-                />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-2">
-              <Form.Label column>Password</Form.Label>
-              <Col md={12} lg={8}>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  ref={passRef}
-                  disabled={pending}
-                  required
-                />
-              </Col>
-            </Form.Group>
-            {authConfig.plugins.length > 1 && (
-              <Form.Group as={Row}>
-                <Form.Label column>Type</Form.Label>
-                <Col md={12} lg={8}>
-                  <Form.Control
-                    as="select"
-                    ref={typeRef}
-                    disabled={pending}
-                    required
-                  >
-                    {authConfig.plugins.map((plugin) => (
-                      <option value={plugin.name}>{plugin.name}</option>
-                    ))}
-                  </Form.Control>
-                </Col>
-              </Form.Group>
-            )}
-            <div className="d-grid gap-2 mt-2">
-              <Button variant="primary" type="submit" disabled={pending}>
-                {!pending && <>Login</>}
-                {pending && (
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                )}
-              </Button>
-            </div>
-          </Form>
-        </Col>
-        <Col xs={12} md={4}></Col>
-      </Row>
+            </Col>
+          </Row>
+          {passwordForm}
+        </>
+      ) : (
+        <>{ssoForm ? ssoForm : passwordForm}</>
+      )}
     </Container>
+  );
+}
+
+export function SSOLoginPy({ plugin }: { plugin: PluginConfig }) {
+  const { setToken } = useAuth();
+  const { fetch } = useController();
+
+  const config: { [key: string]: string } = plugin.config as any;
+  const keycloak = new Keycloak({
+    url: config['KEYCLOAK_SERVER_URL'],
+    realm: config['KEYCLOAK_REALM_NAME'],
+    clientId: config['KEYCLOAK_CLIENT_ID'],
+  });
+
+  keycloak.init({});
+
+  keycloak.onAuthSuccess = () => {
+    fetch(
+      LoginResource.create(),
+      {},
+      {
+        plugin: plugin.name,
+        token: keycloak.token,
+      }
+    ).then((response) => {
+      setToken(response.token);
+    });
+    keycloak.onAuthSuccess = undefined;
+    keycloak.onAuthError = undefined;
+  };
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          keycloak.login();
+        }}
+        className="mb-3 w-100 "
+        variant={'secondary'}
+      >
+        Login with SSO
+      </Button>
+    </>
   );
 }
