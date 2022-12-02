@@ -2,7 +2,7 @@ import { JSXElementConstructor, Suspense } from 'react';
 import { useSuspense, useSubscription } from 'rest-hooks';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
-import { Gear, PeopleFill, PieChartFill, Wrench } from 'react-bootstrap-icons';
+import { Gear, PieChartFill } from 'react-bootstrap-icons';
 
 import { EventResource } from 'api/resources/Event';
 import { EventTypeResource } from 'api/resources/EventType';
