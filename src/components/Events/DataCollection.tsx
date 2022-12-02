@@ -15,7 +15,7 @@ import Workflow from './Workflow';
 import Default from './DataCollections/Default';
 import Mesh from './DataCollections/Mesh';
 import EM from './DataCollections/EM';
-import SSXDataCollectionGroup from './DataCollections/SSX/SSX';
+import SSX from './DataCollections/SSX/SSX';
 
 function renderInner({
   item,
@@ -31,8 +31,8 @@ function renderInner({
   const renderMap: Record<string, any> = {
     Mesh: Mesh,
     EM: EM,
-    'SSX-Chip': SSXDataCollectionGroup,
-    'SSX-Jet': SSXDataCollectionGroup,
+    'SSX-Chip': SSX,
+    'SSX-Jet': SSX,
   };
 
   const Component =
@@ -113,7 +113,7 @@ export function DataCollectionBox(
                 },
                 {
                   icon: <MessageStatus statuses={props.messageStatuses} />,
-                  variant: 'outline-primary',
+                  variant: 'outline-light',
                   hint: 'Processing Status Messages',
                   hidden:
                     !props.messageStatuses ||

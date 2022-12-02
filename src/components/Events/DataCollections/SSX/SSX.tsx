@@ -71,14 +71,14 @@ export function SSXDataCollectionGroup(props: IDataCollection) {
               hint: 'Summary',
               onClick: () => setTabKey('Summary'),
               hidden: !deployed,
-              variant: tabKey === 'Summary' ? 'primary' : 'outline-primary',
+              variant: tabKey === 'Summary' ? 'light' : 'outline-light',
             },
             {
               content: <>Parameters</>,
               hint: 'Parameters',
               onClick: () => setTabKey('Parameters'),
               hidden: !deployed,
-              variant: tabKey === 'Parameters' ? 'primary' : 'outline-primary',
+              variant: tabKey === 'Parameters' ? 'light' : 'outline-light',
             },
           ]}
         >

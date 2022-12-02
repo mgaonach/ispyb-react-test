@@ -66,8 +66,8 @@ export function EventHeader(props: IEventHeader) {
   const { event, buttons, title } = props;
 
   return (
-    <div className="event-header mb-1 p-1">
-      <h3 className="pb-1 text-primary">
+    <div className="event-header">
+      <h3 className=" text-white rounded p-3 mb-3">
         {buttons && <Buttons buttons={buttons} />}
         {!sessionId && (
           <>
@@ -79,7 +79,7 @@ export function EventHeader(props: IEventHeader) {
             </Link>
             <span
               style={{
-                borderLeft: '1px solid lightgrey',
+                borderLeft: '1px solid white',
                 marginLeft: 10,
                 marginRight: 10,
               }}
