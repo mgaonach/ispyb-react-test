@@ -26,6 +26,18 @@ export default function Metadata(props: IMetadataProps) {
   );
 }
 
+export function MetadataCol(props: IMetadataProps) {
+  return (
+    <Col className="metadata-list  g-0 me-2">
+      {props.properties.map((item) => (
+        <Row>
+          <MetadataItem {...item} />
+        </Row>
+      ))}
+    </Col>
+  );
+}
+
 export function MetadataItem(props: IMetadataItemProps) {
   return (
     <React.Fragment key={props.title}>

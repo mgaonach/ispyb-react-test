@@ -13,6 +13,7 @@ import { Col, Row, Tab } from 'react-bootstrap';
 import { useSuspense } from 'rest-hooks';
 import { CompactSSXContent } from './SSXCompact';
 import SSXDataCollectionDetail from './SSXDataCollectionDetail';
+import SSXDataCollectionGroupParameters from './SSXParameters';
 import { UnitCellStatistics } from './statistics/cells';
 import {
   DataCollectionGroupHitGraph,
@@ -20,10 +21,12 @@ import {
 } from './statistics/hits';
 
 export function DeployedSSXContent({
+  dcg,
   dcgItem,
   dcs,
   sample,
 }: {
+  dcg: Event;
   dcgItem: DataCollection;
   dcs: Event[];
   sample: Sample;
@@ -34,9 +37,15 @@ export function DeployedSSXContent({
       <Row>
         <Tab.Content>
           <Tab.Pane eventKey="Summary">
-            <DataCollectionGroupSummary dcs={dcs} />
+            <Suspense fallback={<Loading />}>
+              <DataCollectionGroupSummary dcs={dcs} />
+            </Suspense>
           </Tab.Pane>
-          <Tab.Pane eventKey="Parameters">b</Tab.Pane>
+          <Tab.Pane eventKey="Parameters">
+            <Suspense fallback={<Loading />}>
+              <SSXDataCollectionGroupParameters dcg={dcg} sample={sample} />
+            </Suspense>
+          </Tab.Pane>
         </Tab.Content>
       </Row>
     </Col>

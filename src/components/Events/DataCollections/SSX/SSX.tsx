@@ -37,7 +37,7 @@ function LoadingSSXDataCollectionGroup() {
 }
 
 export function SSXDataCollectionGroup(props: IDataCollection) {
-  const { item } = props;
+  const { item, parent } = props;
   const dataCollectionGroupId = item.DataCollectionGroup.dataCollectionGroupId;
   const dcs = useSuspense(EventResource.list(), {
     dataCollectionGroupId,
@@ -94,6 +94,7 @@ export function SSXDataCollectionGroup(props: IDataCollection) {
         >
           {deployed ? (
             <DeployedSSXContent
+              dcg={parent}
               dcgItem={item}
               dcs={dcs.results}
               sample={sample}
