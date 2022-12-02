@@ -12,6 +12,7 @@ import { SessionResource } from 'api/resources/Session';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import { Session } from 'models/Session.d';
 import { usePath } from 'hooks/usePath';
+import { range } from 'lodash';
 
 function CalendarNav({ year, month }: { year: number; month: number }) {
   const navigate = useNavigate();
@@ -130,16 +131,15 @@ function CalendarDays({ year, month }: { year: number; month: number }) {
   const monthObj = DateTime.fromObject({ year: year, month: month });
   const startDay = monthObj.startOf('month');
 
-  const days = Array(monthObj.daysInMonth).fill(0);
-  const preDays =
-    startDay.weekday > 0 ? Array(startDay.weekday - 1).fill(0) : [];
+  const days = range(1, monthObj.daysInMonth + 1);
+  const preDays = startDay.weekday > 0 ? range(1, startDay.weekday) : [];
 
   return (
     <div className="calendar-days">
-      {preDays.map((_, day) => (
+      {preDays.map((day) => (
         <div className="calendar-pre-day" key={`pre-${day}`}></div>
       ))}
-      {days.map((_, day) => (
+      {days.map((day) => (
         <div
           key={`day-${day}`}
           className={classNames('calendar-day', {
@@ -147,10 +147,10 @@ function CalendarDays({ year, month }: { year: number; month: number }) {
               day === now.day && month === now.month && year === now.year,
           })}
         >
-          <h2>{day + 1}</h2>
+          <h2>{day}</h2>
           <SessionList
             sessions={sessions.results}
-            day={DateTime.fromObject({ year, month, day: day + 1 })}
+            day={DateTime.fromObject({ year, month, day: day })}
           />
         </div>
       ))}
