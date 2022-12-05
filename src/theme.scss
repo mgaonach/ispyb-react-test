@@ -47,9 +47,9 @@ $pagination-disabled-bg: lighten($secondary, 30%);
 
 .card-header {
   background-color: $primary !important;
-  color: color-contrast($primary);
+  color: color-contrast($primary) !important;
 }
 
 .card-header .nav-link {
-  color: color-contrast($primary);
+  color: color-contrast($primary) !important;
 }
