@@ -1,8 +1,7 @@
-@import 'theme';
+@import 'base';
 @import 'typography';
 
-@import 'vendors/bootstrap';
-@import 'base';
+@import 'general';
 
 @import 'components/calendar';
 @import 'components/lightbox';

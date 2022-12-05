@@ -94,3 +94,24 @@ html {
 .lazy-image-loaded {
   opacity: 1;
 }
+
+.react-bootstrap-table table {
+  table-layout: auto !important;
+}
+
+.card-header {
+  background-color: $tertiary !important;
+  color: color-contrast($tertiary) !important;
+}
+
+.card-header .nav-link {
+  color: color-contrast($tertiary) !important;
+}
+
+.card-header .nav-link.active {
+  color: color-contrast($white) !important;
+}
+
+#pageDropDown {
+  background-color: $pagination !important;
+}
