@@ -5,6 +5,7 @@ import { getCrystalImage } from 'legacy/api/ispyb';
 import 'react-medium-image-zoom/dist/styles.css';
 import 'legacy/pages/em/styles.scss';
 import { Link } from 'react-router-dom';
+import ZoomImage from 'legacy/components/image/zoomimage';
 
 export default function GridSquare({
   startTime,
@@ -25,16 +26,11 @@ export default function GridSquare({
 }) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Zoom>
-        <Image
-          rounded
-          thumbnail
-          src={
-            getCrystalImage({ proposalName, dataCollectionId, imageIndex: 1 })
-              .url
-          }
-        />
-      </Zoom>
+      <ZoomImage
+        src={
+          getCrystalImage({ proposalName, dataCollectionId, imageIndex: 1 }).url
+        }
+      />
       <Card.Body>
         <Card.Title>
           {' '}

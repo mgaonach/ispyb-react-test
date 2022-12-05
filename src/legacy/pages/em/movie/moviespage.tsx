@@ -10,6 +10,8 @@ import {
   isResolutionLimitThreshold,
 } from 'legacy/pages/em/movie/helper';
 import { Movie } from 'legacy/pages/em/model';
+import LazyWrapper from 'legacy/components/loading/lazywrapper';
+import LoadingPanel from 'legacy/components/loading/loadingpanel';
 
 export default function MoviesPage() {
   const { dataCollectionId = '', proposalName = '' } = useParams<{
@@ -87,22 +89,24 @@ export default function MoviesPage() {
       </Menu>
 
       {parsedMovies.map((movie: Movie) => (
-        <Card style={{ margin: 3 }}>
-          <Card.Body>
-            <MoviePanel
-              movie={movie}
-              proposalName={proposalName}
-              dataCollectionId={parseFloat(dataCollectionId)}
-            ></MoviePanel>
-          </Card.Body>
-          <Card.Footer>
-            <p className="text-secondary" style={{ fontSize: 'smaller' }}>
-              {getDirectory(movies)}
-              <br />
-              {movie.Movie_movieFullPath}
-            </p>
-          </Card.Footer>
-        </Card>
+        <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
+          <Card style={{ margin: 3 }}>
+            <Card.Body>
+              <MoviePanel
+                movie={movie}
+                proposalName={proposalName}
+                dataCollectionId={parseFloat(dataCollectionId)}
+              ></MoviePanel>
+            </Card.Body>
+            <Card.Footer>
+              <p className="text-primary" style={{ fontSize: 'smaller' }}>
+                {getDirectory(movies)}
+                <br />
+                {movie.Movie_movieFullPath}
+              </p>
+            </Card.Footer>
+          </Card>
+        </LazyWrapper>
       ))}
     </div>
   );
