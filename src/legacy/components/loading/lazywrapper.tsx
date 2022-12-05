@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren, ReactNode, useState } from 'react';
+import LazyLoad from 'react-lazy-load';
 
 export type LazyWrapperType = PropsWithChildren<{
   placeholder?: ReactNode;
@@ -8,5 +9,14 @@ export default function LazyWrapper({
   children,
   placeholder,
 }: LazyWrapperType) {
-  return <> {children} </>;
+  const [loaded, setLoaded] = useState(false);
+  if (loaded) return <>{children}</>;
+  return (
+    <>
+      <LazyLoad height={0} onContentVisible={() => setLoaded(true)}>
+        <></>
+      </LazyLoad>
+      {placeholder}
+    </>
+  );
 }

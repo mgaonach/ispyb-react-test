@@ -7,12 +7,6 @@ import LazyWrapper from 'legacy/components/loading/lazywrapper';
 import { CSSProperties } from 'react';
 import { useAuth } from 'hooks/useAuth';
 
-const placeholder = (
-  <div className="zoom-image-placeholder">
-    <Spinner animation="border" role="status" variant="dark"></Spinner>
-  </div>
-);
-
 interface props {
   src: string;
   alt?: string;
@@ -49,7 +43,7 @@ export default function ZoomImage({
         onError={() => setError(true)}
       />
     );
-  }, [fullUrl]);
+  }, [fullUrl, alt]);
 
   if (error) {
     return (
@@ -61,12 +55,19 @@ export default function ZoomImage({
       </>
     );
   }
+
+  const placeholder = (
+    <>
+      <div className="zoom-image-placeholder">
+        <Spinner animation="border" role="status" variant="dark"></Spinner>
+      </div>
+      {legend && <span>{legend}</span>}
+    </>
+  );
   if (lazy && !loaded) {
     return (
       <div style={style}>
-        {placeholder}
-        {legend && <span>{legend}</span>}
-        <LazyWrapper>
+        <LazyWrapper placeholder={placeholder}>
           <div style={{ display: 'none' }}>{img}</div>
         </LazyWrapper>
       </div>

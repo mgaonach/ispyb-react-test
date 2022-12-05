@@ -10,13 +10,29 @@ interface Props {
   classification: Classification;
   proposalName: string;
 }
-export default function ClassificationPanel({ classification, proposalName }: Props) {
-  const { particleClassificationId, classDistribution, estimatedResolution, classNumber } = classification;
+export default function ClassificationPanel({
+  classification,
+  proposalName,
+}: Props) {
+  const {
+    particleClassificationId,
+    classDistribution,
+    estimatedResolution,
+    classNumber,
+  } = classification;
   return (
     <Card>
       <Card.Header># Class {classNumber}</Card.Header>
       <Card.Body>
-        <ImageZoom alt="Classification" lazy={false} src={getClassificationThumbnail({ proposalName, particleClassificationId }).url} />
+        <ImageZoom
+          alt="Classification"
+          src={
+            getClassificationThumbnail({
+              proposalName,
+              particleClassificationId,
+            }).url
+          }
+        />
         <Card.Text>
           <SimpleParameterTable
             parameters={[
