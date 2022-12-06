@@ -459,7 +459,7 @@ export function saveShipment({
     .map((key) => {
       const v = d[key];
       return `${encodeURIComponent(key)}=${
-        v != undefined ? encodeURIComponent(v) : ''
+        v !== undefined ? encodeURIComponent(v) : ''
       }`;
     })
     .join('&');
@@ -605,7 +605,7 @@ export function getDewarsPdf({
 }) {
   return {
     url: `/proposal/${proposalName}/mx/sample/dewar/${dewarIds
-      .filter((d) => d != undefined)
+      .filter((d) => d !== undefined)
       .join(',')}/sortView/${sort}/list/pdf`,
   };
 }
@@ -626,7 +626,7 @@ export function saveParcel({
     .map((key) => {
       const v = d[key];
       return `${encodeURIComponent(key)}=${
-        v != undefined ? encodeURIComponent(v) : ''
+        v !== undefined ? encodeURIComponent(v) : ''
       }`;
     })
     .join('&');

@@ -4,8 +4,20 @@ import SimpleParameterTable from 'legacy/components/table/simpleparametertable';
 import 'react-medium-image-zoom/dist/styles.css';
 import { SampleList } from 'legacy/pages/em/model';
 
-export default function GridSquarePanelHeader({ sampleList }: { sampleList: SampleList }) {
-  const { samplingRate, sampleName, gridSquaresCount, magnification, noFrames, totalNumberOfMovies, voltage } = sampleList;
+export default function GridSquarePanelHeader({
+  sampleList,
+}: {
+  sampleList: SampleList;
+}) {
+  const {
+    samplingRate,
+    sampleName,
+    gridSquaresCount,
+    magnification,
+    noFrames,
+    totalNumberOfMovies,
+    voltage,
+  } = sampleList;
   return (
     <div>
       <h3>Sample name : {sampleName}</h3>

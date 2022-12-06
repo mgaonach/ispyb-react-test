@@ -18,7 +18,11 @@ export default function UnitCellSection({
 }) {
   return (
     <>
-      <Table responsive size="sm" style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>
+      <Table
+        responsive
+        size="sm"
+        style={{ whiteSpace: 'nowrap', textAlign: 'center' }}
+      >
         <thead>
           <tr>
             <td>a</td>

@@ -14,7 +14,15 @@ export interface ProposalDetail {
   ligands: Ligand[];
   macromolecules: unknown[];
   plateTypes: unknown[];
-  proposal: { code: string; externalId: string; number: string; proposalId: number; timeStamp: string; title: string; type: string }[];
+  proposal: {
+    code: string;
+    externalId: string;
+    number: string;
+    proposalId: number;
+    timeStamp: string;
+    title: string;
+    type: string;
+  }[];
   proteins: Protein[];
   stockSolutions: unknown[];
 }

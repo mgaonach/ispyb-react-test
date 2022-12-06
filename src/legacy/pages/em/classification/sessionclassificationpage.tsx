@@ -18,16 +18,31 @@ export default function SessionClassificationPage() {
   const [cutoff, setCutoff] = useState<number>(0);
 
   const proposal: string = proposalName ? proposalName : '';
-  const { data, isError: sessionError } = useEMClassification({ sessionId, proposalName: proposal });
+  const { data, isError: sessionError } = useEMClassification({
+    sessionId,
+    proposalName: proposal,
+  });
   if (sessionError) throw Error(sessionError);
 
-  const classificationGroupsId = new Set(data.map((d: Classification) => d.particleClassificationGroupId));
+  const classificationGroupsId = new Set(
+    data.map((d: Classification) => d.particleClassificationGroupId)
+  );
   const groups: Classification[][] = [];
   classificationGroupsId.forEach((id) => {
     if (!cutoff) {
-      groups.push(data.filter((d: Classification) => d.particleClassificationGroupId === id));
+      groups.push(
+        data.filter(
+          (d: Classification) => d.particleClassificationGroupId === id
+        )
+      );
     } else {
-      groups.push(data.filter((d: Classification) => d.particleClassificationGroupId === id && d.estimatedResolution > cutoff));
+      groups.push(
+        data.filter(
+          (d: Classification) =>
+            d.particleClassificationGroupId === id &&
+            d.estimatedResolution > cutoff
+        )
+      );
     }
   });
 
@@ -40,7 +55,12 @@ export default function SessionClassificationPage() {
       <Menu>
         <div>
           <Form.Label>{`Cutoff resolution > ${cutoff}`}</Form.Label>
-          <Form.Range onChange={(e) => setCutoff(e.target.valueAsNumber)} value={cutoff} min={minCutoff} max={maxCutoff} />
+          <Form.Range
+            onChange={(e) => setCutoff(e.target.valueAsNumber)}
+            value={cutoff}
+            min={minCutoff}
+            max={maxCutoff}
+          />
         </div>
       </Menu>
       <Card>
@@ -50,7 +70,10 @@ export default function SessionClassificationPage() {
               <Accordion.Item eventKey={i.toString()}>
                 <Accordion.Header>
                   <span>
-                    Classification #{i + 1}: {group.length} classes {group[0] ? `(${group[0].numberOfParticles} particles)` : ''}
+                    Classification #{i + 1}: {group.length} classes{' '}
+                    {group[0]
+                      ? `(${group[0].numberOfParticles} particles)`
+                      : ''}
                   </span>
                 </Accordion.Header>
                 <Accordion.Body>
@@ -62,7 +85,10 @@ export default function SessionClassificationPage() {
                         })
                         .map((c) => (
                           <Col style={{ margin: 2 }}>
-                            <ClassificationPanel classification={c} proposalName={proposalName}></ClassificationPanel>
+                            <ClassificationPanel
+                              classification={c}
+                              proposalName={proposalName}
+                            ></ClassificationPanel>
                           </Col>
                         ))}
                     </Row>

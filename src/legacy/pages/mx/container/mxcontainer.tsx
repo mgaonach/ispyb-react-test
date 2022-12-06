@@ -62,7 +62,7 @@ export function MXContainer({
             collected =
               sampleArray &&
               sampleArray.length &&
-              sampleArray.filter((s) => Number(sessionId) == s?.sessionId);
+              sampleArray.filter((s) => Number(sessionId) === s?.sessionId);
           }
           const collectionIds =
             collected &&
@@ -103,7 +103,7 @@ export function MXContainer({
               collected={Boolean(collected && collected.length)}
               selected={Boolean(selected)}
               onClick={onClick}
-              clickableContainer={onContainerClick != undefined}
+              clickableContainer={onContainerClick !== undefined}
             ></SampleSVG>
           );
         })}
@@ -213,14 +213,14 @@ function findContainerType(
 ) {
   // First look for type in params
   let type = getContainerType(typeParam);
-  if (type == undefined) {
+  if (type === undefined) {
     // If not found, look for type in data
     type = getContainerType(
       samples?.length ? samples[0].Container_containerType : undefined
     );
   }
 
-  if (type == undefined) {
+  if (type === undefined) {
     // If not found, try to guess type
     let maxPosition = _(Object.keys(sampleByPosition))
       .map((n) => Number(n))
@@ -233,15 +233,15 @@ function findContainerType(
       maxPosition = 96;
     }
     type =
-      maxPosition == 10
+      maxPosition === 10
         ? 'Spinepuck'
-        : maxPosition == 16
+        : maxPosition === 16
         ? 'Unipuck'
-        : maxPosition == 96
+        : maxPosition === 96
         ? 'PLATE'
         : 'OTHER';
   }
-  if (type == undefined) {
+  if (type === undefined) {
     return undefined;
   } else {
     return getContainerPlotTypePositions(type);
@@ -313,7 +313,7 @@ function ContainerSVG({
           fill="#CCCCCC"
         ></circle>
       )}
-      {maxPosition == 16 && (
+      {maxPosition === 16 && (
         <g fill="#888888" stroke="#888888" pointer-events="none">
           <circle
             cx={containerRadius}

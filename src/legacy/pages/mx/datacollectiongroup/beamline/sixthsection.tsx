@@ -3,9 +3,18 @@ import { DataCollectionGroup } from 'legacy/pages/mx/model';
 import SimpleParameterTable from 'legacy/components/table/simpleparametertable';
 import { multiply } from 'legacy/helpers/numerictransformation';
 
-export default function SixthSection({ dataCollectionGroup }: { dataCollectionGroup: DataCollectionGroup }) {
-  const { Detector_detectorPixelSizeHorizontal, Detector_detectorPixelSizeVertical, Detector_detectorType, Detector_detectorModel, Detector_detectorManufacturer } =
-    dataCollectionGroup;
+export default function SixthSection({
+  dataCollectionGroup,
+}: {
+  dataCollectionGroup: DataCollectionGroup;
+}) {
+  const {
+    Detector_detectorPixelSizeHorizontal,
+    Detector_detectorPixelSizeVertical,
+    Detector_detectorType,
+    Detector_detectorModel,
+    Detector_detectorManufacturer,
+  } = dataCollectionGroup;
 
   return (
     <SimpleParameterTable
@@ -24,7 +33,10 @@ export default function SixthSection({ dataCollectionGroup }: { dataCollectionGr
         },
         {
           key: 'Pixel Size Hor (Vert)',
-          value: `${multiply(Detector_detectorPixelSizeHorizontal, 1000)}(${multiply(Detector_detectorPixelSizeVertical, 1000)})`,
+          value: `${multiply(
+            Detector_detectorPixelSizeHorizontal,
+            1000
+          )}(${multiply(Detector_detectorPixelSizeVertical, 1000)})`,
           units: 'μm',
         },
       ]}

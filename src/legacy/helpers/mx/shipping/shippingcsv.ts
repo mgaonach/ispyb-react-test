@@ -74,14 +74,14 @@ export function getFieldString(
 ): { index: number; value: string | undefined } {
   const v = getField(line, field);
 
-  return { ...v, value: v.value == undefined ? undefined : String(v.value) };
+  return { ...v, value: v.value === undefined ? undefined : String(v.value) };
 }
 export function getFieldNumber(
   line: Line,
   field: FieldName
 ): { index: number; value: number | undefined } {
   const v = getField(line, field);
-  return { ...v, value: v.value == undefined ? undefined : Number(v.value) };
+  return { ...v, value: v.value === undefined ? undefined : Number(v.value) };
 }
 
 const getSampleKey = (protein?: Value, name?: Value) => {
@@ -117,7 +117,7 @@ export function validateShipping(
     .value();
 
   const shippingDuplicateSampleKeys = _(shippingSampleKeys)
-    .filter((v, index) => shippingSampleKeys.indexOf(v) != index)
+    .filter((v, index) => shippingSampleKeys.indexOf(v) !== index)
     .uniq();
 
   const proposalSampleKeys = _(proposalSamples)
@@ -136,8 +136,8 @@ export function validateShipping(
     MANDATORY_FIELDS.forEach((field) => {
       const fieldValue = getField(row, field);
       if (
-        fieldValue.value == undefined ||
-        String(fieldValue.value).trim().length == 0
+        fieldValue.value === undefined ||
+        String(fieldValue.value).trim().length === 0
       ) {
         errors.push({
           row: rowIndex,
@@ -185,7 +185,7 @@ export function validateShipping(
         .map((c) => c[0].replace(/\s/, 'space'))
         .uniq()
         .value();
-      if (invalids.length == 1) {
+      if (invalids.length === 1) {
         errors.push({
           row: rowIndex,
           col: sample.index,
@@ -280,7 +280,7 @@ export function autofixShipping(
     const sample = getField(line, 'sample acronym');
 
     //fix sample names
-    if (protein.value != undefined && sample.value != undefined) {
+    if (protein.value !== undefined && sample.value !== undefined) {
       //Remove special characters
       const noSpecialCharacters = String(sample.value).replaceAll(
         /[^a-zA-Z0-9-_]/g,
@@ -291,7 +291,7 @@ export function autofixShipping(
         String(protein.value),
         noSpecialCharacters
       );
-      if (String(sample.value) != newName) {
+      if (String(sample.value) !== newName) {
         replacements.push({
           row,
           col: sample.index,
@@ -332,7 +332,8 @@ export function parseShippingCSV(
                     'protein acronym'
                   ).value;
                   const protein = proposal.proteins.filter(
-                    (p) => p.acronym != undefined && p.acronym == proteinAcronym
+                    (p) =>
+                      p.acronym !== undefined && p.acronym === proteinAcronym
                   )[0];
                   return {
                     name: getFieldString(sampleLine, 'sample acronym').value,

@@ -32,7 +32,7 @@ function getContainerOn(
   for (const c of containers) {
     if (
       c.beamlineLocation === beamline.name &&
-      Number(c.sampleChangerLocation) == location
+      Number(c.sampleChangerLocation) === location
     ) {
       return c;
     }
@@ -291,7 +291,7 @@ function DroppablePosition({
       },
       canDrop: (item: ContainerDewar) => {
         const type = getContainerType(item.containerType);
-        return type != undefined && type === containerType;
+        return type !== undefined && type === containerType;
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),

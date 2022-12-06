@@ -327,7 +327,7 @@ export function ExportPane({
   const toggleSelect = (id: number | undefined) => {
     const newSelect = selected.slice();
     if (newSelect.includes(id)) {
-      setSelected(newSelect.filter((a) => a != id));
+      setSelected(newSelect.filter((a) => a !== id));
     } else {
       newSelect.push(id);
       setSelected(newSelect);
@@ -449,7 +449,7 @@ export function DewarPane({
 
   if (hide) return null;
 
-  if (samples == undefined) return <></>;
+  if (samples === undefined) return <></>;
 
   return (
     <Alert style={{ marginTop: 10 }} variant="light">
@@ -466,7 +466,7 @@ export function DewarPane({
                       key: 'Measured samples',
                       value: samples.filter(
                         (s) =>
-                          s.DataCollectionGroup_dataCollectionGroupId !=
+                          s.DataCollectionGroup_dataCollectionGroupId !==
                           undefined
                       ).length,
                     },
@@ -641,7 +641,7 @@ export function ContainerView({
     setShow(true);
   }, [container.containerId]);
 
-  if (samples == undefined) return <></>;
+  if (samples === undefined) return <></>;
 
   if (!show) return null;
 
@@ -665,7 +665,7 @@ export function ContainerView({
                         key: 'Measured',
                         value: samples.filter(
                           (s) =>
-                            s.DataCollectionGroup_dataCollectionGroupId !=
+                            s.DataCollectionGroup_dataCollectionGroupId !==
                             undefined
                         ).length,
                       },
@@ -740,7 +740,7 @@ export function ContainerView({
                       key: 'Measured',
                       value: samples.filter(
                         (s) =>
-                          s.DataCollectionGroup_dataCollectionGroupId !=
+                          s.DataCollectionGroup_dataCollectionGroupId !==
                           undefined
                       ).length,
                     },

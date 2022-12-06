@@ -12,27 +12,41 @@ export interface Props {
   dataCollectionGroup: DataCollectionGroup;
 }
 
-export default function BeamlineDataCollectionGroupPanel({ dataCollectionGroup }: Props) {
+export default function BeamlineDataCollectionGroupPanel({
+  dataCollectionGroup,
+}: Props) {
   return (
     <Container fluid>
       <Row>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <FirstSection dataCollectionGroup={dataCollectionGroup}></FirstSection>
+          <FirstSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></FirstSection>
         </Col>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <SecondSection dataCollectionGroup={dataCollectionGroup}></SecondSection>
+          <SecondSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></SecondSection>
         </Col>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <ThirdSection dataCollectionGroup={dataCollectionGroup}></ThirdSection>
+          <ThirdSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></ThirdSection>
         </Col>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <FourthSection dataCollectionGroup={dataCollectionGroup}></FourthSection>
+          <FourthSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></FourthSection>
         </Col>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <FifthSection dataCollectionGroup={dataCollectionGroup}></FifthSection>
+          <FifthSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></FifthSection>
         </Col>
         <Col xs={12} sm={6} lg={4} xl={2}>
-          <SixthSection dataCollectionGroup={dataCollectionGroup}></SixthSection>
+          <SixthSection
+            dataCollectionGroup={dataCollectionGroup}
+          ></SixthSection>
         </Col>
       </Row>
     </Container>

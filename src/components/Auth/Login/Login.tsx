@@ -1,17 +1,12 @@
 import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import { useAuth } from 'hooks/useAuth';
-import Select from 'react-select';
 import { SITES } from 'config/sites';
 import LoginJava from './LoginJava';
 import LoginPy from './LoginPy';
 
 export default function Login() {
   const { site, setSite, siteInitialized } = useAuth();
-
-  const options = SITES.map((site) => {
-    return { label: site.name, value: site };
-  });
 
   return (
     <Container>

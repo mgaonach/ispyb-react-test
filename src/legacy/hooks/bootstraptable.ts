@@ -35,7 +35,8 @@ export interface ResponsiveStyle {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ResponsiveColumnDescription<T extends object = any, E = any> extends ColumnDescription<T, E> {
+export interface ResponsiveColumnDescription<T extends object = any, E = any>
+  extends ColumnDescription<T, E> {
   responsiveHeaderStyle?: ResponsiveStyle;
 }
 
@@ -44,7 +45,9 @@ export interface ResponsiveColumnDescription<T extends object = any, E = any> ex
  * @param {*} columns
  * @returns
  */
-export default function useResponsiveColumns(columns: ResponsiveColumnDescription[]) {
+export default function useResponsiveColumns(
+  columns: ResponsiveColumnDescription[]
+) {
   for (let i = 0; i < columns.length; i++) {
     const column = columns[i];
 

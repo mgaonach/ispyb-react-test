@@ -133,7 +133,7 @@ export function parseResults(
     .filter((v) => v.status === 'SUCCESS')
     .filter((v) => {
       if (v.id) {
-        return autoProcIntegrationsCount[v.id] == 3;
+        return autoProcIntegrationsCount[v.id] === 3;
       }
       return false;
     })

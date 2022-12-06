@@ -57,11 +57,11 @@ export default function PrepareExperimentPage() {
       produce((dewarsDraft: ContainerDewar[] | undefined) => {
         if (dewarsDraft) {
           for (const dewarDraft of dewarsDraft) {
-            if (dewarDraft.containerId == containerId) {
-              if (position != undefined) {
+            if (dewarDraft.containerId === containerId) {
+              if (position !== undefined) {
                 dewarDraft.sampleChangerLocation = position;
               }
-              if (beamline != undefined) {
+              if (beamline !== undefined) {
                 dewarDraft.beamlineLocation = beamline;
               }
             }
@@ -71,7 +71,7 @@ export default function PrepareExperimentPage() {
       false
     );
     let req: ReturnType<typeof updateSampleChangerLocation> | undefined;
-    if (beamline != undefined) {
+    if (beamline !== undefined) {
       req = updateSampleChangerLocation({
         proposalName,
         containerId: containerId,
@@ -80,7 +80,7 @@ export default function PrepareExperimentPage() {
       });
     } else {
       for (const d of data) {
-        if (d.containerId == containerId) {
+        if (d.containerId === containerId) {
           req = updateSampleChangerLocation({
             proposalName,
             containerId: containerId,
@@ -123,7 +123,7 @@ export default function PrepareExperimentPage() {
   const processingDewars = _(shipments)
     .filter((s) => Boolean(shipmentIsProcessing(s)))
     .flatMap((s) => s.dewars)
-    .filter((d) => d.containerId != undefined)
+    .filter((d) => d.containerId !== undefined)
     .value();
 
   const columns: ColumnDescription<Shipment>[] = [
@@ -278,7 +278,7 @@ const shipmentIsProcessing = (s: Shipment) => {
 const sortShipments = (a: Shipment, b: Shipment) => {
   const aN = shipmentIsProcessing(a);
   const bN = shipmentIsProcessing(b);
-  if (aN == bN) {
+  if (aN === bN) {
     if (a.creationDate && b.creationDate) {
       return (
         parseDate(b.creationDate).getTime() -
@@ -308,7 +308,7 @@ export function ToggleShipmentStatus({
       produce((dewarsDraft: ContainerDewar[] | undefined) => {
         if (dewarsDraft) {
           for (const dewarDraft of dewarsDraft) {
-            if (dewarDraft.shippingId == shipment.shippingId) {
+            if (dewarDraft.shippingId === shipment.shippingId) {
               dewarDraft.shippingStatus = newStatus;
             }
           }

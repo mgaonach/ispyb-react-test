@@ -116,7 +116,7 @@ export default function ContainerEditPage() {
 
   const proposal = proposalArray[0];
 
-  if (!proposal || proposalSamples == undefined) {
+  if (!proposal || proposalSamples === undefined) {
     return errorPage('Proposal does not exist.');
   }
 
@@ -195,7 +195,7 @@ function ContainerEditor({
   const [name, setName] = useState(container.code);
 
   const synchronized =
-    !changed && JSON.stringify(data) == JSON.stringify(upToDateData);
+    !changed && JSON.stringify(data) === JSON.stringify(upToDateData);
 
   useEffect(() => {
     const onbeforeunloadFn = (ev: BeforeUnloadEvent) => {
@@ -217,9 +217,9 @@ function ContainerEditor({
     ...proposal.crystals.map((crystal) => {
       for (const modifiedCrystal of modifiedCrystals) {
         if (
-          modifiedCrystal.crystalId == crystal.crystalId ||
-          (modifiedCrystal.proteinVO.acronym == crystal.proteinVO.acronym &&
-            getCrystalInfo(modifiedCrystal) == getCrystalInfo(crystal))
+          modifiedCrystal.crystalId === crystal.crystalId ||
+          (modifiedCrystal.proteinVO.acronym === crystal.proteinVO.acronym &&
+            getCrystalInfo(modifiedCrystal) === getCrystalInfo(crystal))
         ) {
           //if crystal is the same as one of the modified ones, replace by modified version
           return modifiedCrystal;
@@ -241,9 +241,9 @@ function ContainerEditor({
       .map((crystal) => {
         for (const modifiedCrystal of n) {
           if (
-            modifiedCrystal.crystalId == crystal.crystalId ||
-            (modifiedCrystal.proteinVO.acronym == crystal.proteinVO.acronym &&
-              getCrystalInfo(modifiedCrystal) == getCrystalInfo(crystal))
+            modifiedCrystal.crystalId === crystal.crystalId ||
+            (modifiedCrystal.proteinVO.acronym === crystal.proteinVO.acronym &&
+              getCrystalInfo(modifiedCrystal) === getCrystalInfo(crystal))
           ) {
             // only take the first occurrence = latest modification
             return modifiedCrystal;
@@ -264,8 +264,8 @@ function ContainerEditor({
     //look if same crystal Id was somewhere else
     for (const r of ndata) {
       const c = parseCrystalInfo(r, crystals, proposal.proteins);
-      if (c != undefined && c.crystalId) {
-        if (crystal.crystalId == c.crystalId) {
+      if (c !== undefined && c.crystalId) {
+        if (crystal.crystalId === c.crystalId) {
           //if found, update with new crystal info
           r[col] = getCrystalInfo(crystal);
         }
@@ -298,7 +298,7 @@ function ContainerEditor({
             _.uniq([
               'Not set',
               ..._(crystals)
-                .filter((c) => c.proteinVO.acronym == protein)
+                .filter((c) => c.proteinVO.acronym === protein)
                 .map(getCrystalInfo)
                 .uniq()
                 .sort()
@@ -372,24 +372,24 @@ function ContainerEditor({
     changes.forEach(([row, prop, oldValue, newValue]) => {
       const newValueString = String(newValue || '');
       const oldValueString = String(oldValue || '');
-      if (prop == 1 && oldValueString.trim() != newValueString.trim()) {
+      if (prop === 1 && oldValueString.trim() !== newValueString.trim()) {
         //protein change -> set crystal
         if (newValueString.trim().length) {
           ndata[row][4] = getCrystalInfo(
-            crystals.filter((c) => c.proteinVO.acronym == newValueString)[0]
+            crystals.filter((c) => c.proteinVO.acronym === newValueString)[0]
           );
         } else {
           ndata[row][4] = undefined;
         }
       }
-      if (prop == 2 && source == 'Autofill.fill') {
+      if (prop === 2 && source === 'Autofill.fill') {
         //name change from autofill -> increment
         const numbers = newValueString.match(/(\d+)/g);
         let name = newValueString;
         if (numbers) {
           const n = numbers[numbers.length - 1];
           if (
-            newValueString.lastIndexOf(n) ==
+            newValueString.lastIndexOf(n) ===
             newValueString.length - n.length
           ) {
             name = newValueString.substring(
@@ -413,7 +413,7 @@ function ContainerEditor({
   }
 
   function save() {
-    if (errors.length == 0) {
+    if (errors.length === 0) {
       const request = saveContainer({
         proposalName: proposalName,
         shippingId: String(shipping.shippingId),
@@ -512,7 +512,7 @@ function ContainerEditor({
             >
               {columns.map((c) => (
                 <HotColumn key={c.title} settings={c}>
-                  {c.title == 'Crystal Form' ? (
+                  {c.title === 'Crystal Form' ? (
                     <CrystalEditor
                       hot-editor
                       data={data}

@@ -1,5 +1,16 @@
 import React, { Suspense, useState } from 'react';
-import { OverlayTrigger, Tooltip, Card, Tab, Row, Col, Nav, Container, Badge, Button } from 'react-bootstrap';
+import {
+  OverlayTrigger,
+  Tooltip,
+  Card,
+  Tab,
+  Row,
+  Col,
+  Nav,
+  Container,
+  Badge,
+  Button,
+} from 'react-bootstrap';
 
 import { DataCollectionGroup } from 'legacy/pages/mx/model';
 import SummaryDataCollectionGroupPanel from 'legacy/pages/mx/datacollectiongroup/summarydatacollectiongroup/summarydatacollectiongrouppanel';
@@ -33,7 +44,12 @@ function getUniqueCount(commaSeparatedList?: string): number {
   return 0;
 }
 
-export default function DataCollectionGroupPanel({ proposalName, dataCollectionGroup, defaultCompact, compactToggle }: Props) {
+export default function DataCollectionGroupPanel({
+  proposalName,
+  dataCollectionGroup,
+  defaultCompact,
+  compactToggle,
+}: Props) {
   const [compact, setCompact] = useState(defaultCompact);
   compactToggle.subscribe({
     next: (value) => {
@@ -42,7 +58,10 @@ export default function DataCollectionGroupPanel({ proposalName, dataCollectionG
   });
 
   return (
-    <Tab.Container activeKey={compact ? 'Summary' : undefined} defaultActiveKey="Summary">
+    <Tab.Container
+      activeKey={compact ? 'Summary' : undefined}
+      defaultActiveKey="Summary"
+    >
       <Card className="themed-card card-datacollectiongroup-panel">
         <Card.Header style={compact ? { padding: 0 } : undefined}>
           {compact ? (
@@ -52,24 +71,37 @@ export default function DataCollectionGroupPanel({ proposalName, dataCollectionG
               <Row>
                 <Col md="auto">
                   <h5 style={compact ? { fontSize: 15, margin: 5 } : undefined}>
-                    {moment(dataCollectionGroup.DataCollectionGroup_startTime, 'MMMM Do YYYY, h:mm:ss A').format('DD/MM/YYYY HH:mm:ss')}
-                    <Badge bg="info">{dataCollectionGroup.DataCollectionGroup_experimentType}</Badge>
+                    {moment(
+                      dataCollectionGroup.DataCollectionGroup_startTime,
+                      'MMMM Do YYYY, h:mm:ss A'
+                    ).format('DD/MM/YYYY HH:mm:ss')}
+                    <Badge bg="info">
+                      {dataCollectionGroup.DataCollectionGroup_experimentType}
+                    </Badge>
                   </h5>
                 </Col>
                 <Col></Col>
                 <Col md="auto">
-                  <Nav className="tabs-datacollectiongroup-panel" style={compact ? { fontSize: 10 } : undefined} variant="tabs">
+                  <Nav
+                    className="tabs-datacollectiongroup-panel"
+                    style={compact ? { fontSize: 10 } : undefined}
+                    variant="tabs"
+                  >
                     <Nav.Item>
                       <Nav.Link eventKey="Summary">Summary</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Beamline">Beamline Parameters</Nav.Link>
+                      <Nav.Link eventKey="Beamline">
+                        Beamline Parameters
+                      </Nav.Link>
                     </Nav.Item>
                     {UI.MX.showCollectionTab && (
                       <Nav.Item>
                         <Nav.Link eventKey="Data">
                           Data Collections
-                          <Badge bg="info">{dataCollectionGroup.totalNumberOfDataCollections}</Badge>
+                          <Badge bg="info">
+                            {dataCollectionGroup.totalNumberOfDataCollections}
+                          </Badge>
                         </Nav.Link>
                       </Nav.Item>
                     )}
@@ -79,13 +111,21 @@ export default function DataCollectionGroupPanel({ proposalName, dataCollectionG
                     <Nav.Item>
                       <Nav.Link eventKey="Results">
                         Results
-                        <Badge bg="info">{getUniqueCount(dataCollectionGroup.autoProcIntegrationId)}</Badge>
+                        <Badge bg="info">
+                          {getUniqueCount(
+                            dataCollectionGroup.autoProcIntegrationId
+                          )}
+                        </Badge>
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="Workflow">
                         Workflow
-                        <Badge bg="info">{getUniqueCount(dataCollectionGroup.WorkflowStep_workflowStepId)}</Badge>
+                        <Badge bg="info">
+                          {getUniqueCount(
+                            dataCollectionGroup.WorkflowStep_workflowStepId
+                          )}
+                        </Badge>
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -97,40 +137,65 @@ export default function DataCollectionGroupPanel({ proposalName, dataCollectionG
         <Card.Body>
           <Row>
             <Col style={{ display: 'flex' }} md={'auto'}>
-              <OverlayTrigger key={'right'} placement={'right'} overlay={<Tooltip id={`tooltip-right`}>{compact ? 'Expand' : 'Minify'}</Tooltip>}>
+              <OverlayTrigger
+                key={'right'}
+                placement={'right'}
+                overlay={
+                  <Tooltip id={`tooltip-right`}>
+                    {compact ? 'Expand' : 'Minify'}
+                  </Tooltip>
+                }
+              >
                 <Button
-                  style={{ backgroundColor: '#00000008', borderRadius: 0, borderRight: '1px solid lightgrey' }}
+                  style={{
+                    backgroundColor: '#00000008',
+                    borderRadius: 0,
+                    borderRight: '1px solid lightgrey',
+                  }}
                   variant="link"
                   onClick={() => {
                     setCompact(!compact);
                   }}
                 >
-                  <FontAwesomeIcon color="grey" icon={compact ? faAngleDown : faAngleUp} />
+                  <FontAwesomeIcon
+                    color="grey"
+                    icon={compact ? faAngleDown : faAngleUp}
+                  />
                 </Button>
               </OverlayTrigger>
             </Col>
             <Col style={compact ? undefined : { marginTop: 20 }}>
               <Tab.Content>
                 <Tab.Pane eventKey="Summary" title="Summary">
-                  <SummaryDataCollectionGroupPanel compact={compact} proposalName={proposalName} dataCollectionGroup={dataCollectionGroup}></SummaryDataCollectionGroupPanel>
+                  <SummaryDataCollectionGroupPanel
+                    compact={compact}
+                    proposalName={proposalName}
+                    dataCollectionGroup={dataCollectionGroup}
+                  ></SummaryDataCollectionGroupPanel>
                 </Tab.Pane>
                 <Tab.Pane eventKey="Beamline" title="Beamline Parameters">
                   <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
-                    <BeamlineDataCollectionGroupPanel dataCollectionGroup={dataCollectionGroup}></BeamlineDataCollectionGroupPanel>
+                    <BeamlineDataCollectionGroupPanel
+                      dataCollectionGroup={dataCollectionGroup}
+                    ></BeamlineDataCollectionGroupPanel>
                   </LazyWrapper>
                 </Tab.Pane>
                 {UI.MX.showCollectionTab && (
                   <Tab.Pane eventKey="Data" title="Data Collections">
                     <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
                       <Suspense fallback={<LoadingPanel></LoadingPanel>}>
-                        <CollectionsDataCollectionGroupPanel dataCollectionGroup={dataCollectionGroup}></CollectionsDataCollectionGroupPanel>
+                        <CollectionsDataCollectionGroupPanel
+                          dataCollectionGroup={dataCollectionGroup}
+                        ></CollectionsDataCollectionGroupPanel>
                       </Suspense>
                     </LazyWrapper>
                   </Tab.Pane>
                 )}
                 <Tab.Pane eventKey="Sample" title="Sample">
                   <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
-                    <SampleDataCollectionGroupPanel dataCollectionGroup={dataCollectionGroup}></SampleDataCollectionGroupPanel>
+                    <SampleDataCollectionGroupPanel
+                      dataCollectionGroup={dataCollectionGroup}
+                    ></SampleDataCollectionGroupPanel>
                   </LazyWrapper>
                 </Tab.Pane>
                 <Tab.Pane eventKey="Results" title="Results">
@@ -140,7 +205,10 @@ export default function DataCollectionGroupPanel({ proposalName, dataCollectionG
                 </Tab.Pane>
                 <Tab.Pane eventKey="Workflow" title="Workflow">
                   <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
-                    <WorkflowDataCollectionGroupPanel proposalName={proposalName} dataCollectionGroup={dataCollectionGroup}></WorkflowDataCollectionGroupPanel>
+                    <WorkflowDataCollectionGroupPanel
+                      proposalName={proposalName}
+                      dataCollectionGroup={dataCollectionGroup}
+                    ></WorkflowDataCollectionGroupPanel>
                   </LazyWrapper>
                 </Tab.Pane>
               </Tab.Content>

@@ -33,7 +33,12 @@ function getColumns(proposalName: string): ColumnDescription<DataCollection>[] {
       text: 'Res.(corner)',
       dataField: 'resolution',
       formatter: function (cell, row) {
-        return convertToFixed(row.resolution, 1) + ' Å (' + convertToFixed(row.resolutionAtCorner, 1) + 'Å)';
+        return (
+          convertToFixed(row.resolution, 1) +
+          ' Å (' +
+          convertToFixed(row.resolutionAtCorner, 1) +
+          'Å)'
+        );
       },
     },
     {
@@ -55,7 +60,17 @@ function getColumns(proposalName: string): ColumnDescription<DataCollection>[] {
       text: 'Indicators',
       dataField: 'Indicators',
       formatter: function (cell, row) {
-        return <ZoomImage style={{ maxWidth: 110 }} src={getDozorPlot({ dataCollectionId: row.dataCollectionId, proposalName }).url} />;
+        return (
+          <ZoomImage
+            style={{ maxWidth: 110 }}
+            src={
+              getDozorPlot({
+                dataCollectionId: row.dataCollectionId,
+                proposalName,
+              }).url
+            }
+          />
+        );
       },
     },
     {
@@ -76,13 +91,21 @@ function getColumns(proposalName: string): ColumnDescription<DataCollection>[] {
   ];
 }
 
-export default function CollectionsDataCollectionGroupPanel({ dataCollectionGroup }: { dataCollectionGroup: DataCollectionGroup }) {
+export default function CollectionsDataCollectionGroupPanel({
+  dataCollectionGroup,
+}: {
+  dataCollectionGroup: DataCollectionGroup;
+}) {
   const { proposalName = '' } = useParams<Param>();
   const {
     data: dataCollections,
     isError,
     isLoading,
-  }: { data: DataCollection[]; isError: string; isLoading: boolean } = useMxDataCollectionsByGroupId({
+  }: {
+    data: DataCollection[];
+    isError: string;
+    isLoading: boolean;
+  } = useMxDataCollectionsByGroupId({
     proposalName,
     dataCollectionGroupId: `${dataCollectionGroup.DataCollection_dataCollectionGroupId}`,
   });
@@ -90,5 +113,13 @@ export default function CollectionsDataCollectionGroupPanel({ dataCollectionGrou
   if (isError) throw Error(isError);
   console.log(dataCollections);
   //return
-  return <BootstrapTable bootstrap4 wrapperClasses="table-responsive" keyField="dataCollectionId" data={dataCollections} columns={getColumns(proposalName)} />;
+  return (
+    <BootstrapTable
+      bootstrap4
+      wrapperClasses="table-responsive"
+      keyField="dataCollectionId"
+      data={dataCollections}
+      columns={getColumns(proposalName)}
+    />
+  );
 }

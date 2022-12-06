@@ -17,9 +17,15 @@ type Param = {
 
 export default function MXFluorescencePage() {
   const { sessionId = '', proposalName = '' } = useParams<Param>();
-  const { data: spectras, isError } = useMXFluorescenceSpectras({ proposalName, sessionId });
+  const { data: spectras, isError } = useMXFluorescenceSpectras({
+    proposalName,
+    sessionId,
+  });
   spectras?.sort((a, b) => {
-    return moment(b.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime() - moment(a.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime();
+    return (
+      moment(b.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime() -
+      moment(a.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime()
+    );
   });
   if (isError) throw Error(isError);
   if (spectras && spectras.length) {
@@ -29,7 +35,11 @@ export default function MXFluorescencePage() {
           {spectras.map((spectra) => (
             <div style={{ margin: 5 }}>
               <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
-                <FluorescencePanel sessionId={sessionId} proposalName={proposalName} spectra={spectra}></FluorescencePanel>
+                <FluorescencePanel
+                  sessionId={sessionId}
+                  proposalName={proposalName}
+                  spectra={spectra}
+                ></FluorescencePanel>
               </LazyWrapper>
             </div>
           ))}

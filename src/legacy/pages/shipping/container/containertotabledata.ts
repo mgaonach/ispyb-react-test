@@ -4,7 +4,7 @@ import { ShippingContainer, ShippingSample } from '../model';
 export function containerToTableData(container: ShippingContainer) {
   function getSample(index: number) {
     for (const sample of container.sampleVOs) {
-      if (Number(sample.location) == index + 1) {
+      if (Number(sample.location) === index + 1) {
         return sample;
       }
     }
@@ -45,24 +45,24 @@ function getData(sample: ShippingSample | undefined, index: number) {
 }
 
 export function getCrystalInfo(crystal?: Crystal) {
-  if (crystal == undefined) return 'Not set';
+  if (crystal === undefined) return 'Not set';
   const getCellInfo = (crystal: Crystal) => {
     if (
-      crystal.cellA == undefined &&
-      crystal.cellB == undefined &&
-      crystal.cellC == undefined &&
-      crystal.cellAlpha == undefined &&
-      crystal.cellBeta == undefined &&
-      crystal.cellGamma == undefined
+      crystal.cellA === undefined &&
+      crystal.cellB === undefined &&
+      crystal.cellC === undefined &&
+      crystal.cellAlpha === undefined &&
+      crystal.cellBeta === undefined &&
+      crystal.cellGamma === undefined
     ) {
       return undefined;
     } else if (
-      crystal.cellA == 0 &&
-      crystal.cellB == 0 &&
-      crystal.cellC == 0 &&
-      crystal.cellAlpha == 0 &&
-      crystal.cellBeta == 0 &&
-      crystal.cellGamma == 0
+      crystal.cellA === 0 &&
+      crystal.cellB === 0 &&
+      crystal.cellC === 0 &&
+      crystal.cellAlpha === 0 &&
+      crystal.cellBeta === 0 &&
+      crystal.cellGamma === 0
     ) {
       return '';
     }
@@ -89,8 +89,8 @@ export function getCrystalInfo(crystal?: Crystal) {
 
   if (spaceGroup || cell) {
     return (
-      (spaceGroup == undefined ? 'undefined' : spaceGroup) +
-      (cell == undefined ? ' - undefined' : cell)
+      (spaceGroup === undefined ? 'undefined' : spaceGroup) +
+      (cell === undefined ? ' - undefined' : cell)
     );
   }
   return 'Not set';
@@ -108,15 +108,15 @@ export function parseCrystalInfo(
   const proteinData = get(1);
   const crystalData = get(4);
 
-  if (proteinData == undefined || crystalData == undefined) return undefined;
+  if (proteinData === undefined || crystalData === undefined) return undefined;
 
   //look for existing crystal
   const crystalSearch = crystals
     .filter((crystal) => {
-      return crystal.proteinVO.acronym == proteinData;
+      return crystal.proteinVO.acronym === proteinData;
     })
     .filter((crystal) => {
-      return getCrystalInfo(crystal) == crystalData;
+      return getCrystalInfo(crystal) === crystalData;
     });
   if (crystalSearch.length) {
     return JSON.parse(JSON.stringify(crystalSearch[0]));
@@ -124,10 +124,10 @@ export function parseCrystalInfo(
 
   //look for protein
   const proteinVO = proteins.filter((protein) => {
-    return protein.acronym == proteinData;
+    return protein.acronym === proteinData;
   })[0];
 
-  if (crystalData == 'Not set')
+  if (crystalData === 'Not set')
     return {
       crystalId: undefined,
       proteinVO,
@@ -143,7 +143,7 @@ export function parseCrystalInfo(
 
   const splitted = String(crystalData).split('-');
   const spaceGroup = splitted[0].trim();
-  if (splitted.length == 1)
+  if (splitted.length === 1)
     return {
       crystalId: undefined,
       proteinVO,
@@ -162,32 +162,32 @@ export function parseCrystalInfo(
     .replace(/[{()}]/g, '')
     .replace(/\s+/g, '');
   const cellA = Number(
-    cells.split('-')[0].split(',')[0] == 'null'
+    cells.split('-')[0].split(',')[0] === 'null'
       ? null
       : cells.split('-')[0].split(',')[0]
   );
   const cellB = Number(
-    cells.split('-')[0].split(',')[1] == 'null'
+    cells.split('-')[0].split(',')[1] === 'null'
       ? null
       : cells.split('-')[0].split(',')[1]
   );
   const cellC = Number(
-    cells.split('-')[0].split(',')[1] == 'null'
+    cells.split('-')[0].split(',')[1] === 'null'
       ? null
       : cells.split('-')[0].split(',')[2]
   );
   const cellAlpha = Number(
-    cells.split('-')[1].split(',')[0] == 'null'
+    cells.split('-')[1].split(',')[0] === 'null'
       ? null
       : cells.split('-')[1].split(',')[0]
   );
   const cellBeta = Number(
-    cells.split('-')[1].split(',')[1] == 'null'
+    cells.split('-')[1].split(',')[1] === 'null'
       ? null
       : cells.split('-')[1].split(',')[1]
   );
   const cellGamma = Number(
-    cells.split('-')[1].split(',')[2] == 'null'
+    cells.split('-')[1].split(',')[2] === 'null'
       ? null
       : cells.split('-')[1].split(',')[2]
   );
@@ -215,7 +215,7 @@ export function parseTableData(
   for (const sample of data.map((d) =>
     parseSample(d, crystals, proteins, container.sampleVOs)
   )) {
-    if (sample != undefined) samples.push(sample);
+    if (sample !== undefined) samples.push(sample);
   }
   return {
     ...container,
@@ -232,26 +232,26 @@ function parseSample(
   const getString = (index: number) => {
     if (data.length <= index) return undefined;
     const r = data[index];
-    if (r == undefined) return undefined;
+    if (r === undefined) return undefined;
     return String(r);
   };
   const getNumber = (index: number) => {
     if (data.length <= index) return undefined;
     const r = data[index];
-    if (r == undefined) return undefined;
+    if (r === undefined) return undefined;
     return Number(r);
   };
 
   if (
     data.filter((d) => {
-      return d != null && d != undefined && d != '';
+      return d !== null && d !== undefined && d !== '';
     }).length <= 1
   ) {
     return undefined;
   }
 
   const location = getString(0) || 'undefined';
-  const sample_filter = samples.filter((s) => s.location == location);
+  const sample_filter = samples.filter((s) => s.location === location);
   const sample = sample_filter.length
     ? { ...sample_filter[0] }
     : { diffractionPlanVO: {} };

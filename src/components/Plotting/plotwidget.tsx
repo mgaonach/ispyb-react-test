@@ -69,7 +69,7 @@ function PlotWidget(props: PlotParams & { compact?: boolean }) {
         <Modal.Header closeButton>
           <h5>
             Expanded graph{' '}
-            {typeof props.layout.title == 'string'
+            {typeof props.layout.title === 'string'
               ? props.layout.title
               : props.layout.title?.text}
           </h5>

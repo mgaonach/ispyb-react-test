@@ -1,9 +1,20 @@
-import { faCheckDouble, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckDouble,
+  faCheckCircle,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyWrapper from 'legacy/components/loading/lazywrapper';
 import LoadingPanel from 'legacy/components/loading/loadingpanel';
 import { Suspense, useState } from 'react';
-import { Row, Col, ButtonGroup, OverlayTrigger, ToggleButton, Tooltip } from 'react-bootstrap';
+import {
+  Row,
+  Col,
+  ButtonGroup,
+  OverlayTrigger,
+  ToggleButton,
+  Tooltip,
+} from 'react-bootstrap';
 import { DataCollectionGroup } from '../model';
 import { MXContainer } from './mxcontainer';
 
@@ -47,7 +58,15 @@ export default function ContainerFilter({
       <Row>
         <Col style={{ display: 'flex', margin: 20 }}>
           <ButtonGroup style={{ display: 'flex', margin: 'auto' }}>
-            <OverlayTrigger key={'bottom'} placement={'bottom'} overlay={<Tooltip id={`tooltip-bottom`}>Toggle multiple selection</Tooltip>}>
+            <OverlayTrigger
+              key={'bottom'}
+              placement={'bottom'}
+              overlay={
+                <Tooltip id={`tooltip-bottom`}>
+                  Toggle multiple selection
+                </Tooltip>
+              }
+            >
               <ToggleButton
                 style={{ margin: 1 }}
                 type="checkbox"
@@ -61,10 +80,18 @@ export default function ContainerFilter({
                 }}
                 value={''}
               >
-                <FontAwesomeIcon style={{ marginRight: 10 }} icon={faCheckDouble}></FontAwesomeIcon>Multiple selection
+                <FontAwesomeIcon
+                  style={{ marginRight: 10 }}
+                  icon={faCheckDouble}
+                ></FontAwesomeIcon>
+                Multiple selection
               </ToggleButton>
             </OverlayTrigger>
-            <OverlayTrigger key={'bottom'} placement={'bottom'} overlay={<Tooltip id={`tooltip-bottom`}>Select all</Tooltip>}>
+            <OverlayTrigger
+              key={'bottom'}
+              placement={'bottom'}
+              overlay={<Tooltip id={`tooltip-bottom`}>Select all</Tooltip>}
+            >
               <ToggleButton
                 style={{ margin: 1 }}
                 type="checkbox"
@@ -72,14 +99,28 @@ export default function ContainerFilter({
                 checked={true}
                 onClick={() => {
                   setSelectMultiple(true);
-                  setSelectedGroups(dataCollectionGroups.filter((g) => Boolean(g.Container_containerId)).map((g) => g.DataCollectionGroup_dataCollectionGroupId || 0));
+                  setSelectedGroups(
+                    dataCollectionGroups
+                      .filter((g) => Boolean(g.Container_containerId))
+                      .map(
+                        (g) => g.DataCollectionGroup_dataCollectionGroupId || 0
+                      )
+                  );
                 }}
                 value={''}
               >
-                <FontAwesomeIcon style={{ marginRight: 10 }} icon={faCheckCircle}></FontAwesomeIcon>Select all
+                <FontAwesomeIcon
+                  style={{ marginRight: 10 }}
+                  icon={faCheckCircle}
+                ></FontAwesomeIcon>
+                Select all
               </ToggleButton>
             </OverlayTrigger>
-            <OverlayTrigger key={'bottom'} placement={'bottom'} overlay={<Tooltip id={`tooltip-bottom`}>Unselect all</Tooltip>}>
+            <OverlayTrigger
+              key={'bottom'}
+              placement={'bottom'}
+              overlay={<Tooltip id={`tooltip-bottom`}>Unselect all</Tooltip>}
+            >
               <ToggleButton
                 style={{ margin: 1 }}
                 type="checkbox"
@@ -90,7 +131,11 @@ export default function ContainerFilter({
                 }}
                 value={''}
               >
-                <FontAwesomeIcon style={{ marginRight: 10 }} icon={faTimesCircle}></FontAwesomeIcon>Unselect all
+                <FontAwesomeIcon
+                  style={{ marginRight: 10 }}
+                  icon={faTimesCircle}
+                ></FontAwesomeIcon>
+                Unselect all
               </ToggleButton>
             </OverlayTrigger>
           </ButtonGroup>

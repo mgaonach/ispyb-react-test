@@ -56,7 +56,7 @@ export default function SessionTableMenu({
   }) => {
     setLocalStartDate(startDate);
     setLocalEndDate(endDate);
-    if (focusedInput == null || focusedInput === 'endDate') {
+    if (focusedInput === null || focusedInput === 'endDate') {
       if (startDate && setStartDate) {
         setStartDate(moment(startDate).format('YYYYMMDD'));
       }

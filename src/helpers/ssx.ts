@@ -15,7 +15,7 @@ export function getColorFromIndexedPercent(indexedPercent: number) {
 
 function lightenDarkenColor(col: string, amt: number) {
   let usePound = false;
-  if (col[0] == '#') {
+  if (col[0] === '#') {
     col = col.slice(1);
     usePound = true;
   }

@@ -22,7 +22,7 @@ export function SuspenseRouter({
   let historyRef = useRef<BrowserHistory>();
   const [isPending, startTransition] = useTransition();
 
-  if (historyRef.current == null) {
+  if (historyRef.current === undefined) {
     //const history = createBrowserHistory(startTransition, { window });
     historyRef.current = createBrowserHistory({ window });
   }

@@ -3,7 +3,15 @@ import Select from 'react-select';
 import { useLabContacts, useSessions } from 'legacy/hooks/ispyb';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Modal, Row, Col, InputGroup, Button, Form, Spinner } from 'react-bootstrap';
+import {
+  Modal,
+  Row,
+  Col,
+  InputGroup,
+  Button,
+  Form,
+  Spinner,
+} from 'react-bootstrap';
 import { KeyedMutator } from 'swr';
 import { Shipping, LabContact, Container } from './model';
 import { useEffect, useState } from 'react';
@@ -31,10 +39,14 @@ export function EditShippingModal({
   // eslint-disable-next-line no-unused-vars
   setShow: (_: boolean) => void;
 }) {
-  const { data: contacts = [], isError: isErrorContacts } = useLabContacts({ proposalName });
+  const { data: contacts = [], isError: isErrorContacts } = useLabContacts({
+    proposalName,
+  });
   if (isErrorContacts) throw Error(isErrorContacts);
 
-  const { data: sessions = [], isError: isErrorSessions } = useSessions({ proposalName });
+  const { data: sessions = [], isError: isErrorSessions } = useSessions({
+    proposalName,
+  });
   if (isErrorSessions) throw Error(isErrorSessions);
 
   const [formKey, setFormKey] = useState(uuidv4());
@@ -63,7 +75,10 @@ export function EditShippingModal({
     return session
       ? {
           value: session.sessionId,
-          label: `${formatDateTo(session.BLSession_startDate, 'dd/MM/yyyy')} - ${session.beamLineName}`,
+          label: `${formatDateTo(
+            session.BLSession_startDate,
+            'dd/MM/yyyy'
+          )} - ${session.beamLineName}`,
         }
       : undefined;
   }
@@ -72,14 +87,21 @@ export function EditShippingModal({
     if (shipping && shipping.sessions.length) {
       return {
         value: shipping.sessions[0].sessionId,
-        label: `${formatDateTo(shipping.sessions[0].startDate, 'dd/MM/yyyy')} - ${shipping.sessions[0].beamlineName}`,
+        label: `${formatDateTo(
+          shipping.sessions[0].startDate,
+          'dd/MM/yyyy'
+        )} - ${shipping.sessions[0].beamlineName}`,
       };
     }
     return undefined;
   }
 
-  const addressOptions = contacts.map(getContactOption).filter((v) => v) as Option[];
-  const sessionOptions = sessions.map(getSessionOption).filter((v) => v) as Option[];
+  const addressOptions = contacts
+    .map(getContactOption)
+    .filter((v) => v) as Option[];
+  const sessionOptions = sessions
+    .map(getSessionOption)
+    .filter((v) => v) as Option[];
 
   type FormType = {
     name?: string;
@@ -145,9 +167,17 @@ export function EditShippingModal({
       }}
     >
       {(formikProps) => (
-        <Modal centered backdrop="static" keyboard={false} show={show} onHide={() => setShow(false)}>
+        <Modal
+          centered
+          backdrop="static"
+          keyboard={false}
+          show={show}
+          onHide={() => setShow(false)}
+        >
           <Modal.Header closeButton={!saving}>
-            <Modal.Title>{shipping ? 'Edit shipment' : 'New shipment'}</Modal.Title>
+            <Modal.Title>
+              {shipping ? 'Edit shipment' : 'New shipment'}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form noValidate onSubmit={formikProps.handleSubmit}>
@@ -163,7 +193,9 @@ export function EditShippingModal({
                       value={formikProps.values['name']}
                       isInvalid={!!formikProps.errors['name']}
                     />
-                    <Form.Control.Feedback type="invalid">{formikProps.errors['name']}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      {formikProps.errors['name']}
+                    </Form.Control.Feedback>
                   </InputGroup>
                 </Form.Group>
               </Row>
@@ -199,7 +231,9 @@ export function EditShippingModal({
                       isInvalid={!!formikProps.errors['comments']}
                       style={{ height: 100 }}
                     />
-                    <Form.Control.Feedback type="invalid">{formikProps.errors['comments']}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      {formikProps.errors['comments']}
+                    </Form.Control.Feedback>
                   </InputGroup>
                 </Form.Group>
               </Row>
@@ -231,7 +265,8 @@ export function EditShippingModal({
                       value={formikProps.values['return']}
                       options={addressOptions}
                       onChange={(newValue) => {
-                        newValue && formikProps.setFieldValue('return', newValue);
+                        newValue &&
+                          formikProps.setFieldValue('return', newValue);
                       }}
                     ></Select>
                   </InputGroup>
@@ -240,12 +275,32 @@ export function EditShippingModal({
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled={saving} variant="secondary" onClick={() => setShow(false)}>
+            <Button
+              disabled={saving}
+              variant="secondary"
+              onClick={() => setShow(false)}
+            >
               Cancel
             </Button>
-            <Button disabled={saving} variant="primary" onClick={formikProps.submitForm}>
-              {saving && <Spinner size="sm" style={{ marginRight: 10 }} animation="border"></Spinner>}
-              {!saving && <FontAwesomeIcon icon={faSave} size="sm" style={{ marginRight: 10 }}></FontAwesomeIcon>}
+            <Button
+              disabled={saving}
+              variant="primary"
+              onClick={formikProps.submitForm}
+            >
+              {saving && (
+                <Spinner
+                  size="sm"
+                  style={{ marginRight: 10 }}
+                  animation="border"
+                ></Spinner>
+              )}
+              {!saving && (
+                <FontAwesomeIcon
+                  icon={faSave}
+                  size="sm"
+                  style={{ marginRight: 10 }}
+                ></FontAwesomeIcon>
+              )}
               Save Changes
             </Button>
           </Modal.Footer>

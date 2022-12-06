@@ -275,7 +275,7 @@ export function RenderTooltip(props: TooltipProps<number, string>) {
       </Row>
       {props.payload &&
         props.payload
-          .filter((p) => p.value != 0)
+          .filter((p) => p.value !== 0)
           .map((p) => {
             return (
               <Row key={p.dataKey}>

@@ -45,11 +45,11 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   React.useEffect(() => {
     const tokenSession = window.localStorage.getItem('token');
-    if (tokenSession != null) {
+    if (tokenSession !== null) {
       setToken(tokenSession);
     }
     const siteSession = window.localStorage.getItem('site');
-    if (siteSession != null) {
+    if (siteSession !== null) {
       let found = false;
       SITES.forEach((siteI) => {
         if (siteI.name === siteSession) {
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
       setSite(SITES[0]);
     }
     const javaPersonSession = window.localStorage.getItem('javaPerson');
-    if (javaPersonSession != null && javaPersonSession.length > 0) {
+    if (javaPersonSession !== null && javaPersonSession.length > 0) {
       setJavaPerson(JSON.parse(javaPersonSession));
     } else {
       setJavaPerson(undefined);

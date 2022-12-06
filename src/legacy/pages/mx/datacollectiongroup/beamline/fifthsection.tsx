@@ -3,7 +3,11 @@ import { DataCollectionGroup } from 'legacy/pages/mx/model';
 import SimpleParameterTable from 'legacy/components/table/simpleparametertable';
 import { multiply } from 'legacy/helpers/numerictransformation';
 
-export default function FifthSection({ dataCollectionGroup }: { dataCollectionGroup: DataCollectionGroup }) {
+export default function FifthSection({
+  dataCollectionGroup,
+}: {
+  dataCollectionGroup: DataCollectionGroup;
+}) {
   const {
     beamSizeAtSampleX,
     beamSizeAtSampleY,
@@ -32,7 +36,10 @@ export default function FifthSection({ dataCollectionGroup }: { dataCollectionGr
         },
         {
           key: 'Beam size at Sample Hor (Vert)',
-          value: `${multiply(beamSizeAtSampleX, 1000)}(${multiply(beamSizeAtSampleY, 1000)})`,
+          value: `${multiply(beamSizeAtSampleX, 1000)}(${multiply(
+            beamSizeAtSampleY,
+            1000
+          )})`,
           units: 'μm',
         },
         {

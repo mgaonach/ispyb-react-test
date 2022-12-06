@@ -5,7 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import validator from '@rjsf/validator-ajv6';
 import Form from '@rjsf/bootstrap-4';
 import rjsf from '@rjsf/utils';
-import { spaceGroupLongNames, spaceGroupShortNames } from 'legacy/constants/spacegroups';
+import {
+  spaceGroupLongNames,
+  spaceGroupShortNames,
+} from 'legacy/constants/spacegroups';
 import _ from 'lodash';
 import './crystaleditmodal.scss';
 import LayoutField from 'react-jsonschema-form-layout-2';
@@ -32,7 +35,14 @@ export function EditCrystalModal({
   const schema: rjsf.RJSFSchema = {
     type: 'object',
     properties: {
-      spaceGroup: { type: 'string', title: 'Space Group', enum: _(spaceGroupShortNames).concat(spaceGroupLongNames).uniq().value() },
+      spaceGroup: {
+        type: 'string',
+        title: 'Space Group',
+        enum: _(spaceGroupShortNames)
+          .concat(spaceGroupLongNames)
+          .uniq()
+          .value(),
+      },
       cellA: { type: 'number', title: 'A' },
       cellAlpha: { type: 'number', title: 'Alpha' },
       cellB: { type: 'number', title: 'B' },
@@ -62,7 +72,13 @@ export function EditCrystalModal({
 
   return (
     <div key={formKey}>
-      <Modal centered backdrop="static" keyboard={false} show={show} onHide={() => setShow(false)}>
+      <Modal
+        centered
+        backdrop="static"
+        keyboard={false}
+        show={show}
+        onHide={() => setShow(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{'Edit crystal'}</Modal.Title>
         </Modal.Header>

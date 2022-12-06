@@ -17,9 +17,15 @@ type Param = {
 
 export default function MXEnergyScanPage() {
   const { sessionId = '', proposalName = '' } = useParams<Param>();
-  const { data: energyScans, isError } = useMXEnergyScans({ proposalName, sessionId });
+  const { data: energyScans, isError } = useMXEnergyScans({
+    proposalName,
+    sessionId,
+  });
   energyScans?.sort((a, b) => {
-    return moment(b.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime() - moment(a.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime();
+    return (
+      moment(b.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime() -
+      moment(a.startTime, 'MMMM Do YYYY, h:mm:ss A').toDate().getTime()
+    );
   });
   if (isError) throw Error(isError);
   if (energyScans && energyScans.length) {
@@ -29,7 +35,11 @@ export default function MXEnergyScanPage() {
           {energyScans.map((energyScan) => (
             <div style={{ margin: 5 }}>
               <LazyWrapper placeholder={<LoadingPanel></LoadingPanel>}>
-                <EnergyScanPanel sessionId={sessionId} proposalName={proposalName} energyScan={energyScan}></EnergyScanPanel>
+                <EnergyScanPanel
+                  sessionId={sessionId}
+                  proposalName={proposalName}
+                  energyScan={energyScan}
+                ></EnergyScanPanel>
               </LazyWrapper>
             </div>
           ))}

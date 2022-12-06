@@ -91,7 +91,7 @@ export class CrystalEditor extends BaseEditorComponent<PropsType> {
     if (protein) {
       return _.uniq([
         ..._(this.crystals)
-          .filter((c) => c.proteinVO.acronym == protein)
+          .filter((c) => c.proteinVO.acronym === protein)
           .map(getCrystalInfo)
           .uniq()
           .sort()
@@ -113,10 +113,10 @@ export class CrystalEditor extends BaseEditorComponent<PropsType> {
       left: this.state.left,
     };
     if (
-      this.col != null &&
-      this.row != null &&
-      this.state.value != undefined &&
-      this.data[this.row][1] != undefined
+      this.col !== null &&
+      this.row !== null &&
+      this.state.value !== undefined &&
+      this.data[this.row][1] !== undefined
     ) {
       const d = [
         this.data[this.row][0],

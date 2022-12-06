@@ -47,7 +47,7 @@ type Param = {
 };
 
 const getErrorsForCell = (errors: Error[], row: number, col: number) => {
-  const res = errors.filter((e) => e.row == row && e.col == col);
+  const res = errors.filter((e) => e.row === row && e.col === col);
   return res;
 };
 const getAutoReplacementsForCell = (
@@ -55,7 +55,7 @@ const getAutoReplacementsForCell = (
   row: number,
   col: number
 ) => {
-  const res = autoReplacements.filter((r) => r.row == row && r.col == col);
+  const res = autoReplacements.filter((r) => r.row === row && r.col === col);
   return res;
 };
 
@@ -92,7 +92,7 @@ export function ImportShippingFromCSV() {
   }
   const proposal = proposalArray[0];
 
-  if (!proposal || proposalSamples == undefined) {
+  if (!proposal || proposalSamples === undefined) {
     return errorPage('Proposal does not exist.');
   }
 
@@ -155,7 +155,7 @@ export function CSVShippingImporter({
     setData(newData);
     // remove deprecated autoReplacements
     setAutoReplacements(
-      autoReplacements.filter((r) => r.oldValue == newData[r.row][r.col])
+      autoReplacements.filter((r) => r.oldValue === newData[r.row][r.col])
     );
   };
 
@@ -165,7 +165,7 @@ export function CSVShippingImporter({
   ) => {
     const replacedData: Line[] = JSON.parse(JSON.stringify(data));
     autoReplacements.forEach((r) => {
-      if (replacedData[r.row][r.col] == r.oldValue)
+      if (replacedData[r.row][r.col] === r.oldValue)
         replacedData[r.row][r.col] = r.newValue;
     });
     return replacedData;
@@ -203,7 +203,7 @@ export function CSVShippingImporter({
     return (
       <Alert variant={done}>
         <h5>
-          {done == 'success'
+          {done === 'success'
             ? 'Successfully updated the shipment.'
             : 'Failed to update the shipment.'}
         </h5>
@@ -288,6 +288,7 @@ export function CSVShippingImporter({
           <a
             target="_blank"
             href="https://github.com/ispyb/EXI/wiki/Fill-shipment-from-CSV"
+            rel="noreferrer"
           >
             here
           </a>
@@ -295,6 +296,7 @@ export function CSVShippingImporter({
           <a
             target="_blank"
             href="https://raw.githubusercontent.com/ispyb/EXI/master/csv/example3.csv"
+            rel="noreferrer"
           >
             example.csv
           </a>
@@ -352,7 +354,7 @@ const getClassForValue = (
   column: number,
   value: string | number | undefined
 ) => {
-  if (value == undefined || String(value).trim().length == 0) {
+  if (value === undefined || String(value).trim().length === 0) {
     return '';
   }
   const key = `column=${column}+value=${value}`;
@@ -406,7 +408,7 @@ export function CSVShippingImporterTable({
           .join('\n')
       : undefined;
     const commentValues = [commentAutoReplacements, commentErrors].filter(
-      (a) => a != undefined
+      (a) => a !== undefined
     );
     const commentValue =
       commentValues.length > 1
@@ -508,8 +510,8 @@ export function CSVShippingImporterTable({
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const res: { row: number; col: number; newValue: any }[] = [];
     changes.forEach((c) => {
-      if (c != null) {
-        const [row, prop, oldValue, newValue] = c;
+      if (c !== null) {
+        const [row, prop, , newValue] = c;
         res.push({ row, col: Number(prop), newValue });
       }
     });

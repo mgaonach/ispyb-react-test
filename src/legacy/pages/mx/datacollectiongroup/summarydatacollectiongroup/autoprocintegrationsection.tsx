@@ -20,14 +20,18 @@ function getShellStatistics(
   resolutionLimitHigh: string | undefined,
   rMerge: string | undefined
 ) {
-  if (completeness == undefined) {
+  if (completeness === undefined) {
     completeness = '0';
   }
   return (
     <tr>
       <td>{type}</td>
       <td>
-        <ProgressBar variant={getColorProgressBarByCompleness(completeness)} now={parseFloat(completeness)} label={completeness + '%'} />{' '}
+        <ProgressBar
+          variant={getColorProgressBarByCompleness(completeness)}
+          now={parseFloat(completeness)}
+          label={completeness + '%'}
+        />{' '}
       </td>
       <td>{`${resolutionLimitLow} - ${resolutionLimitHigh}`}</td>
       <td>{rMerge}</td>
@@ -35,10 +39,21 @@ function getShellStatistics(
   );
 }
 
-export default function AutoprocIntegrationSection({ bestResult, compact }: { bestResult: Shells; compact: boolean }) {
+export default function AutoprocIntegrationSection({
+  bestResult,
+  compact,
+}: {
+  bestResult: Shells;
+  compact: boolean;
+}) {
   const content = [
     <Col>
-      <Table size="sm" style={{ whiteSpace: 'nowrap' }} responsive className="parameterKey">
+      <Table
+        size="sm"
+        style={{ whiteSpace: 'nowrap' }}
+        responsive
+        className="parameterKey"
+      >
         <thead>
           <tr>
             <td className="parameterValue">{bestResult.refShell.spaceGroup}</td>

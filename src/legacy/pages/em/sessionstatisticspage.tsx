@@ -21,7 +21,9 @@ export default function SessionStatisticsPage() {
   return (
     <EMPage sessionId={sessionId} proposalName={proposalName}>
       <Card>
-        <EmStatisticsPanel statisticsPlotData={statisticsPlotData}></EmStatisticsPanel>
+        <EmStatisticsPanel
+          statisticsPlotData={statisticsPlotData}
+        ></EmStatisticsPanel>
       </Card>
     </EMPage>
   );

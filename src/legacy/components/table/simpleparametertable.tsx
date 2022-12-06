@@ -14,7 +14,10 @@ interface Props {
   header?: string;
 }
 
-export default function SimpleParameterTable({ parameters, header }: Props): JSX.Element {
+export default function SimpleParameterTable({
+  parameters,
+  header,
+}: Props): JSX.Element {
   return (
     <Table>
       {header && (
@@ -26,33 +29,32 @@ export default function SimpleParameterTable({ parameters, header }: Props): JSX
       )}
       <tbody>
         {parameters.map((parameter) => {
-          {
-            return (
-              <tr className={parameter.className}>
-                <td style={{ fontSize: 'smaller' }}>{parameter.key}</td>
-                <td style={{ fontSize: 'x-small' }}>
-                  {parameter.valueTooltip && (
-                    <>
-                      <strong
-                        className="text-info"
-                        onClick={() => {
-                          alert(parameter.valueTooltip);
-                        }}
-                      >
-                        {parameter.value}{' '}
-                      </strong>
-                      {parameter.units ? parameter.units : ''}
-                    </>
-                  )}
-                  {!parameter.valueTooltip && (
-                    <>
-                      <strong>{parameter.value} </strong> {parameter.units ? parameter.units : ''}
-                    </>
-                  )}
-                </td>
-              </tr>
-            );
-          }
+          return (
+            <tr className={parameter.className}>
+              <td style={{ fontSize: 'smaller' }}>{parameter.key}</td>
+              <td style={{ fontSize: 'x-small' }}>
+                {parameter.valueTooltip && (
+                  <>
+                    <strong
+                      className="text-info"
+                      onClick={() => {
+                        alert(parameter.valueTooltip);
+                      }}
+                    >
+                      {parameter.value}{' '}
+                    </strong>
+                    {parameter.units ? parameter.units : ''}
+                  </>
+                )}
+                {!parameter.valueTooltip && (
+                  <>
+                    <strong>{parameter.value} </strong>{' '}
+                    {parameter.units ? parameter.units : ''}
+                  </>
+                )}
+              </td>
+            </tr>
+          );
         })}
       </tbody>
     </Table>

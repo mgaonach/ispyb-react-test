@@ -30,7 +30,11 @@ export function EditDewarModal({
     type: 'object',
     properties: {
       code: { type: 'string', title: 'Name' },
-      storageLocation: { type: 'string', title: 'Storage Condition', enum: ['N/A', '-80', '-20', '+4', 'Room Temperature'] },
+      storageLocation: {
+        type: 'string',
+        title: 'Storage Condition',
+        enum: ['N/A', '-80', '-20', '+4', 'Room Temperature'],
+      },
       transportValue: { type: 'number', title: 'Transport Value' },
       comments: { type: 'string', title: 'Comments' },
     },
@@ -41,7 +45,12 @@ export function EditDewarModal({
       'ui:widget': 'textarea',
     },
     'ui:field': 'layout',
-    'ui:layout': [{ code: { md: 12 } }, { storageLocation: { md: 12 } }, { transportValue: { md: 12 } }, { comments: { md: 12 } }],
+    'ui:layout': [
+      { code: { md: 12 } },
+      { storageLocation: { md: 12 } },
+      { transportValue: { md: 12 } },
+      { comments: { md: 12 } },
+    ],
   };
 
   const fields = {
@@ -50,7 +59,13 @@ export function EditDewarModal({
 
   return (
     <div key={formKey}>
-      <Modal centered backdrop="static" keyboard={false} show={show} onHide={() => setShow(false)}>
+      <Modal
+        centered
+        backdrop="static"
+        keyboard={false}
+        show={show}
+        onHide={() => setShow(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{'Edit parcel'}</Modal.Title>
         </Modal.Header>

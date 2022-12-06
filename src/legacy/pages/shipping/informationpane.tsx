@@ -1,4 +1,10 @@
-import { faEdit, faExclamationTriangle, faInfoCircle, faPlaneDeparture, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faExclamationTriangle,
+  faInfoCircle,
+  faPlaneDeparture,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { removeShipping, updateShippingStatus } from 'legacy/api/ispyb';
 import axios from 'axios';
@@ -30,18 +36,26 @@ export function InformationPane({
 
   const onSendToFacility = () => {
     setSendingShipment(true);
-    axios.get(updateShippingStatus({ proposalName, shippingId: shipping.shippingId, status: 'Sent_to_ESRF' }).url).then(
-      () => {
-        mutateShipping();
-        mutateShipments();
-        setSendingShipment(false);
-      },
-      () => {
-        mutateShipping();
-        mutateShipments();
-        setSendingShipment(false);
-      }
-    );
+    axios
+      .get(
+        updateShippingStatus({
+          proposalName,
+          shippingId: shipping.shippingId,
+          status: 'Sent_to_ESRF',
+        }).url
+      )
+      .then(
+        () => {
+          mutateShipping();
+          mutateShipments();
+          setSendingShipment(false);
+        },
+        () => {
+          mutateShipping();
+          mutateShipments();
+          setSendingShipment(false);
+        }
+      );
   };
   const data = shipping.sessions.length
     ? {
@@ -67,19 +81,22 @@ export function InformationPane({
       };
 
   const isSendShipmentActive = !(
-    shipping.dewarVOs.length == 0 ||
+    shipping.dewarVOs.length === 0 ||
     _.filter(shipping.dewarVOs, function (o) {
-      return o.dewarStatus == null || o.dewarStatus == undefined;
+      return o.dewarStatus === null || o.dewarStatus === undefined;
     }).length > 0
   );
-  const isEditShipmentActive = shipping.shippingStatus != 'processing';
-  const isDeleteShipmentActive = shipping.shippingStatus != 'processing';
+  const isEditShipmentActive = shipping.shippingStatus !== 'processing';
+  const isDeleteShipmentActive = shipping.shippingStatus !== 'processing';
 
   const [deleting, setDeleting] = useState(false);
 
   const onDelete = () => {
     setDeleting(true);
-    const req = removeShipping({ proposalName, shippingId: shipping.shippingId });
+    const req = removeShipping({
+      proposalName,
+      shippingId: shipping.shippingId,
+    });
 
     axios.get(req.url).then(
       () => {
@@ -104,7 +121,14 @@ export function InformationPane({
             parameters={[
               { key: 'Beamline', value: data.beamlineName },
               { key: 'Date', value: data.startDate },
-              { key: 'Status', value: <Badge style={{ margin: 0, fontSize: 'small' }}>{data.shippingStatus}</Badge> },
+              {
+                key: 'Status',
+                value: (
+                  <Badge style={{ margin: 0, fontSize: 'small' }}>
+                    {data.shippingStatus}
+                  </Badge>
+                ),
+              },
             ]}
           ></SimpleParameterTable>
         </Col>
@@ -112,9 +136,22 @@ export function InformationPane({
         <Col md={'auto'}>
           <SimpleParameterTable
             parameters={[
-              { key: 'Sender address', value: data.sendingLabContactVO.cardName },
-              { key: 'Return address', value: data.returnLabContactVO.cardName },
-              { key: 'Fedex reference', value: <Badge style={{ margin: 0, fontSize: 'small' }}>{data.fedexCode}</Badge> },
+              {
+                key: 'Sender address',
+                value: data.sendingLabContactVO.cardName,
+              },
+              {
+                key: 'Return address',
+                value: data.returnLabContactVO.cardName,
+              },
+              {
+                key: 'Fedex reference',
+                value: (
+                  <Badge style={{ margin: 0, fontSize: 'small' }}>
+                    {data.fedexCode}
+                  </Badge>
+                ),
+              },
             ]}
           ></SimpleParameterTable>
         </Col>
@@ -123,8 +160,14 @@ export function InformationPane({
           <SimpleParameterTable
             parameters={[
               { key: 'Allowed reimb. parcels', value: data.nbReimbDewars },
-              { key: 'Courier company', value: data.returnLabContactVO.defaultCourrierCompany },
-              { key: 'Billing reference', value: data.returnLabContactVO.billingReference },
+              {
+                key: 'Courier company',
+                value: data.returnLabContactVO.defaultCourrierCompany,
+              },
+              {
+                key: 'Billing reference',
+                value: data.returnLabContactVO.billingReference,
+              },
             ]}
           ></SimpleParameterTable>
         </Col>
@@ -144,9 +187,16 @@ export function InformationPane({
         <Col>
           {data.nbReimbDewars && data.nbReimbDewars > 0 ? (
             <Alert variant="info" style={{ margin: 15 }}>
-              <FontAwesomeIcon style={{ marginRight: 10 }} icon={faInfoCircle}></FontAwesomeIcon>
-              According to the A-form, you are allowed to have <strong>{data.nbReimbDewars} parcels reimbursed by the ESRF</strong>. Please use the Reimburse button to
-              select/unselect the parcels to be reimbursed.
+              <FontAwesomeIcon
+                style={{ marginRight: 10 }}
+                icon={faInfoCircle}
+              ></FontAwesomeIcon>
+              According to the A-form, you are allowed to have{' '}
+              <strong>
+                {data.nbReimbDewars} parcels reimbursed by the ESRF
+              </strong>
+              . Please use the Reimburse button to select/unselect the parcels
+              to be reimbursed.
             </Alert>
           ) : (
             <></>
@@ -154,7 +204,10 @@ export function InformationPane({
           {!isSendShipmentActive ? (
             <Alert variant="warning" style={{ margin: 15 }}>
               <strong>
-                <FontAwesomeIcon style={{ marginRight: 10 }} icon={faExclamationTriangle}></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  style={{ marginRight: 10 }}
+                  icon={faExclamationTriangle}
+                ></FontAwesomeIcon>
                 One of your labels is not printed
               </strong>
             </Alert>
@@ -165,15 +218,38 @@ export function InformationPane({
       </Row>
       <Row style={{ marginBottom: 10 }}>
         <Col md="auto" style={{ paddingRight: 0 }}>
-          <Button disabled={!isSendShipmentActive || sendingShipment} style={{ marginLeft: 15 }} onClick={onSendToFacility}>
-            {sendingShipment && <Spinner style={{ marginRight: 10 }} size="sm" animation={'border'}></Spinner>}
-            {!sendingShipment && <FontAwesomeIcon style={{ marginRight: 10 }} icon={faPlaneDeparture}></FontAwesomeIcon>}
+          <Button
+            disabled={!isSendShipmentActive || sendingShipment}
+            style={{ marginLeft: 15 }}
+            onClick={onSendToFacility}
+          >
+            {sendingShipment && (
+              <Spinner
+                style={{ marginRight: 10 }}
+                size="sm"
+                animation={'border'}
+              ></Spinner>
+            )}
+            {!sendingShipment && (
+              <FontAwesomeIcon
+                style={{ marginRight: 10 }}
+                icon={faPlaneDeparture}
+              ></FontAwesomeIcon>
+            )}
             Send shipment to the facility
           </Button>
         </Col>
         <Col md="auto" style={{ padding: 0 }}>
-          <Button disabled={!isEditShipmentActive} style={{ marginLeft: 15 }} onClick={() => setShowEditModal(true)}>
-            <FontAwesomeIcon style={{ marginRight: 10 }} icon={faEdit}></FontAwesomeIcon>Edit
+          <Button
+            disabled={!isEditShipmentActive}
+            style={{ marginLeft: 15 }}
+            onClick={() => setShowEditModal(true)}
+          >
+            <FontAwesomeIcon
+              style={{ marginRight: 10 }}
+              icon={faEdit}
+            ></FontAwesomeIcon>
+            Edit
           </Button>
           <EditShippingModal
             shipping={shipping}
@@ -185,9 +261,24 @@ export function InformationPane({
           ></EditShippingModal>
         </Col>
         <Col md="auto" style={{ padding: 0 }}>
-          <Button onClick={onDelete} disabled={!isDeleteShipmentActive || deleting} style={{ marginLeft: 15 }}>
-            {!deleting && <FontAwesomeIcon style={{ marginRight: 10 }} icon={faTrash}></FontAwesomeIcon>}
-            {deleting && <Spinner size="sm" animation="border" style={{ marginRight: 10 }}></Spinner>}
+          <Button
+            onClick={onDelete}
+            disabled={!isDeleteShipmentActive || deleting}
+            style={{ marginLeft: 15 }}
+          >
+            {!deleting && (
+              <FontAwesomeIcon
+                style={{ marginRight: 10 }}
+                icon={faTrash}
+              ></FontAwesomeIcon>
+            )}
+            {deleting && (
+              <Spinner
+                size="sm"
+                animation="border"
+                style={{ marginRight: 10 }}
+              ></Spinner>
+            )}
             Delete
           </Button>
         </Col>

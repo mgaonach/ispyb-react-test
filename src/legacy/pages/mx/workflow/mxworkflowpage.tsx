@@ -1,6 +1,5 @@
 import { useMxWorkflow } from 'legacy/hooks/ispyb';
 import useQueryParams from 'legacy/hooks/usequeyparams';
-import _ from 'lodash';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import WorkflowContent from './workflowcontent';

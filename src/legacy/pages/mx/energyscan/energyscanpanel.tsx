@@ -21,13 +21,17 @@ export default function EnergyScanPanel({ proposalName, energyScan }: Props) {
           <Row>
             <Col md="auto">
               <h5>
-                {moment(energyScan.startTime, 'MMMM Do YYYY, h:mm:ss A').format('DD/MM/YYYY HH:mm:ss')}
+                {moment(energyScan.startTime, 'MMMM Do YYYY, h:mm:ss A').format(
+                  'DD/MM/YYYY HH:mm:ss'
+                )}
                 <Badge bg="info">Energy scan</Badge>
               </h5>
             </Col>
             <Col></Col>
             <Col style={{ display: 'flex' }} md="auto">
-              <p style={{ margin: 0, alignSelf: 'center' }}>{energyScan.scanFileFullPath}</p>
+              <p style={{ margin: 0, alignSelf: 'center' }}>
+                {energyScan.scanFileFullPath}
+              </p>
             </Col>
           </Row>
         </Container>
@@ -42,17 +46,55 @@ export default function EnergyScanPanel({ proposalName, energyScan }: Props) {
           <Col>
             <SimpleParameterTable
               parameters={[
-                { key: 'Protein', value: energyScan.acronym ? `${energyScan.acronym}` : 'unknown' },
-                { key: 'Sample', value: energyScan.name ? `${energyScan.name}` : 'unknown' },
+                {
+                  key: 'Protein',
+                  value: energyScan.acronym
+                    ? `${energyScan.acronym}`
+                    : 'unknown',
+                },
+                {
+                  key: 'Sample',
+                  value: energyScan.name ? `${energyScan.name}` : 'unknown',
+                },
                 { key: 'Filename', value: energyScan.filename },
-                { key: 'Fluorescence Detector', value: energyScan.fluorescenceDetector },
-                { key: 'Energy Scan Range', value: `${energyScan.startEnergy} keV - ${energyScan.endEnergy} keV` },
-                { key: 'Edge Energy (theoretical)', value: `${energyScan.edgeEnergy} keV` },
-                { key: 'Flux @100%', value: energyScan.flux ? `${energyScan.flux}  ph/sec` : 'unknown' },
-                { key: 'Transmission', value: energyScan.transmissionFactor ? `${energyScan.transmissionFactor}  %` : 'unknown' },
-                { key: 'Beam Size Hor', value: `${energyScan.beamSizeHorizontal} μm` },
-                { key: 'Beam Size Vert', value: `${energyScan.beamSizeVertical} μm` },
-                { key: 'Exposure Time', value: energyScan.exposureTime ? `${energyScan.exposureTime}  s` : 'unknown' },
+                {
+                  key: 'Fluorescence Detector',
+                  value: energyScan.fluorescenceDetector,
+                },
+                {
+                  key: 'Energy Scan Range',
+                  value: `${energyScan.startEnergy} keV - ${energyScan.endEnergy} keV`,
+                },
+                {
+                  key: 'Edge Energy (theoretical)',
+                  value: `${energyScan.edgeEnergy} keV`,
+                },
+                {
+                  key: 'Flux @100%',
+                  value: energyScan.flux
+                    ? `${energyScan.flux}  ph/sec`
+                    : 'unknown',
+                },
+                {
+                  key: 'Transmission',
+                  value: energyScan.transmissionFactor
+                    ? `${energyScan.transmissionFactor}  %`
+                    : 'unknown',
+                },
+                {
+                  key: 'Beam Size Hor',
+                  value: `${energyScan.beamSizeHorizontal} μm`,
+                },
+                {
+                  key: 'Beam Size Vert',
+                  value: `${energyScan.beamSizeVertical} μm`,
+                },
+                {
+                  key: 'Exposure Time',
+                  value: energyScan.exposureTime
+                    ? `${energyScan.exposureTime}  s`
+                    : 'unknown',
+                },
               ]}
             ></SimpleParameterTable>
           </Col>
@@ -62,14 +104,29 @@ export default function EnergyScanPanel({ proposalName, energyScan }: Props) {
                 { key: 'Peak Energy', value: `${energyScan.peakEnergy} keV` },
                 { key: "Pk f'", value: `${energyScan.peakFPrime} e-` },
                 { key: "Pk f''", value: `${energyScan.peakFDoublePrime} e-` },
-                { key: 'Inflection Energy', value: `${energyScan.inflectionEnergy} keV` },
+                {
+                  key: 'Inflection Energy',
+                  value: `${energyScan.inflectionEnergy} keV`,
+                },
                 { key: "Ip f'", value: `${energyScan.inflectionFPrime} e-` },
-                { key: "Ip f''", value: `${energyScan.inflectionFDoublePrime} e-` },
+                {
+                  key: "Ip f''",
+                  value: `${energyScan.inflectionFDoublePrime} e-`,
+                },
               ]}
             ></SimpleParameterTable>
           </Col>
           <Col md={3}>
-            <ZoomImage style={{ maxWidth: 300 }} alt="Dozor" src={getJpegchooch({ proposalName, energyscanId: energyScan.energyScanId }).url}></ZoomImage>
+            <ZoomImage
+              style={{ maxWidth: 300 }}
+              alt="Dozor"
+              src={
+                getJpegchooch({
+                  proposalName,
+                  energyscanId: energyScan.energyScanId,
+                }).url
+              }
+            ></ZoomImage>
           </Col>
         </Row>
       </Card.Body>

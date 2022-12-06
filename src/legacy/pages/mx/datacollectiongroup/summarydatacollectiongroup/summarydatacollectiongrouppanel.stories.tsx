@@ -4,7 +4,8 @@ import SummaryDataCollectionGroupPanel from 'legacy/pages/mx/datacollectiongroup
 const dataCollectionGroup = {
   DataCollection_runStatus: 'Data collection successful',
   DataCollection_numberOfImages: 1147,
-  Autoprocessing_cell_beta: '89.9797, 89.9797, 89.9797, 90.001, 90.001, 90.001, 90.001, 90.001, 90.001, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90',
+  Autoprocessing_cell_beta:
+    '89.9797, 89.9797, 89.9797, 90.001, 90.001, 90.001, 90.001, 90.001, 90.001, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90',
   DataCollection_resolutionAtCorner: 2.50471,
   BeamLineSetup_beamDivergenceVertical: 6.5,
   DataCollection_detectorDistance: 485.35,
@@ -18,7 +19,8 @@ const dataCollectionGroup = {
   DataCollectionGroup_comments:
     '    Very weak diffraction.    Dynamic aperture set to 20 um New exposure time 0.2 s.    Using forced space group \u0027P1\u0027 from crystal form. Characterisation: Space group P1 forced.    Auto processing (except Grenades): Forced space group P1 and cell (a\u003d59.6, b\u003d59.7, c\u003d356.4, alpha\u003d89.9, beta\u003d90.1, gamma\u003d120.0).',
   ScreeningOutputLattice_spaceGroup: 'P1',
-  startTimeList: '2022-02-11 09:44:05,2022-02-11 09:46:02,2022-02-11 09:47:04,2022-02-11 09:48:34',
+  startTimeList:
+    '2022-02-11 09:44:05,2022-02-11 09:46:02,2022-02-11 09:47:04,2022-02-11 09:48:34',
   DataCollection_rotationAxis: 'Omega',
   DataCollection_dataCollectionId: 2730732,
   Container_code: 'CPS-3620',
@@ -43,7 +45,8 @@ const dataCollectionGroup = {
   hasMR: 0,
   ScreeningStrategySubWedge_axisStart: 36.0,
   numberOfGridSquares: 4,
-  DataCollection_imageDirectory: '/data/visitor/mx2275/id30a1/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4',
+  DataCollection_imageDirectory:
+    '/data/visitor/mx2275/id30a1/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4',
   ScreeningOutput_strategySuccess: true,
   Detector_detectorType: 'PIXEL',
   processingPrograms:
@@ -73,7 +76,8 @@ const dataCollectionGroup = {
   DataCollectionGroup_endTime: 'Feb 11, 2022 9:55:29 AM',
   Container_beamlineLocation: 'ID30A-1',
   WorkflowStep_workflowStepId: '706341,706342,706343,706344,706345',
-  Autoprocessing_anomalous: '1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1',
+  Autoprocessing_anomalous:
+    '1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1',
   Container_containerType: 'Unipuck',
   DataCollection_beamShape: 'ELIPTICAL',
   Detector_detectorPixelSizeVertical: 0.172,
@@ -134,10 +138,14 @@ const dataCollectionGroup = {
   BLSample_comments: 'https://oulu.icebox.icebear.fi/crystal/20015109',
   ScreeningStrategySubWedge_exposureTime: 0.295,
   Container_capacity: 16,
-  DataCollection_xtalSnapshotFullPath1: '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_1.snapshot.jpeg',
-  DataCollection_xtalSnapshotFullPath4: '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_4.snapshot.jpeg',
-  DataCollection_xtalSnapshotFullPath2: '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_2.snapshot.jpeg',
-  DataCollection_xtalSnapshotFullPath3: '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_3.snapshot.jpeg',
+  DataCollection_xtalSnapshotFullPath1:
+    '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_1.snapshot.jpeg',
+  DataCollection_xtalSnapshotFullPath4:
+    '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_4.snapshot.jpeg',
+  DataCollection_xtalSnapshotFullPath2:
+    '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_2.snapshot.jpeg',
+  DataCollection_xtalSnapshotFullPath3:
+    '/data/pyarch/2022/id30a1/mx2275/20220210/RAW_DATA/ARH3/ARH3-ARH3_96qwE03d2c4/ARH3-ARH3_96qwE03d2c4_1_3.snapshot.jpeg',
   AutoProcProgram_processingPrograms: 'EDNA_proc',
   DataCollection_axisStart: 36.0,
   hasPhasing: 0,
@@ -151,21 +159,31 @@ const dataCollectionGroup = {
     '97.3868, 97.6054, 98.3532, 97.1, 86.8, 98.7, 80.8, 88.6, 27, 98.9, 99.1, 99.4, 98.6, 99.4, 99.6, 98.4, 98.3, 99.3, 99.6, 98.4, 99.5, 99.1, 97.6, 99.1, 99.9, 98.4, 99.5',
   AutoProcProgram_autoProcProgramId: 3325268,
   DataCollection_axisEnd: 208.05,
-  WorkflowStep_workflowStepType: 'Snapshots,Automesh,Mesh,Line,Characterisation',
+  WorkflowStep_workflowStepType:
+    'Snapshots,Automesh,Mesh,Line,Characterisation',
   Dewar_code: 'DLS-MX-0643',
   ScreeningOutput_mosaicity: 0.9,
-  Autoprocessing_cell_alpha: '90.1103, 90.1103, 90.1103, 89.901, 89.901, 89.901, 89.901, 89.901, 89.901, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90',
+  Autoprocessing_cell_alpha:
+    '90.1103, 90.1103, 90.1103, 89.901, 89.901, 89.901, 89.901, 89.901, 89.901, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90',
   Detector_detectorMode: 'Unbinned',
   BeamLineSetup_polarisation: 0.99,
   autoProcIntegrationId:
     '3450788, 3450789, 3450789, 3450789, 3450790, 3450791, 3450792, 3450792, 3450792, 3450793, 3450793, 3450793, 3450794, 3450795, 3450795, 3450795, 3450796, 3450796, 3450796, 3450797, 3450797, 3450797, 3450798, 3450798, 3450798, 3450799, 3450799, 3450799, 3450800, 3450800, 3450800, 3450801, 3450802, 3450803, 3450804',
   ScreeningOutput_indexingSuccess: true,
-  rMerges: '25.0818, 9.60908, 83.3741, 5.1, 1.9, 25.7, 5.5, 2, 25.1, 8.3, 91.7, 14.1, 8.8, 127.7, 15.8, 7.2, 87.1, 11.9, 8.9, 123.7, 15.5, 8.5, 147.8, 15, 10.1, 181.9, 20.5',
+  rMerges:
+    '25.0818, 9.60908, 83.3741, 5.1, 1.9, 25.7, 5.5, 2, 25.1, 8.3, 91.7, 14.1, 8.8, 127.7, 15.8, 7.2, 87.1, 11.9, 8.9, 123.7, 15.5, 8.5, 147.8, 15, 10.1, 181.9, 20.5',
 };
 
-const l = { title: 'SummaryDataCollectionGroupPanel', component: SummaryDataCollectionGroupPanel };
+const l = {
+  title: 'SummaryDataCollectionGroupPanel',
+  component: SummaryDataCollectionGroupPanel,
+};
 export default l;
 
 export const SimpleSummaryDataCollectionGroupPanel = () => (
-  <SummaryDataCollectionGroupPanel compact={false} proposalName={'M0000'} dataCollectionGroup={dataCollectionGroup}></SummaryDataCollectionGroupPanel>
+  <SummaryDataCollectionGroupPanel
+    compact={false}
+    proposalName={'M0000'}
+    dataCollectionGroup={dataCollectionGroup}
+  ></SummaryDataCollectionGroupPanel>
 );

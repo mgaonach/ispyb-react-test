@@ -87,7 +87,7 @@ function useGet<T = any>(
     }
   );
   return {
-    data: data == undefined ? undefined : editData(data),
+    data: data === undefined ? undefined : editData(data),
     isLoading: !error && !data,
     isError: error,
     mutate,

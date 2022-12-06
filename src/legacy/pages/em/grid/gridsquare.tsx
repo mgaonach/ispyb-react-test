@@ -1,5 +1,4 @@
-import { Image, Badge, ProgressBar, Button, Card } from 'react-bootstrap';
-import Zoom from 'react-medium-image-zoom';
+import { Badge, ProgressBar, Button, Card } from 'react-bootstrap';
 import React from 'react';
 import { getCrystalImage } from 'legacy/api/ispyb';
 import 'react-medium-image-zoom/dist/styles.css';

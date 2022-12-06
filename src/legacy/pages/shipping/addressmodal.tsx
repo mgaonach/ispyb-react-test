@@ -22,19 +22,51 @@ export default function AddressModal({
   proposalName: string;
 }) {
   return (
-    <Modal backdrop="static" keyboard={false} onHide={onHide} show={show} size="xl" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal
+      backdrop="static"
+      keyboard={false}
+      onHide={onHide}
+      show={show}
+      size="xl"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">Edit address</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Edit address
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ModalContent close={onHide} address={address} mutate={mutate} proposalName={proposalName}></ModalContent>
+        <ModalContent
+          close={onHide}
+          address={address}
+          mutate={mutate}
+          proposalName={proposalName}
+        ></ModalContent>
       </Modal.Body>
     </Modal>
   );
 }
 
-export function ModalContent({ address, close, mutate, proposalName }: { address: LabContact; close: () => void; mutate: KeyedMutator<LabContact[]>; proposalName: string }) {
-  return <AddressForm close={close} address={address} mutate={mutate} proposalName={proposalName}></AddressForm>;
+export function ModalContent({
+  address,
+  close,
+  mutate,
+  proposalName,
+}: {
+  address: LabContact;
+  close: () => void;
+  mutate: KeyedMutator<LabContact[]>;
+  proposalName: string;
+}) {
+  return (
+    <AddressForm
+      close={close}
+      address={address}
+      mutate={mutate}
+      proposalName={proposalName}
+    ></AddressForm>
+  );
 }
 
 type FormType = {
@@ -71,15 +103,33 @@ const schema = Yup.object().shape({
   courierAccount: Yup.string().max(45, 'Too long'),
   defaultCourrierCompany: Yup.string().max(45, 'Too long'),
 
-  dewarAvgCustomsValue: Yup.number().integer().min(0, 'Should be >=0').required('Mandatory field').typeError('A number is required'),
-  dewarAvgTransportValue: Yup.number().integer().min(0, 'Should be >=0').required('Mandatory field').typeError('A number is required'),
+  dewarAvgCustomsValue: Yup.number()
+    .integer()
+    .min(0, 'Should be >=0')
+    .required('Mandatory field')
+    .typeError('A number is required'),
+  dewarAvgTransportValue: Yup.number()
+    .integer()
+    .min(0, 'Should be >=0')
+    .required('Mandatory field')
+    .typeError('A number is required'),
   billingReference: Yup.string().max(45, 'Too long'),
 
   labName: Yup.string().max(45, 'Too long'),
   labAddress: Yup.string().max(45, 'Too long'),
 });
 
-export function AddressForm({ address, close, mutate, proposalName }: { address: LabContact; close: () => void; mutate: KeyedMutator<LabContact[]>; proposalName: string }) {
+export function AddressForm({
+  address,
+  close,
+  mutate,
+  proposalName,
+}: {
+  address: LabContact;
+  close: () => void;
+  mutate: KeyedMutator<LabContact[]>;
+  proposalName: string;
+}) {
   const initialValues: FormType = {
     cardName: address.cardName,
 
@@ -142,36 +192,93 @@ export function AddressForm({ address, close, mutate, proposalName }: { address:
       {(formikProps) => (
         <Form noValidate onSubmit={formikProps.handleSubmit}>
           <Row className="mb-3">
-            <FormInput name="Address name" field="cardName" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Address name"
+              field="cardName"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="First name" field="givenName" formikProps={formikProps}></FormInput>
-            <FormInput name="Surname" field="familyName" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="First name"
+              field="givenName"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Surname"
+              field="familyName"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="Email" field="emailAddress" formikProps={formikProps}></FormInput>
-            <FormInput name="Phone" field="phoneNumber" formikProps={formikProps}></FormInput>
-            <FormInput name="Fax" field="faxNumber" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Email"
+              field="emailAddress"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Phone"
+              field="phoneNumber"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Fax"
+              field="faxNumber"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="Courier account" field="courierAccount" formikProps={formikProps}></FormInput>
-            <FormInput name="Courier company" field="defaultCourrierCompany" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Courier account"
+              field="courierAccount"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Courier company"
+              field="defaultCourrierCompany"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="Avg customs value" field="dewarAvgCustomsValue" formikProps={formikProps}></FormInput>
-            <FormInput name="Avg transport value" field="dewarAvgTransportValue" formikProps={formikProps}></FormInput>
-            <FormInput name="Billing reference" field="billingReference" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Avg customs value"
+              field="dewarAvgCustomsValue"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Avg transport value"
+              field="dewarAvgTransportValue"
+              formikProps={formikProps}
+            ></FormInput>
+            <FormInput
+              name="Billing reference"
+              field="billingReference"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="Lab name" field="labName" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Lab name"
+              field="labName"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row className="mb-3">
-            <FormInput name="Lab address" type={'textarea'} field="labAddress" formikProps={formikProps}></FormInput>
+            <FormInput
+              name="Lab address"
+              type={'textarea'}
+              field="labAddress"
+              formikProps={formikProps}
+            ></FormInput>
           </Row>
           <Row>
             <Col></Col>
             <Col md={'auto'}>
-              <Button disabled={!formikProps.isValid} variant="primary" type="submit">
+              <Button
+                disabled={!formikProps.isValid}
+                variant="primary"
+                type="submit"
+              >
                 Save
               </Button>
             </Col>
@@ -187,7 +294,17 @@ export function AddressForm({ address, close, mutate, proposalName }: { address:
   );
 }
 
-export function FormInput({ name, field, type, formikProps }: { name: string; field: keyof FormType; type?: ElementType; formikProps: FormikProps<FormType> }) {
+export function FormInput({
+  name,
+  field,
+  type,
+  formikProps,
+}: {
+  name: string;
+  field: keyof FormType;
+  type?: ElementType;
+  formikProps: FormikProps<FormType>;
+}) {
   return (
     <Form.Group as={Col}>
       <Form.Label>{name}</Form.Label>
@@ -202,7 +319,9 @@ export function FormInput({ name, field, type, formikProps }: { name: string; fi
           isInvalid={!!formikProps.errors[field]}
           style={{ height: type === 'textarea' ? 200 : undefined }}
         />
-        <Form.Control.Feedback type="invalid">{formikProps.errors[field]}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {formikProps.errors[field]}
+        </Form.Control.Feedback>
       </InputGroup>
     </Form.Group>
   );

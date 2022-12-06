@@ -7,7 +7,10 @@ export const ItemTypes = {
   CONTAINER: 'container',
 };
 
-export function getDragLayerStyles(initialOffset: XYCoord | null, currentOffset: XYCoord | null) {
+export function getDragLayerStyles(
+  initialOffset: XYCoord | null,
+  currentOffset: XYCoord | null
+) {
   if (!initialOffset || !currentOffset) {
     return {
       display: 'none',
@@ -24,20 +27,26 @@ export function getDragLayerStyles(initialOffset: XYCoord | null, currentOffset:
 }
 
 export function CustomDragLayer({ proposalName }: { proposalName: string }) {
-  const { itemType, isDragging, item, initialOffset, currentOffset } = useDragLayer((monitor) => ({
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
-    initialOffset: monitor.getInitialSourceClientOffset(),
-    currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging(),
-  }));
+  const { itemType, isDragging, item, initialOffset, currentOffset } =
+    useDragLayer((monitor) => ({
+      item: monitor.getItem(),
+      itemType: monitor.getItemType(),
+      initialOffset: monitor.getInitialSourceClientOffset(),
+      currentOffset: monitor.getSourceClientOffset(),
+      isDragging: monitor.isDragging(),
+    }));
 
   const renderItem = () => {
     switch (itemType) {
       case ItemTypes.CONTAINER:
         return (
           <div className="dragitem">
-            <MXContainer showInfo={false} proposalName={proposalName} containerType={item.containerType} containerId={item.containerId}></MXContainer>
+            <MXContainer
+              showInfo={false}
+              proposalName={proposalName}
+              containerType={item.containerType}
+              containerId={item.containerId}
+            ></MXContainer>
           </div>
         );
       default:
@@ -51,7 +60,9 @@ export function CustomDragLayer({ proposalName }: { proposalName: string }) {
 
   return (
     <div className="draglayer">
-      <div style={getDragLayerStyles(initialOffset, currentOffset)}>{renderItem()}</div>
+      <div style={getDragLayerStyles(initialOffset, currentOffset)}>
+        {renderItem()}
+      </div>
     </div>
   );
 }

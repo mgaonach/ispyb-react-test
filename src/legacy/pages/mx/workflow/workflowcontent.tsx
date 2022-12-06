@@ -21,6 +21,8 @@ export default function WorkflowContent({ step }: { step: WorkflowStep }) {
               return <ImagesContent item={item}></ImagesContent>;
             case 'logFile':
               return <LogFileContent item={item}></LogFileContent>;
+            default:
+              return null;
           }
         })}
       </Col>
@@ -81,7 +83,12 @@ export function ImagesContent({ item }: { item: WorkflowStepItem }) {
             const src = 'data:image/png;base64,' + value.value;
             return (
               <td>
-                <ZoomImage style={{ maxWidth: 500 }} lazy={false} src={src} legend={value.title}></ZoomImage>
+                <ZoomImage
+                  style={{ maxWidth: 500 }}
+                  lazy={false}
+                  src={src}
+                  legend={value.title}
+                ></ZoomImage>
               </td>
             );
           })}
@@ -93,13 +100,19 @@ export function ImagesContent({ item }: { item: WorkflowStepItem }) {
 
 export function LogFileContent({ item }: { item: WorkflowStepItem }) {
   return (
-    <Button style={{ marginRight: 5, marginBottom: 15 }} variant="secondary" onClick={downloadHandlerFromValue(item.logText)}>
+    <Button
+      style={{ marginRight: 5, marginBottom: 15 }}
+      variant="secondary"
+      onClick={downloadHandlerFromValue(item.logText)}
+    >
       <FontAwesomeIcon icon={faDownload}></FontAwesomeIcon> {item.linkText}
     </Button>
   );
 }
 
-function downloadHandlerFromValue(value = ''): MouseEventHandler<HTMLButtonElement> {
+function downloadHandlerFromValue(
+  value = ''
+): MouseEventHandler<HTMLButtonElement> {
   return () => {
     const element = document.createElement('a');
     const file = new Blob([value], { type: 'text/plain' });

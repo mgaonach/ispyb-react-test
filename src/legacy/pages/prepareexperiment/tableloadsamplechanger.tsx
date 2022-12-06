@@ -65,7 +65,7 @@ export function ContainerTable({
 
   const setBeamlineForAll = () => {
     for (const dewar of dewars) {
-      if (dewar.beamlineLocation != beamline.name) {
+      if (dewar.beamlineLocation !== beamline.name) {
         setContainerLocation(dewar.containerId, beamline.name, undefined);
       }
     }
@@ -73,7 +73,7 @@ export function ContainerTable({
 
   const getContainerBeamline = (c: ContainerDewar) => {
     for (const b of beamlines) {
-      if (b.name == c.beamlineLocation) {
+      if (b.name === c.beamlineLocation) {
         return b;
       }
     }

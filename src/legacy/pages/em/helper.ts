@@ -1,12 +1,20 @@
 import { commaSeparatedToNumberArray } from 'legacy/helpers/numerictransformation';
-import { StatisticsPlotData, Record, DataCollections, SampleList } from 'legacy/pages/em/model';
+import {
+  StatisticsPlotData,
+  Record,
+  DataCollections,
+  SampleList,
+} from 'legacy/pages/em/model';
 /**
  * Basically this method parses dataCollection to SampleList
  * @param dataCollections
  * @param proposalName
  * @returns
  */
-export function useDataCollectionToGridSquares(dataCollections: DataCollections[], proposalName: string) {
+export function useDataCollectionToGridSquares(
+  dataCollections: DataCollections[],
+  proposalName: string
+) {
   const sampleList: SampleList[] = [];
   dataCollections.forEach((dataCollection) => {
     const {
@@ -19,9 +27,12 @@ export function useDataCollectionToGridSquares(dataCollections: DataCollections[
       DataCollection_xBeamPix: samplingRate,
       BLSample_name: sampleName,
     } = dataCollection;
-    const totalNumberOfMovies = statistics.map((stat) => stat.movieCount).reduce((total, num) => total + num);
+    const totalNumberOfMovies = statistics
+      .map((stat) => stat.movieCount)
+      .reduce((total, num) => total + num);
     const noFrames = commaSeparatedToNumberArray(framesCount)[0];
-    const dataCollectionIdArray = commaSeparatedToNumberArray(dataCollectionIdList);
+    const dataCollectionIdArray =
+      commaSeparatedToNumberArray(dataCollectionIdList);
     const startTimeList = dataCollection.startTimeList.split(',');
     const magnificationArray = commaSeparatedToNumberArray(magnificationList);
     const progressMotionCorArray = [];
@@ -30,12 +41,18 @@ export function useDataCollectionToGridSquares(dataCollections: DataCollections[
     const grids = [];
     for (let i = 0; i < dataCollectionIdArray.length; i++) {
       if (statistics[i]) {
-        const progressMotionCor = (statistics[i].motionCorrectionCount / statistics[i].movieCount) * 100;
-        const progressCtf = (statistics[i].ctfCorrectionCount / statistics[i].movieCount) * 100;
+        const progressMotionCor =
+          (statistics[i].motionCorrectionCount / statistics[i].movieCount) *
+          100;
+        const progressCtf =
+          (statistics[i].ctfCorrectionCount / statistics[i].movieCount) * 100;
         progressMotionCorArray.push(Math.round(progressMotionCor * 10) / 10);
         progressCtfArray.push(Math.round(progressCtf * 10) / 10);
         grids.push({
-          progressMotionCor: Math.round((statistics[i].motionCorrectionCount / statistics[i].movieCount) * 100),
+          progressMotionCor: Math.round(
+            (statistics[i].motionCorrectionCount / statistics[i].movieCount) *
+              100
+          ),
           progressCtf: Math.round(progressCtf * 10) / 10,
           dataCollectionId: dataCollectionIdArray[i],
           startTime: startTimeList[i],
@@ -91,13 +108,18 @@ function getDistribution(data: number[]) {
   for (let i = min; i < max; i = i + size) {
     const localmin = i;
     const localmax = localmin + size;
-    distribution.push([localmin.toFixed(3), getLength(localmin, localmax, data)]);
+    distribution.push([
+      localmin.toFixed(3),
+      getLength(localmin, localmax, data),
+    ]);
   }
 
   return distribution;
 }
 
-export function useGridSquareStatisticsToPlot(data: Record[]): StatisticsPlotData {
+export function useGridSquareStatisticsToPlot(
+  data: Record[]
+): StatisticsPlotData {
   const movieNumber = [];
   const averageData = [];
   const defocusU = [];

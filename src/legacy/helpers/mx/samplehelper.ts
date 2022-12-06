@@ -27,7 +27,7 @@ export function getSampleChanger(
 export function getContainerType(
   type: string | undefined
 ): containerType | undefined {
-  if (type == undefined) return undefined;
+  if (type === undefined) return undefined;
 
   if (type?.toLowerCase() === 'unipuck') {
     return 'Unipuck';

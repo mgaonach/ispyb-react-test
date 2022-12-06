@@ -40,7 +40,7 @@ export class ISARA extends AbstractSampleChanger {
 
   getX(position: number): number {
     const drawingPosition = this.getDrawingPosition(position);
-    if (drawingPosition.nbColumn == 5) {
+    if (drawingPosition.nbColumn === 5) {
       return [
         -this.sampleChangerRadius * 0.6,
         -this.sampleChangerRadius * 0.3,
@@ -49,7 +49,7 @@ export class ISARA extends AbstractSampleChanger {
         this.sampleChangerRadius * 0.6,
       ][drawingPosition.column];
     }
-    if (drawingPosition.nbColumn == 6) {
+    if (drawingPosition.nbColumn === 6) {
       return [
         -this.sampleChangerRadius * 0.75,
         -this.sampleChangerRadius * 0.45,
@@ -59,7 +59,7 @@ export class ISARA extends AbstractSampleChanger {
         this.sampleChangerRadius * 0.75,
       ][drawingPosition.column];
     }
-    if (drawingPosition.nbColumn == 2) {
+    if (drawingPosition.nbColumn === 2) {
       return [
         -this.sampleChangerRadius * 0.15,
         this.sampleChangerRadius * 0.15,

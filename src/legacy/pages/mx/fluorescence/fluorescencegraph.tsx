@@ -33,7 +33,10 @@ const COLORS = [
 ];
 
 export default function FluorescenceGraph({ proposalName, spectra }: Props) {
-  const { data: csv, isError } = useXrfScanCsv({ proposalName, scanId: spectra.xfeFluorescenceSpectrumId });
+  const { data: csv, isError } = useXrfScanCsv({
+    proposalName,
+    scanId: spectra.xfeFluorescenceSpectrumId,
+  });
 
   const [disabled, setDisabled] = useState<string[]>([]);
 
@@ -43,7 +46,9 @@ export default function FluorescenceGraph({ proposalName, spectra }: Props) {
 
   const parsed = parse<parseType>(csv, { header: true });
 
-  const fields = (parsed.meta.fields || []).filter((v) => v !== 'channel' && v !== 'Energy');
+  const fields = (parsed.meta.fields || []).filter(
+    (v) => v !== 'channel' && v !== 'Energy'
+  );
 
   const maxValues: { [x: string]: { x: number; y: number; fit: number } } = {};
 
@@ -79,7 +84,7 @@ export default function FluorescenceGraph({ proposalName, spectra }: Props) {
 
   const showMostCommon = () => {
     const disabled = fields.filter((f) => {
-      return f.search('Mn|Fe|Ni|Cu|Zn|Gd|counts') == -1;
+      return f.search('Mn|Fe|Ni|Cu|Zn|Gd|counts') === -1;
     });
     setDisabled(disabled);
   };

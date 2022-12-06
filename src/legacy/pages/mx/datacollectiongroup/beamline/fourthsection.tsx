@@ -3,8 +3,16 @@ import { DataCollectionGroup } from 'legacy/pages/mx/model';
 import SimpleParameterTable from 'legacy/components/table/simpleparametertable';
 import { convertToFixed } from 'legacy/helpers/numerictransformation';
 
-export default function FourthSection({ dataCollectionGroup }: { dataCollectionGroup: DataCollectionGroup }) {
-  const { BeamLineSetup_synchrotronName, synchrotronCurrent, BeamLineSetup_synchrotronMode } = dataCollectionGroup;
+export default function FourthSection({
+  dataCollectionGroup,
+}: {
+  dataCollectionGroup: DataCollectionGroup;
+}) {
+  const {
+    BeamLineSetup_synchrotronName,
+    synchrotronCurrent,
+    BeamLineSetup_synchrotronMode,
+  } = dataCollectionGroup;
 
   return (
     <SimpleParameterTable

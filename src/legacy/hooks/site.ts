@@ -1,4 +1,3 @@
-import { SiteConfig } from 'config/sites';
 import { useAuth } from 'hooks/useAuth';
 
 /**
