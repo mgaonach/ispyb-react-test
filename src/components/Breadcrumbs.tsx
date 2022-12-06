@@ -28,7 +28,7 @@ export default function Breadcrumbs() {
           style={{ '--bs-breadcrumb-divider': "'»'" } as CustomCSS}
           aria-label="breadcrumb"
         >
-          <ol className="breadcrumb mb-0">
+          <ol className="breadcrumb mb-0 p-0">
             {breadcrumbs.map(({ breadcrumb }, bid) => (
               <li
                 key={`bread-${bid}`}
