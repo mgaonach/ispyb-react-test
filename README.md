@@ -1,3 +1,5 @@
-# ISPyB UI
+# User interface for ISPyB and PY-ISPyB
 
-Built on typescript, bootstrap 5, rest-hooks, and rjsf.
+The py-ispyb user interface.
+
+Check the [latest documentation](https://ispyb.gitlab-pages.esrf.fr/py-ispyb-ui/doc)
