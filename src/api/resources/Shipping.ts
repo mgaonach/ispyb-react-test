@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withShipping } from 'models/Shipping.d';
 
 export class _ShippingResource extends PaginatedResource {

@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from 'api/resources/Singleton';
+import { AuthenticatedSingletonResource } from 'api/resources/Base/Singleton';
 import { BraggyHeader } from 'components/Events/DataCollections/Braggy/models';
 import { withImageHistogram } from 'models/ImageHistogram.d';
 

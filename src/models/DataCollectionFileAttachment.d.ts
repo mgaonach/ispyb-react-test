@@ -29,21 +29,17 @@ export interface DataCollectionFileAttachmentMetaData {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withDataCollectionFileAttachment<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDataCollectionFileAttachment<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionFileAttachment extends Base {
     dataCollectionFileAttachmentId: Datacollectionfileattachmentid;
     dataCollectionId: Datacollectionid;
     fileType: Filetype;
     _metadata: DataCollectionFileAttachmentMetaData;
-  };
+  }
 }
-export function withDataCollectionFileAttachmentMetaData<
-  TBase extends Constructor
->(Base: TBase) {
+export function withDataCollectionFileAttachmentMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionFileAttachmentMetaData extends Base {
     url: Url;
     fileName: Filename;
-  };
+  }
 }

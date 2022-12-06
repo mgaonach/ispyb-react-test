@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { Event } from 'models/Event.d';
 import { usePath } from 'hooks/usePath';
+import { formatDateToDayAndTime } from 'helpers/dateparser';
 
-interface IButtonProps {
+export interface IButtonProps {
   icon?: ReactElement;
   content?: ReactElement;
   hint: string;
@@ -20,10 +21,11 @@ interface IButtonsProps {
 }
 
 export function Buttons(props: IButtonsProps) {
+  const btns = props.buttons.filter((b) => !b.hidden);
   return (
     <>
-      {props.buttons.map((button) =>
-        button.hidden ? null : (
+      {btns.map((button) => {
+        return (
           <Button
             className="me-1"
             size="sm"
@@ -38,8 +40,17 @@ export function Buttons(props: IButtonsProps) {
             )}
             <span className="visually-hidden">{button.hint}</span>
           </Button>
-        )
-      )}
+        );
+      })}
+      {btns.length ? (
+        <span
+          style={{
+            borderLeft: '1px solid lightgrey',
+            marginLeft: 10,
+            marginRight: 10,
+          }}
+        ></span>
+      ) : null}
     </>
   );
 }
@@ -47,7 +58,7 @@ export function Buttons(props: IButtonsProps) {
 interface IEventHeader {
   event: Event;
   title: string;
-  buttons?: Array<any>;
+  buttons?: Array<IButtonProps>;
 }
 
 export function EventHeader(props: IEventHeader) {
@@ -55,8 +66,8 @@ export function EventHeader(props: IEventHeader) {
   const { event, buttons, title } = props;
 
   return (
-    <div className="event-header mb-1 p-1">
-      <h3 className="pb-1 text-primary">
+    <div className="event-header">
+      <h3 className="text-white rounded p-3 mb-3">
         {buttons && <Buttons buttons={buttons} />}
         {!sessionId && (
           <>
@@ -65,19 +76,23 @@ export function EventHeader(props: IEventHeader) {
               to={`/proposals/${event.proposal}/sessions/${event.sessionId}`}
             >
               {event.session ? event.session : event.proposal}
-            </Link>{' '}
+            </Link>
+            <span
+              style={{
+                borderLeft: '1px solid white',
+                marginLeft: 10,
+                marginRight: 10,
+              }}
+            ></span>
           </>
         )}
-        {event.startTime} - {title}
+        {formatDateToDayAndTime(event.startTime)}
+        {title.length ? <> - {title}</> : null}
       </h3>
     </div>
   );
 }
 
 export function EventBase({ children }: { children: JSX.Element }) {
-  return (
-    <div className="event border border-secondary rounded p-2 mb-2">
-      {children}
-    </div>
-  );
+  return <div className="event rounded p-2 mb-2">{children}</div>;
 }

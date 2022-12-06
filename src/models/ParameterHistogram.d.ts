@@ -21,5 +21,5 @@ export function withParameterHistogram<TBase extends Constructor>(Base: TBase) {
     beamLineName: Beamlinename;
     bin: Bin;
     frequency: Frequency;
-  };
+  }
 }

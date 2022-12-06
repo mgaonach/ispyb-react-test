@@ -2,7 +2,7 @@ import { createRef, Suspense, useCallback, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useSuspense } from 'rest-hooks';
 import { WidgetProps, UIOptionsType, EnumOptionsType } from '@rjsf/utils';
-import PaginatedResource from '../../api/resources/Paginated';
+import PaginatedResource from '../../api/resources/Base/Paginated';
 
 interface SelectOptions<T = any, F = any> extends UIOptionsType<T, F> {
   resource: typeof PaginatedResource;
@@ -50,7 +50,6 @@ function Select(props: SelectWidgetProps) {
   // }, [setValue]);
 
   useEffect(() => {
-    console.log('ref change');
     if (value === undefined) setValue();
   }, [value, setValue, ref]);
 

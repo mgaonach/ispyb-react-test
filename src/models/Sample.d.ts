@@ -12,6 +12,42 @@ export type Comments = null | string;
  */
 export type Location = number;
 export type Containerid = number;
+export type Crystal = SampleCrystal;
+export type CellA = null | number;
+export type CellB = null | number;
+export type CellC = null | number;
+export type CellAlpha = null | number;
+export type CellBeta = null | number;
+export type CellGamma = null | number;
+export type Protein = SampleProtein;
+export type Proposalid = string;
+export type Name1 = string;
+export type Acronym = string;
+export type SizeX = number;
+export type SizeY = number;
+export type SizeZ = number;
+export type Abundance = number;
+export type Crystalid = number;
+export type Protein1 = number;
+export type Name2 = string;
+export type Composition1 = string;
+export type Concentration = number;
+export type Name3 = string;
+export type Abundance1 = number;
+export type Ratio = number;
+export type Ph = number;
+export type CrystalCompositions = Composition[];
+export type Blsampleid = number;
+export type Container = SampleContainer;
+export type Code = string;
+/**
+ * Position in sample change
+ */
+export type SampleChangerLocation = string;
+/**
+ * Beamline if container is assigned
+ */
+export type BeamlineLocation = string;
 /**
  * Number of sub samples
  */
@@ -44,40 +80,59 @@ export type Integratedresolution = null | number;
  * The associated proposal
  */
 export type Proposal = string;
-export type Blsampleid = number;
-export type Crystal = SampleCrystal;
-export type CellA = null | number;
-export type CellB = null | number;
-export type CellC = null | number;
-export type CellAlpha = null | number;
-export type CellBeta = null | number;
-export type CellGamma = null | number;
-export type Protein = SampleProtein;
-export type Proposalid = string;
-export type Name1 = string;
-export type Acronym = string;
-export type Crystalid = number;
-export type Protein1 = number;
-export type Container = SampleContainer;
-export type Code = string;
-/**
- * Position in sample change
- */
-export type SampleChangerLocation = string;
-/**
- * Beamline if container is assigned
- */
-export type BeamlineLocation = string;
+export type SampleCompositions = Composition[];
 
 export interface Sample {
   name: Name;
   comments?: Comments;
   location?: Location;
   containerId?: Containerid;
-  _metadata?: SampleMetaData;
-  blSampleId: Blsampleid;
   Crystal: Crystal;
+  blSampleId: Blsampleid;
   Container?: Container;
+  _metadata?: SampleMetaData;
+  sample_compositions?: SampleCompositions;
+}
+export interface SampleCrystal {
+  cell_a?: CellA;
+  cell_b?: CellB;
+  cell_c?: CellC;
+  cell_alpha?: CellAlpha;
+  cell_beta?: CellBeta;
+  cell_gamma?: CellGamma;
+  Protein: Protein;
+  size_X?: SizeX;
+  size_Y?: SizeY;
+  size_Z?: SizeZ;
+  abundance?: Abundance;
+  crystalId: Crystalid;
+  proteinId: Protein1;
+  crystal_compositions?: CrystalCompositions;
+}
+export interface SampleProtein {
+  proposalId: Proposalid;
+  name: Name1;
+  acronym: Acronym;
+}
+export interface Composition {
+  Component: Component;
+  abundance?: Abundance1;
+  ratio?: Ratio;
+  ph?: Ph;
+}
+export interface Component {
+  name: Name2;
+  composition?: Composition1;
+  concentration?: Concentration;
+  ComponentType: ComponentType;
+}
+export interface ComponentType {
+  name: Name3;
+}
+export interface SampleContainer {
+  code: Code;
+  sampleChangerLocation?: SampleChangerLocation;
+  beamlineLocation?: BeamlineLocation;
 }
 export interface SampleMetaData {
   subsamples: Subsamples;
@@ -89,27 +144,6 @@ export interface SampleMetaData {
   integratedResolution?: Integratedresolution;
   proposal?: Proposal;
 }
-export interface SampleCrystal {
-  cell_a?: CellA;
-  cell_b?: CellB;
-  cell_c?: CellC;
-  cell_alpha?: CellAlpha;
-  cell_beta?: CellBeta;
-  cell_gamma?: CellGamma;
-  Protein: Protein;
-  crystalId: Crystalid;
-  proteinId: Protein1;
-}
-export interface SampleProtein {
-  proposalId: Proposalid;
-  name: Name1;
-  acronym: Acronym;
-}
-export interface SampleContainer {
-  code: Code;
-  sampleChangerLocation?: SampleChangerLocation;
-  beamlineLocation?: BeamlineLocation;
-}
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function withSample<TBase extends Constructor>(Base: TBase) {
@@ -118,11 +152,65 @@ export function withSample<TBase extends Constructor>(Base: TBase) {
     comments?: Comments;
     location?: Location;
     containerId?: Containerid;
-    _metadata?: SampleMetaData;
-    blSampleId: Blsampleid;
     Crystal: Crystal;
+    blSampleId: Blsampleid;
     Container?: Container;
-  };
+    _metadata?: SampleMetaData;
+    sample_compositions?: SampleCompositions;
+  }
+}
+export function withSampleCrystal<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleCrystal extends Base {
+    cell_a?: CellA;
+    cell_b?: CellB;
+    cell_c?: CellC;
+    cell_alpha?: CellAlpha;
+    cell_beta?: CellBeta;
+    cell_gamma?: CellGamma;
+    Protein: Protein;
+    size_X?: SizeX;
+    size_Y?: SizeY;
+    size_Z?: SizeZ;
+    abundance?: Abundance;
+    crystalId: Crystalid;
+    proteinId: Protein1;
+    crystal_compositions?: CrystalCompositions;
+  }
+}
+export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleProtein extends Base {
+    proposalId: Proposalid;
+    name: Name1;
+    acronym: Acronym;
+  }
+}
+export function withComposition<TBase extends Constructor>(Base: TBase) {
+  return class WithComposition extends Base {
+    Component: Component;
+    abundance?: Abundance1;
+    ratio?: Ratio;
+    ph?: Ph;
+  }
+}
+export function withComponent<TBase extends Constructor>(Base: TBase) {
+  return class WithComponent extends Base {
+    name: Name2;
+    composition?: Composition1;
+    concentration?: Concentration;
+    ComponentType: ComponentType;
+  }
+}
+export function withComponentType<TBase extends Constructor>(Base: TBase) {
+  return class WithComponentType extends Base {
+    name: Name3;
+  }
+}
+export function withSampleContainer<TBase extends Constructor>(Base: TBase) {
+  return class WithSampleContainer extends Base {
+    code: Code;
+    sampleChangerLocation?: SampleChangerLocation;
+    beamlineLocation?: BeamlineLocation;
+  }
 }
 export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSampleMetaData extends Base {
@@ -134,32 +222,5 @@ export function withSampleMetaData<TBase extends Constructor>(Base: TBase) {
     autoIntegrations?: Autointegrations;
     integratedResolution?: Integratedresolution;
     proposal?: Proposal;
-  };
-}
-export function withSampleCrystal<TBase extends Constructor>(Base: TBase) {
-  return class WithSampleCrystal extends Base {
-    cell_a?: CellA;
-    cell_b?: CellB;
-    cell_c?: CellC;
-    cell_alpha?: CellAlpha;
-    cell_beta?: CellBeta;
-    cell_gamma?: CellGamma;
-    Protein: Protein;
-    crystalId: Crystalid;
-    proteinId: Protein1;
-  };
-}
-export function withSampleProtein<TBase extends Constructor>(Base: TBase) {
-  return class WithSampleProtein extends Base {
-    proposalId: Proposalid;
-    name: Name1;
-    acronym: Acronym;
-  };
-}
-export function withSampleContainer<TBase extends Constructor>(Base: TBase) {
-  return class WithSampleContainer extends Base {
-    code: Code;
-    sampleChangerLocation?: SampleChangerLocation;
-    beamlineLocation?: BeamlineLocation;
-  };
+  }
 }

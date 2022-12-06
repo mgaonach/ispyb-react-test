@@ -15,10 +15,11 @@ function LightBoxHolder({ children }: { children: JSX.Element }) {
 interface ILightBox {
   images: string[];
   children: JSX.Element;
+  local?: boolean;
 }
 
 export default function LightBox(props: ILightBox) {
-  const { images, children } = props;
+  const { images, children, local } = props;
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const [currentImage, setCurrentImage] = useState<number>(0);
 
@@ -38,7 +39,7 @@ export default function LightBox(props: ILightBox) {
         >
           <ChevronCompactLeft />
         </Button>
-        <LazyImage src={images[currentImage]} />
+        <LazyImage local={local} src={images[currentImage]} />
         <Button
           disabled={currentImage === images.length - 1}
           className="rounded-0"

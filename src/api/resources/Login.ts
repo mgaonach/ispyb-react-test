@@ -1,10 +1,9 @@
-import config from 'config/config';
-import { Resource } from '@rest-hooks/rest';
+import { SiteResource } from './Base/Site';
 
-export class LoginResource extends Resource {
+export class LoginResource extends SiteResource {
   pk() {
     return '1';
   }
 
-  static urlRoot = `${config.baseUrl}/auth/login`;
+  static urlRoot = `auth/login`;
 }

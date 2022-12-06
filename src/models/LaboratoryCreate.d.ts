@@ -48,5 +48,5 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-  };
+  }
 }

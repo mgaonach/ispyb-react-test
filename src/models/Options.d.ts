@@ -80,7 +80,7 @@ export function withOptions<TBase extends Constructor>(Base: TBase) {
     enable_legacy_routes?: LegacyRoutes;
     enable_webservice_routes?: WebserviceRoutes;
     create_person_on_missing?: CreateMissingLogin;
-  };
+  }
 }
 export function withBeamLineGroup<TBase extends Constructor>(Base: TBase) {
   return class WithBeamLineGroup extends Base {
@@ -88,15 +88,13 @@ export function withBeamLineGroup<TBase extends Constructor>(Base: TBase) {
     uiGroup: UIGroup;
     permission: Permission;
     beamLines?: Beamlines;
-  };
+  }
 }
-export function withBeamLineGroupBeamLine<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBeamLineGroupBeamLine<TBase extends Constructor>(Base: TBase) {
   return class WithBeamLineGroupBeamLine extends Base {
     beamLineName: BeamlineName;
     sampleChangerType?: SampleChangerType;
     sampleChangerCapacity?: SampleChangerCapacity;
     archived?: Archived;
-  };
+  }
 }

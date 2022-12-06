@@ -18,5 +18,5 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 export function withProcessingStatus<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingStatus extends Base {
     status?: StatusEnum;
-  };
+  }
 }

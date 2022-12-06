@@ -56,7 +56,7 @@ export function withUIOptions<TBase extends Constructor>(Base: TBase) {
   return class WithUIOptions extends Base {
     motd?: MessageOfTheDay;
     beamLineGroups?: BeamlineGroups;
-  };
+  }
 }
 export function withBeamLineGroup<TBase extends Constructor>(Base: TBase) {
   return class WithBeamLineGroup extends Base {
@@ -64,15 +64,13 @@ export function withBeamLineGroup<TBase extends Constructor>(Base: TBase) {
     uiGroup: UIGroup;
     permission: Permission;
     beamLines?: Beamlines;
-  };
+  }
 }
-export function withBeamLineGroupBeamLine<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBeamLineGroupBeamLine<TBase extends Constructor>(Base: TBase) {
   return class WithBeamLineGroupBeamLine extends Base {
     beamLineName: BeamlineName;
     sampleChangerType?: SampleChangerType;
     sampleChangerCapacity?: SampleChangerCapacity;
     archived?: Archived;
-  };
+  }
 }

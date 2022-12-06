@@ -57,5 +57,5 @@ export function withLaboratory<TBase extends Constructor>(Base: TBase) {
     laboratoryExtPk?: LaboratoryExtPk;
     laboratoryId: Laboratoryid;
     recordTimeStamp?: RecordTimeStamp;
-  };
+  }
 }

@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withEvent } from 'models/Event.d';
 
 export class _EventResource extends PaginatedResource {
@@ -13,7 +13,7 @@ export class _EventResource extends PaginatedResource {
   static getEndpointExtra() {
     return {
       ...super.getEndpointExtra(),
-      pollFrequency: 5000,
+      pollFrequency: 10000,
     };
   }
 }

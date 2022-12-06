@@ -21,5 +21,5 @@ export function withValidationError<TBase extends Constructor>(Base: TBase) {
     loc: Location;
     msg: Message;
     type: ErrorType;
-  };
+  }
 }

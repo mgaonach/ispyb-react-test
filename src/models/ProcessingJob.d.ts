@@ -39,13 +39,11 @@ export function withProcessingJob<TBase extends Constructor>(Base: TBase) {
     recipe?: Recipe;
     automatic: Automatic;
     ProcessingJobParameters?: Processingjobparameters;
-  };
+  }
 }
-export function withProcessingJobParameter<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withProcessingJobParameter<TBase extends Constructor>(Base: TBase) {
   return class WithProcessingJobParameter extends Base {
     parameterKey: Parameterkey;
     parameterValue: Parametervalue;
-  };
+  }
 }

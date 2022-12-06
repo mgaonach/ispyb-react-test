@@ -76,7 +76,7 @@ export function withSession<TBase extends Constructor>(Base: TBase) {
     scheduled?: Scheduled;
     sessionId: Sessionid;
     _metadata: SessionMetaData;
-  };
+  }
 }
 export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSessionMetaData extends Base {
@@ -86,5 +86,5 @@ export function withSessionMetaData<TBase extends Constructor>(Base: TBase) {
     active: Active;
     active_soon: ActiveSoon;
     sessionTypes: Sessiontypes;
-  };
+  }
 }

@@ -24,5 +24,5 @@ export function withImageHistogram<TBase extends Constructor>(Base: TBase) {
     bins: Bins;
     shape: Shape;
     max: Max;
-  };
+  }
 }

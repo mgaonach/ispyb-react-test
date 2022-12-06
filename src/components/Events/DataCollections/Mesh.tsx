@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
+import { DataCollectionBox } from '../DataCollection';
 
 import Default, { IDataCollection } from './Default';
 import Snapshot from './Snapshot';
@@ -15,9 +16,12 @@ function InteractiveMesh(props: IDataCollection) {
 }
 
 export default function Mesh(props: IDataCollection) {
-  return props.item.GridInfo && props.item.GridInfo.length ? (
-    <InteractiveMesh {...props} />
-  ) : (
-    <Default {...props} />
-  );
+  const res =
+    props.item.GridInfo && props.item.GridInfo.length ? (
+      <InteractiveMesh {...props} />
+    ) : (
+      <Default {...props} />
+    );
+
+  return <DataCollectionBox {...props}>{res}</DataCollectionBox>;
 }

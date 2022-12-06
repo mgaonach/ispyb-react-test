@@ -24,13 +24,11 @@ export interface BeamLineGroupBeamLine {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withBeamLineGroupBeamLine<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBeamLineGroupBeamLine<TBase extends Constructor>(Base: TBase) {
   return class WithBeamLineGroupBeamLine extends Base {
     beamLineName: BeamlineName;
     sampleChangerType?: SampleChangerType;
     sampleChangerCapacity?: SampleChangerCapacity;
     archived?: Archived;
-  };
+  }
 }

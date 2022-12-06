@@ -8,10 +8,6 @@
 /**
  * An enumeration.
  */
-export type SampleOrder =
-  | 'blSampleId'
-  | 'name'
-  | 'location'
-  | 'datacollections';
+export type SampleOrder = "blSampleId" | "name" | "location" | "datacollections";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

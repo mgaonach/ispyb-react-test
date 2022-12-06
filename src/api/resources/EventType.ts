@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withEventType } from 'models/EventType.d';
 
 export class _EventTypeResource extends PaginatedResource {

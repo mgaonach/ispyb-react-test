@@ -16,11 +16,9 @@ export interface ScreeningProcesingStatus {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withScreeningProcesingStatus<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningProcesingStatus<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningProcesingStatus extends Base {
     status?: StatusEnum;
     indexingSuccess: StatusEnum;
-  };
+  }
 }

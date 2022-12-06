@@ -39,5 +39,5 @@ export function withPerImageAnalysis<TBase extends Constructor>(Base: TBase) {
     totalIntegratedSignal?: Totalintegratedsignal;
     goodBraggCandidates?: Goodbraggcandidates;
     method2Res?: Method2Res;
-  };
+  }
 }

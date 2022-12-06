@@ -18,5 +18,5 @@ export function withHourly<TBase extends Constructor>(Base: TBase) {
   return class WithHourly extends Base {
     hour: Hour;
     average: Average;
-  };
+  }
 }

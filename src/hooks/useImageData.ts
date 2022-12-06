@@ -1,10 +1,10 @@
 import { useSuspense } from 'rest-hooks';
-import config from 'config/config';
 import { getXHRArrayBuffer } from 'api/resources/XHRFile';
 import {
   ImageHeaderResource,
   ImageHistogramResource,
 } from 'api/resources/ImageHeader';
+import { useAuth } from './useAuth';
 
 interface IImageData {
   imageNumber: number;
@@ -15,11 +15,12 @@ interface IImageData {
 
 export function useImageData(props: IImageData) {
   const { imageNumber, dataCollectionId, progress, loadData } = props;
+  const { site } = useAuth();
   const imageData = useSuspense(
     getXHRArrayBuffer,
     dataCollectionId && loadData
       ? {
-          src: `${config.baseUrl}/data/images?dataCollectionId=${dataCollectionId}&imageNumber=${imageNumber}`,
+          src: `${site.host}${site.apiPrefix}/data/images?dataCollectionId=${dataCollectionId}&imageNumber=${imageNumber}`,
           ...(progress ? { progress } : null),
         }
       : null

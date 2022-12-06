@@ -1,11 +1,11 @@
-import { AuthenticatedSingletonResource } from '../Singleton';
+import { AuthenticatedSingletonResource } from '../Base/Singleton';
 import { withAutoProcProgramMessageStatuses } from 'models/AutoProcProgramMessageStatuses.d';
 
 class _ProcessingMessageStatus extends AuthenticatedSingletonResource {
   static getEndpointExtra() {
     return {
       ...super.getEndpointExtra(),
-      pollFrequency: 5000,
+      pollFrequency: 10000,
     };
   }
 

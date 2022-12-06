@@ -83,7 +83,7 @@ export function withLabContactCreate<TBase extends Constructor>(Base: TBase) {
     dewarAvgCustomsValue?: AvgCustomsValue;
     dewarAvgTransportValue?: AvgTransportValue;
     Person: Person;
-  };
+  }
 }
 export function withPersonCreate<TBase extends Constructor>(Base: TBase) {
   return class WithPersonCreate extends Base {
@@ -92,7 +92,7 @@ export function withPersonCreate<TBase extends Constructor>(Base: TBase) {
     emailAddress?: EmailAddress;
     phoneNumber?: PhoneNumber;
     Laboratory?: Laboratory;
-  };
+  }
 }
 export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreate extends Base {
@@ -102,5 +102,5 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-  };
+  }
 }

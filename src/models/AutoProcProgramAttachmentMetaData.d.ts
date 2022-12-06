@@ -15,10 +15,8 @@ export interface AutoProcProgramAttachmentMetaData {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramAttachmentMetaData<
-  TBase extends Constructor
->(Base: TBase) {
+export function withAutoProcProgramAttachmentMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramAttachmentMetaData extends Base {
     url: Url;
-  };
+  }
 }

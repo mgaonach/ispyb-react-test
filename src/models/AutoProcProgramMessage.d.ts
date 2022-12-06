@@ -12,7 +12,7 @@ export type Message = string;
 /**
  * An enumeration.
  */
-export type AutoProcProgramMessageSeverity = 'ERROR' | 'WARNING' | 'INFO';
+export type AutoProcProgramMessageSeverity = "ERROR" | "WARNING" | "INFO";
 export type Recordtimestamp = string;
 
 export interface AutoProcProgramMessage {
@@ -25,9 +25,7 @@ export interface AutoProcProgramMessage {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramMessage<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessage<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessage extends Base {
     autoProcProgramMessageId: Autoprocprogrammessageid;
     autoProcProgramId: Autoprocprogramid;
@@ -35,5 +33,5 @@ export function withAutoProcProgramMessage<TBase extends Constructor>(
     message: Message;
     severity: AutoProcProgramMessageSeverity;
     recordTimeStamp: Recordtimestamp;
-  };
+  }
 }

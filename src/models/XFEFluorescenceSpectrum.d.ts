@@ -12,10 +12,8 @@ export interface XFEFluorescenceSpectrum {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withXFEFluorescenceSpectrum<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withXFEFluorescenceSpectrum<TBase extends Constructor>(Base: TBase) {
   return class WithXFEFluorescenceSpectrum extends Base {
     xfeFluorescenceSpectrumId: Xfefluorescencespectrumid;
-  };
+  }
 }

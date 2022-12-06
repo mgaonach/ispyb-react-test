@@ -24,5 +24,5 @@ export function withLogin<TBase extends Constructor>(Base: TBase) {
     login?: Login1;
     password?: Password;
     token?: Token;
-  };
+  }
 }

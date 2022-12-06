@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withProtein } from 'models/Protein.d';
 
 export class _ProteinResource extends PaginatedResource {

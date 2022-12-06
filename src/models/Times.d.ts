@@ -68,7 +68,7 @@ export function withTimes<TBase extends Constructor>(Base: TBase) {
   return class WithTimes extends Base {
     average: TheAverageTimes;
     sessions: TimesPerSession;
-  };
+  }
 }
 export function withTimeEntry<TBase extends Constructor>(Base: TBase) {
   return class WithTimeEntry extends Base {
@@ -83,7 +83,7 @@ export function withTimeEntry<TBase extends Constructor>(Base: TBase) {
     fault?: TimeTakenWithFaults;
     remaining?: TimeRemaining;
     thinking?: TimeNotUsedByOtherTypes;
-  };
+  }
 }
 export function withSessionTimeEntry<TBase extends Constructor>(Base: TBase) {
   return class WithSessionTimeEntry extends Base {
@@ -99,5 +99,5 @@ export function withSessionTimeEntry<TBase extends Constructor>(Base: TBase) {
     remaining?: TimeRemaining1;
     thinking?: TimeNotUsedByOtherTypes1;
     sessionId: TheSessionId;
-  };
+  }
 }

@@ -30,9 +30,7 @@ export interface ExperimentTypeMessages {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withExperimentTypeGroup<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withExperimentTypeGroup<TBase extends Constructor>(Base: TBase) {
   return class WithExperimentTypeGroup extends Base {
     experimentType: ExperimentType;
     total: TotalDataCollections;
@@ -41,13 +39,11 @@ export function withExperimentTypeGroup<TBase extends Constructor>(
     aborted: AbortedDataCollections;
     abortedPercent?: Abortedpercent;
     messages: ErrorMessages;
-  };
+  }
 }
-export function withExperimentTypeMessages<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withExperimentTypeMessages<TBase extends Constructor>(Base: TBase) {
   return class WithExperimentTypeMessages extends Base {
     count: FrequencyOfThisErrorMessage;
     message: TheErrorMessage;
-  };
+  }
 }

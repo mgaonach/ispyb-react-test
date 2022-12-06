@@ -44,9 +44,7 @@ export interface LaboratoryCreateOptional {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withLabContactCreateOptional<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withLabContactCreateOptional<TBase extends Constructor>(Base: TBase) {
   return class WithLabContactCreateOptional extends Base {
     cardName?: Cardname;
     defaultCourrierCompany?: Defaultcourriercompany;
@@ -55,26 +53,22 @@ export function withLabContactCreateOptional<TBase extends Constructor>(
     dewarAvgCustomsValue?: Dewaravgcustomsvalue;
     dewarAvgTransportValue?: Dewaravgtransportvalue;
     Person?: PersonCreateOptional;
-  };
+  }
 }
-export function withPersonCreateOptional<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonCreateOptional<TBase extends Constructor>(Base: TBase) {
   return class WithPersonCreateOptional extends Base {
     familyName?: Familyname;
     emailAddress?: Emailaddress;
     phoneNumber?: Phonenumber;
     Laboratory?: LaboratoryCreateOptional;
-  };
+  }
 }
-export function withLaboratoryCreateOptional<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withLaboratoryCreateOptional<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreateOptional extends Base {
     name?: Name;
     address?: Address;
     city?: City;
     country?: Country;
     url?: Url;
-  };
+  }
 }

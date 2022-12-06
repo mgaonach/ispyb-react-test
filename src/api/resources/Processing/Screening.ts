@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withScreening } from 'models/Screening.d';
 
 export class _ScreeningResource extends PaginatedResource {

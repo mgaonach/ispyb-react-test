@@ -98,11 +98,9 @@ export function withBreakdown<TBase extends Constructor>(Base: TBase) {
     overview: Overview;
     history: History;
     plottables: BreakdownPlottables;
-  };
+  }
 }
-export function withBreakdownOverviewSession<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownOverviewSession<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownOverviewSession extends Base {
     startDate: Startdate;
     endDate: Enddate;
@@ -111,11 +109,9 @@ export function withBreakdownOverviewSession<TBase extends Constructor>(
     sessionId: Sessionid;
     session?: Session;
     counts: BreakdownOverviewCounts;
-  };
+  }
 }
-export function withBreakdownOverviewCounts<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownOverviewCounts<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownOverviewCounts extends Base {
     datacollections: Datacollections;
     failed: Failed;
@@ -123,25 +119,21 @@ export function withBreakdownOverviewCounts<TBase extends Constructor>(
     robot: Robot;
     edge: Edge;
     xrf: Xrf;
-  };
+  }
 }
-export function withDatacollectiontypes<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDatacollectiontypes<TBase extends Constructor>(Base: TBase) {
   return class WithDatacollectiontypes extends Base {
     [k: string]: number;
-  };
+  }
 }
-export function withBreakdownOverviewRun<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownOverviewRun<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownOverviewRun extends Base {
     startDate: Startdate1;
     endDate: Enddate1;
     duration: Duration1;
     run: Run;
     counts: BreakdownOverviewCounts;
-  };
+  }
 }
 export function withBreakdownPoint<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownPoint extends Base {
@@ -155,20 +147,18 @@ export function withBreakdownPoint<TBase extends Constructor>(Base: TBase) {
     title?: Title;
     session?: Session1;
     sessionId?: Sessionid1;
-  };
+  }
 }
-export function withBreakdownPlottables<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownPlottables<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownPlottables extends Base {
     time: Time;
     series: Series;
-  };
+  }
 }
 export function withBreakdownPlottable<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownPlottable extends Base {
     title: Title1;
     unit?: Unit;
     data: Data;
-  };
+  }
 }

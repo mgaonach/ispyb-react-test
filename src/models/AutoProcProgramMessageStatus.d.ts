@@ -16,12 +16,10 @@ export interface AutoProcProgramMessageStatus {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramMessageStatus<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessageStatus<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessageStatus extends Base {
     errors: Errors;
     warnings: Warnings;
     info: Info;
-  };
+  }
 }

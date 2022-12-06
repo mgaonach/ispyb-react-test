@@ -18,5 +18,5 @@ export function withPosition<TBase extends Constructor>(Base: TBase) {
   return class WithPosition extends Base {
     posX: Posx;
     posY: Posy;
-  };
+  }
 }

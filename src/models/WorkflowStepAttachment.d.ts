@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type WorkflowStepAttachment = 'imageResultFilePath' | 'resultFilePath';
+export type WorkflowStepAttachment = "imageResultFilePath" | "resultFilePath";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

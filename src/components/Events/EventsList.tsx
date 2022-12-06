@@ -1,8 +1,8 @@
 import { JSXElementConstructor, Suspense } from 'react';
 import { useSuspense, useSubscription } from 'rest-hooks';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Alert } from 'react-bootstrap';
-import { Gear, PeopleFill, PieChartFill, Wrench } from 'react-bootstrap-icons';
+import { Alert, Col } from 'react-bootstrap';
+import { Gear, PieChartFill } from 'react-bootstrap-icons';
 
 import { EventResource } from 'api/resources/Event';
 import { EventTypeResource } from 'api/resources/EventType';
@@ -22,6 +22,7 @@ import Default from './Default';
 import RobotAction from './RobotAction';
 import DataCollection from './DataCollection';
 import { useSessionInfo } from 'hooks/useSessionInfo';
+import SessionOverview from 'components/Stats/SessionOverview';
 
 function EventTypeFilter({
   urlKey,
@@ -81,13 +82,13 @@ function EventListButtons() {
   const sessionInfo = useSessionInfo(sessionId);
   return (
     <>
-      <Link
+      {/* <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}`}
       >
         <PeopleFill className="me-1" />
         Users
-      </Link>
+      </Link> */}
       <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}/stats/${sessionId}`}
@@ -95,13 +96,13 @@ function EventListButtons() {
         <PieChartFill className="me-1" />
         Stats
       </Link>
-      <Link
+      {/* <Link
         className="btn btn-primary btn-sm me-1"
         to={`/proposals/${proposal}`}
       >
         <Wrench className="me-1" />
         Beamline Status
-      </Link>
+      </Link> */}
       {sessionInfo && sessionInfo._metadata.uiGroups?.includes('mx') && (
         <Link
           className="btn btn-primary btn-sm me-1"
@@ -209,15 +210,16 @@ function EventListMain({
   );
 
   const title = dataCollectionGroupId
-    ? `group ${dataCollectionGroupId}`
-    : sessionId
-    ? sessionId
+    ? `Data Collections for group ${dataCollectionGroupId}`
     : '';
 
   return (
     <section>
       <h1 className="d-flex justify-content-between">
-        <span>Data Collections{title ? `: ${title}` : ''}</span>
+        <Col>
+          <span>{title ? `: ${title}` : 'Session'}</span>
+          {sessionId && <SessionOverview />}
+        </Col>
         {sessionId && <TimesBar />}
       </h1>
 

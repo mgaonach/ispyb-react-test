@@ -21,5 +21,5 @@ export function withBreakdownPlottable<TBase extends Constructor>(Base: TBase) {
     title: Title;
     unit?: Unit;
     data: Data;
-  };
+  }
 }

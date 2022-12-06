@@ -1,4 +1,4 @@
-import PaginatedResource from 'api/resources/Paginated';
+import PaginatedResource from 'api/resources/Base/Paginated';
 import { withAutoProcProgram } from 'models/AutoProcProgram.d';
 
 export class _AutoProcProgramResource extends PaginatedResource {

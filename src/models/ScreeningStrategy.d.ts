@@ -79,11 +79,9 @@ export function withScreeningStrategy<TBase extends Constructor>(Base: TBase) {
     screeningStrategyId: Screeningstrategyid;
     rankingResolution?: Rankingresolution;
     ScreeningStrategyWedge?: Screeningstrategywedge;
-  };
+  }
 }
-export function withScreeningStrategyWedge<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningStrategyWedge<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategyWedge extends Base {
     screeningStrategyWedgeId: Screeningstrategywedgeid;
     wedgeNumber?: Wedgenumber;
@@ -98,11 +96,9 @@ export function withScreeningStrategyWedge<TBase extends Constructor>(
     comments?: Comments;
     wavelength?: Wavelength;
     ScreeningStrategySubWedge?: Screeningstrategysubwedge;
-  };
+  }
 }
-export function withScreeningStrategySubWedge<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningStrategySubWedge<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategySubWedge extends Base {
     screeningStrategySubWedgeId: Screeningstrategysubwedgeid;
     subWedgeNumber?: Subwedgenumber;
@@ -118,5 +114,5 @@ export function withScreeningStrategySubWedge<TBase extends Constructor>(
     doseTotal?: Dosetotal1;
     numberOfImages?: Numberofimages1;
     comments?: Comments1;
-  };
+  }
 }

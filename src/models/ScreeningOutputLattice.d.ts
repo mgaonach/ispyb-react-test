@@ -26,9 +26,7 @@ export interface ScreeningOutputLattice {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withScreeningOutputLattice<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningOutputLattice<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningOutputLattice extends Base {
     unitCell_a: UnitcellA;
     unitCell_b: UnitcellB;
@@ -38,5 +36,5 @@ export function withScreeningOutputLattice<TBase extends Constructor>(
     unitCell_gamma: UnitcellGamma;
     spaceGroup?: Spacegroup;
     pointGroup?: Pointgroup;
-  };
+  }
 }

@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useController } from 'rest-hooks';
 import { Navbar, NavDropdown, Container, Nav, Button } from 'react-bootstrap';
 import { PersonBadge } from 'react-bootstrap-icons';
@@ -9,6 +8,7 @@ import { useAuth } from 'hooks/useAuth';
 import { useProposal } from 'hooks/useProposal';
 import { useCurrentUser } from 'hooks/useCurrentUser';
 import AuthErrorBoundary from './AuthErrorBoundary';
+import { JavaHeader } from 'legacy/components/Header';
 
 function PersonMenu() {
   const currentUser = useCurrentUser();
@@ -17,7 +17,7 @@ function PersonMenu() {
       title={
         <>
           <PersonBadge className="me-1" />
-          {currentUser.givenName}
+          {currentUser.login}
         </>
       }
       id="admin-nav-dropdown"
@@ -32,8 +32,7 @@ function PersonMenu() {
   );
 }
 
-function Logout() {
-  const navigate = useNavigate();
+export function Logout() {
   const { clearToken } = useAuth();
   const { clearProposal } = useProposal();
   const { resetEntireStore } = useController();
@@ -43,7 +42,6 @@ function Logout() {
         clearToken();
         clearProposal();
         resetEntireStore();
-        navigate('/login', { state: { from: '/home' } });
       }}
     >
       Logout
@@ -94,8 +92,7 @@ function BeamlineMenu() {
 }
 
 export default function Header() {
-  const { isAuthenticated } = useAuth();
-  const { proposalName } = useProposal();
+  const { isAuthenticated, site } = useAuth();
 
   return (
     <Navbar
@@ -109,71 +106,90 @@ export default function Header() {
         <Navbar.Brand as={Link} to="/">
           Home
         </Navbar.Brand>
-        {isAuthenticated && (
-          <>
-            <Navbar.Toggle aria-controls="main-navbar" />
-            <Navbar.Collapse id="main-navbar">
-              <Nav className="me-auto">
-                <Nav.Link as={Link} to="/calendar">
-                  Calendar
-                </Nav.Link>
-                <Nav.Link as={Link} to="/proposals">
-                  Proposals
-                </Nav.Link>
-                {!proposalName && (
-                  <Nav.Link className="nav-link" eventKey="disabled" disabled>
-                    No Proposal
-                  </Nav.Link>
-                )}
-                {proposalName && (
-                  <NavDropdown title={proposalName} id="proposal-nav-dropdown">
-                    <>
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/proposals/${proposalName}/sessions`}
-                      >
-                        Sessions
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/proposals/${proposalName}/contacts`}
-                      >
-                        Contacts
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/proposals/${proposalName}/shipments`}
-                      >
-                        Shipments
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/proposals/${proposalName}/proteins`}
-                      >
-                        Proteins
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/proposals/${proposalName}/samples`}
-                      >
-                        Samples
-                      </NavDropdown.Item>
-                    </>
-                  </NavDropdown>
-                )}
-              </Nav>
-              <Nav>
-                <AuthErrorBoundary>
-                  <Suspense fallback={<span>...</span>}>
-                    <PersonMenu />
-                  </Suspense>
-                </AuthErrorBoundary>
-                <Logout />
-              </Nav>
-            </Navbar.Collapse>
-          </>
-        )}
+        {isAuthenticated && !site.javaMode && <PyHeader />}
+        {isAuthenticated && site.javaMode && <JavaHeader />}
       </Container>
     </Navbar>
+  );
+}
+
+function PyHeader() {
+  const { proposalName } = useProposal();
+  const { pathname } = useLocation();
+
+  return (
+    <>
+      <Navbar.Toggle aria-controls="main-navbar" />
+      <Navbar.Collapse id="main-navbar">
+        <Nav className="me-auto">
+          <Nav.Link as={NavLink} to="/calendar">
+            Calendar
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/proposals/list">
+            Proposals
+          </Nav.Link>
+          {!proposalName && (
+            <Nav.Link className="nav-link" eventKey="disabled" disabled>
+              No Proposal
+            </Nav.Link>
+          )}
+          {proposalName && (
+            <NavDropdown
+              active={pathname.includes(proposalName)}
+              title={proposalName}
+              id="proposal-nav-dropdown"
+            >
+              <>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/sessions`}
+                >
+                  Sessions
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/calendar`}
+                >
+                  Calendar
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/contacts`}
+                >
+                  Contacts
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/shipments`}
+                >
+                  Shipments
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/proteins`}
+                >
+                  Proteins
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to={`/proposals/${proposalName}/samples`}
+                >
+                  Samples
+                </NavDropdown.Item>
+              </>
+            </NavDropdown>
+          )}
+        </Nav>
+
+        <Nav>
+          <AuthErrorBoundary>
+            <Suspense fallback={<span>...</span>}>
+              <PersonMenu />
+            </Suspense>
+          </AuthErrorBoundary>
+          <Logout />
+        </Nav>
+      </Navbar.Collapse>
+    </>
   );
 }

@@ -27,5 +27,5 @@ export function withSampleContainer<TBase extends Constructor>(Base: TBase) {
     code: Code;
     sampleChangerLocation?: SampleChangerLocation;
     beamlineLocation?: BeamlineLocation;
-  };
+  }
 }

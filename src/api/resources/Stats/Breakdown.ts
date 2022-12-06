@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from '../Singleton';
+import { AuthenticatedSingletonResource } from '../Base/Singleton';
 import { withBreakdown } from 'models/Breakdown.d';
 
 class _BreakdownResource extends AuthenticatedSingletonResource {

@@ -21,5 +21,5 @@ export function withTokenResponse<TBase extends Constructor>(Base: TBase) {
     login: Login;
     token: Token;
     permissions: Permissions;
-  };
+  }
 }

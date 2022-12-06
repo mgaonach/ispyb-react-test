@@ -21,5 +21,5 @@ export function withRobotAction<TBase extends Constructor>(Base: TBase) {
     actionType: Actiontype;
     status?: Status;
     message?: Message;
-  };
+  }
 }

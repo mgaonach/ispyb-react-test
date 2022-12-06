@@ -39,12 +39,10 @@ export function withSampleImage<TBase extends Constructor>(Base: TBase) {
     offsetX: Offsetx;
     offsetY: Offsety;
     _metadata: SampleImageMetaData;
-  };
+  }
 }
-export function withSampleImageMetaData<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withSampleImageMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSampleImageMetaData extends Base {
     url: Url;
-  };
+  }
 }

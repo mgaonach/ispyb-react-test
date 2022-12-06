@@ -1,4 +1,4 @@
-import { AuthenticatedSingletonResource } from 'api/resources/Singleton';
+import { AuthenticatedSingletonResource } from 'api/resources/Base/Singleton';
 import { withUIOptions } from 'models/UIOptions.d';
 
 class _UIOptionsResource extends AuthenticatedSingletonResource {

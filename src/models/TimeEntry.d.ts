@@ -45,5 +45,5 @@ export function withTimeEntry<TBase extends Constructor>(Base: TBase) {
     fault?: TimeTakenWithFaults;
     remaining?: TimeRemaining;
     thinking?: TimeNotUsedByOtherTypes;
-  };
+  }
 }

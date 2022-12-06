@@ -18,5 +18,5 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 export function withShippingMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithShippingMetaData extends Base {
     dewars: Dewars;
-  };
+  }
 }

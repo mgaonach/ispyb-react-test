@@ -15,5 +15,5 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 export function withSubSampleSample<TBase extends Constructor>(Base: TBase) {
   return class WithSubSampleSample extends Base {
     name: Name;
-  };
+  }
 }

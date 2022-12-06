@@ -14,11 +14,9 @@ export interface ShippingLabContactPerson {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withShippingLabContactPerson<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withShippingLabContactPerson<TBase extends Constructor>(Base: TBase) {
   return class WithShippingLabContactPerson extends Base {
     givenName: Givenname;
     familyName: Familyname;
-  };
+  }
 }

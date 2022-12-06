@@ -9,35 +9,11 @@ export type FirstName = string;
 export type Surname = string;
 export type EmailAddress = null | string;
 export type PhoneNumber = null | string;
-/**
- * The Laboratory name
- */
 export type LaboratoryName = string;
-/**
- * The Laboratory Address
- */
 export type Address = string;
-/**
- * The Laboratory City
- */
 export type City = string;
-/**
- * The Laboratory Country
- */
+export type PostCode = string;
 export type Country = string;
-/**
- * The Laboratory optional URL
- */
-export type URL = null | string;
-/**
- * External Id from the User Portal
- */
-export type LaboratoryExtPk = null | number;
-export type Laboratoryid = number;
-/**
- * Time Laboratory was created
- */
-export type RecordTimeStamp = string;
 
 export interface ContactPerson {
   givenName: FirstName;
@@ -47,14 +23,11 @@ export interface ContactPerson {
   Laboratory?: Laboratory;
 }
 export interface Laboratory {
-  name?: LaboratoryName;
-  address?: Address;
-  city?: City;
-  country?: Country;
-  url?: URL;
-  laboratoryExtPk?: LaboratoryExtPk;
-  laboratoryId: Laboratoryid;
-  recordTimeStamp?: RecordTimeStamp;
+  name: LaboratoryName;
+  address: Address;
+  city: City;
+  postcode: PostCode;
+  country: Country;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -65,17 +38,14 @@ export function withContactPerson<TBase extends Constructor>(Base: TBase) {
     emailAddress?: EmailAddress;
     phoneNumber?: PhoneNumber;
     Laboratory?: Laboratory;
-  };
+  }
 }
 export function withLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratory extends Base {
-    name?: LaboratoryName;
-    address?: Address;
-    city?: City;
-    country?: Country;
-    url?: URL;
-    laboratoryExtPk?: LaboratoryExtPk;
-    laboratoryId: Laboratoryid;
-    recordTimeStamp?: RecordTimeStamp;
-  };
+    name: LaboratoryName;
+    address: Address;
+    city: City;
+    postcode: PostCode;
+    country: Country;
+  }
 }

@@ -12,8 +12,8 @@ import { useInView } from 'react-intersection-observer';
 import { Spinner } from 'react-bootstrap';
 import { Image as BSImage } from 'react-bootstrap-icons';
 
-import config from 'config/config';
-import { AuthenticatedResource } from 'api/resources/Authenticated';
+import { AuthenticatedResource } from 'api/resources/Base/Authenticated';
+import { useAuth } from 'hooks/useAuth';
 
 // const emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
 
@@ -226,9 +226,10 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
 export function LazyImage(props: any) {
   const [progress, setProgress] = useState<number>(0);
   const [loaded, setLoaded] = useState<boolean>(false);
+  const { site } = useAuth();
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const { src, ...rest } = props;
-  const source = `${config.baseUrl}${src}`;
+  const { src, local, ...rest } = props;
+  const source = local ? src : `${site.host}${site.apiPrefix}${src}`;
 
   return inView ? (
     <ErrorBoundary image>
@@ -253,8 +254,9 @@ export function LazyImage(props: any) {
 
 export function IFrameFile(props: any) {
   const [progress, setProgress] = useState<number>(0);
+  const { site } = useAuth();
   const { src, ...rest } = props;
-  const source = config.host + src;
+  const source = site.host + src;
   return (
     <ErrorBoundary>
       <Suspense fallback={<Loading progress={progress} />}>

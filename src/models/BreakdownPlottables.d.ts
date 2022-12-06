@@ -22,18 +22,16 @@ export interface BreakdownPlottable {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withBreakdownPlottables<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withBreakdownPlottables<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownPlottables extends Base {
     time: Time;
     series: Series;
-  };
+  }
 }
 export function withBreakdownPlottable<TBase extends Constructor>(Base: TBase) {
   return class WithBreakdownPlottable extends Base {
     title: Title;
     unit?: Unit;
     data: Data;
-  };
+  }
 }

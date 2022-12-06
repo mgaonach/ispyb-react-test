@@ -7,6 +7,7 @@
 
 export type Datacollectiongroupid = number;
 export type Experimenttype = string;
+export type Blsampleid = number;
 export type Workflowid = number;
 export type Comments = string;
 export type Status = string;
@@ -15,7 +16,8 @@ export type Workflowtype = string;
 
 export interface DataCollectionGroup {
   dataCollectionGroupId: Datacollectiongroupid;
-  experimentType: Experimenttype;
+  experimentType?: Experimenttype;
+  blSampleId?: Blsampleid;
   Workflow?: Workflow;
 }
 export interface Workflow {
@@ -27,14 +29,13 @@ export interface Workflow {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withDataCollectionGroup<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withDataCollectionGroup<TBase extends Constructor>(Base: TBase) {
   return class WithDataCollectionGroup extends Base {
     dataCollectionGroupId: Datacollectiongroupid;
-    experimentType: Experimenttype;
+    experimentType?: Experimenttype;
+    blSampleId?: Blsampleid;
     Workflow?: Workflow;
-  };
+  }
 }
 export function withWorkflow<TBase extends Constructor>(Base: TBase) {
   return class WithWorkflow extends Base {
@@ -43,5 +44,5 @@ export function withWorkflow<TBase extends Constructor>(Base: TBase) {
     status?: Status;
     workflowTitle?: Workflowtitle;
     workflowType?: Workflowtype;
-  };
+  }
 }

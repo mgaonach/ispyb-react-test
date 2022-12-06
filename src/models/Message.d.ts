@@ -15,5 +15,5 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 export function withMessage<TBase extends Constructor>(Base: TBase) {
   return class WithMessage extends Base {
     message: Message1;
-  };
+  }
 }

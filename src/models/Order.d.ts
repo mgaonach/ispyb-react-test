@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type Order = 'asc' | 'desc';
+export type Order = "asc" | "desc";
 
 type Constructor<T = {}> = new (...args: any[]) => T;

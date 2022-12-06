@@ -14,7 +14,7 @@ export type SafetyLevel1 = SafetyLevelEnum;
 /**
  * An enumeration.
  */
-export type SafetyLevelEnum = 'GREEN' | 'YELLOW' | 'RED';
+export type SafetyLevelEnum = "GREEN" | "YELLOW" | "RED";
 export type SafetyLevel2 = string;
 export type Comments = string;
 
@@ -36,5 +36,5 @@ export function withShippingCreate<TBase extends Constructor>(Base: TBase) {
     returnLabContactId: ReturnLabContact;
     safetyLevel?: SafetyLevel;
     comments?: Comments;
-  };
+  }
 }

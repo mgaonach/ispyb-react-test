@@ -80,13 +80,13 @@ export function withProtein<TBase extends Constructor>(Base: TBase) {
     ComponentType?: ComponentType;
     proteinId: Proteinid;
     _metadata?: ProteinMetaData;
-  };
+  }
 }
 export function withComponentType<TBase extends Constructor>(Base: TBase) {
   return class WithComponentType extends Base {
     componentTypeId: Componenttypeid;
     name: Name1;
-  };
+  }
 }
 export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithProteinMetaData extends Base {
@@ -94,5 +94,5 @@ export function withProteinMetaData<TBase extends Constructor>(Base: TBase) {
     crystals?: Crystals;
     samples?: Samples;
     datacollections?: Datacollections;
-  };
+  }
 }

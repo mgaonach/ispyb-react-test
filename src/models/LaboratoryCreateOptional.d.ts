@@ -20,14 +20,12 @@ export interface LaboratoryCreateOptional {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withLaboratoryCreateOptional<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withLaboratoryCreateOptional<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreateOptional extends Base {
     name?: Name;
     address?: Address;
     city?: City;
     country?: Country;
     url?: Url;
-  };
+  }
 }

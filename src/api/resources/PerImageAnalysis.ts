@@ -1,4 +1,4 @@
-import PaginatedResource from './Paginated';
+import PaginatedResource from './Base/Paginated';
 import { withPerImageAnalysis } from 'models/PerImageAnalysis.d';
 
 class _PerImageAnalysisResource extends PaginatedResource {

@@ -9,8 +9,10 @@ import classNames from 'classnames';
 
 import { useSuspense } from 'rest-hooks';
 import { SessionResource } from 'api/resources/Session';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import { Session } from 'models/Session.d';
+import { usePath } from 'hooks/usePath';
+import { range } from 'lodash';
 
 function CalendarNav({ year, month }: { year: number; month: number }) {
   const navigate = useNavigate();
@@ -25,7 +27,6 @@ function CalendarNav({ year, month }: { year: number; month: number }) {
 
   function goto(date: DateTime) {
     navigate({
-      pathname: '/calendar',
       search: createSearchParams({
         year: date.year.toString(),
         month: date.month.toString(),
@@ -34,19 +35,34 @@ function CalendarNav({ year, month }: { year: number; month: number }) {
   }
 
   return (
-    <>
-      <ButtonGroup className="calendar-nav mb-1">
-        <Button onClick={() => goto(prevYear)}>{prevYear.year}</Button>
-        <Button onClick={() => goto(prevMonth)}>{prevMonth.monthLong}</Button>
-
-        <Button onClick={() => goto(nextMonth)}>{nextMonth.monthLong}</Button>
-        <Button onClick={() => goto(nextYear)}>{nextYear.year}</Button>
-
-        <Button variant="secondary" onClick={() => goto(today)}>
-          {today.monthLong} {today.year}
-        </Button>
-      </ButtonGroup>
-    </>
+    <Row>
+      <Col md={4}>
+        <ButtonGroup className="calendar-nav mb-1">
+          <Button variant="secondary" onClick={() => goto(today)}>
+            Go to today
+          </Button>
+        </ButtonGroup>
+      </Col>
+      <Col>
+        <ButtonGroup className="calendar-nav mb-1">
+          <Button variant="outline-primary" onClick={() => goto(prevYear)}>
+            {'<<'} {prevYear.year}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(prevMonth)}>
+            {'<'} {prevMonth.monthLong}
+          </Button>
+          <Button disabled variant="dark">
+            {currentMonth.monthLong} {currentMonth.year}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(nextMonth)}>
+            {nextMonth.monthLong} {'>'}
+          </Button>
+          <Button variant="outline-primary" onClick={() => goto(nextYear)}>
+            {nextYear.year} {'>>'}
+          </Button>
+        </ButtonGroup>
+      </Col>
+    </Row>
   );
 }
 
@@ -103,26 +119,27 @@ function SessionList({
 }
 
 function CalendarDays({ year, month }: { year: number; month: number }) {
+  const proposal = usePath('proposal');
   const sessions = useSuspense(SessionResource.list(), {
     year,
     month,
     limit: 9999,
+    ...(proposal ? { proposal } : {}),
   });
 
   const now = DateTime.now();
   const monthObj = DateTime.fromObject({ year: year, month: month });
   const startDay = monthObj.startOf('month');
 
-  const days = Array(monthObj.daysInMonth).fill(0);
-  const preDays =
-    startDay.weekday > 0 ? Array(startDay.weekday - 1).fill(0) : [];
+  const days = range(1, monthObj.daysInMonth + 1);
+  const preDays = startDay.weekday > 0 ? range(1, startDay.weekday) : [];
 
   return (
     <div className="calendar-days">
-      {preDays.map((_, day) => (
+      {preDays.map((day) => (
         <div className="calendar-pre-day" key={`pre-${day}`}></div>
       ))}
-      {days.map((_, day) => (
+      {days.map((day) => (
         <div
           key={`day-${day}`}
           className={classNames('calendar-day', {
@@ -130,10 +147,10 @@ function CalendarDays({ year, month }: { year: number; month: number }) {
               day === now.day && month === now.month && year === now.year,
           })}
         >
-          <h2>{day + 1}</h2>
+          <h2>{day}</h2>
           <SessionList
             sessions={sessions.results}
-            day={DateTime.fromObject({ year, month, day: day + 1 })}
+            day={DateTime.fromObject({ year, month, day: day })}
           />
         </div>
       ))}

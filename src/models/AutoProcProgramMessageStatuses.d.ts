@@ -22,24 +22,20 @@ export interface AutoProcProgramMessageStatus {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function withAutoProcProgramMessageStatuses<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessageStatuses<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessageStatuses extends Base {
     statuses: Statuses;
-  };
+  }
 }
 export function withStatuses<TBase extends Constructor>(Base: TBase) {
   return class WithStatuses extends Base {
     [k: string]: AutoProcProgramMessageStatus;
-  };
+  }
 }
-export function withAutoProcProgramMessageStatus<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withAutoProcProgramMessageStatus<TBase extends Constructor>(Base: TBase) {
   return class WithAutoProcProgramMessageStatus extends Base {
     errors: Errors;
     warnings: Warnings;
     info: Info;
-  };
+  }
 }

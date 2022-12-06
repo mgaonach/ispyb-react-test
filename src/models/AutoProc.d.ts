@@ -33,5 +33,5 @@ export function withAutoProc<TBase extends Constructor>(Base: TBase) {
     refinedCell_alpha: RefinedcellAlpha;
     refinedCell_beta: RefinedcellBeta;
     refinedCell_gamma: RefinedcellGamma;
-  };
+  }
 }

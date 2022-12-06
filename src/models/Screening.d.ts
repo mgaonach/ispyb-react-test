@@ -123,7 +123,7 @@ export function withScreening<TBase extends Constructor>(Base: TBase) {
     comments?: Comments;
     shortComments?: Shortcomments;
     ScreeningOutput?: Screeningoutput;
-  };
+  }
 }
 export function withScreeningOutput<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningOutput extends Base {
@@ -132,18 +132,16 @@ export function withScreeningOutput<TBase extends Constructor>(Base: TBase) {
     strategySuccess: Strategysuccess;
     ScreeningStrategy?: Screeningstrategy;
     ScreeningOutputLattice?: Screeningoutputlattice;
-  };
+  }
 }
 export function withScreeningStrategy<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategy extends Base {
     screeningStrategyId: Screeningstrategyid;
     rankingResolution?: Rankingresolution;
     ScreeningStrategyWedge?: Screeningstrategywedge;
-  };
+  }
 }
-export function withScreeningStrategyWedge<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningStrategyWedge<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategyWedge extends Base {
     screeningStrategyWedgeId: Screeningstrategywedgeid;
     wedgeNumber?: Wedgenumber;
@@ -158,11 +156,9 @@ export function withScreeningStrategyWedge<TBase extends Constructor>(
     comments?: Comments1;
     wavelength?: Wavelength;
     ScreeningStrategySubWedge?: Screeningstrategysubwedge;
-  };
+  }
 }
-export function withScreeningStrategySubWedge<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningStrategySubWedge<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningStrategySubWedge extends Base {
     screeningStrategySubWedgeId: Screeningstrategysubwedgeid;
     subWedgeNumber?: Subwedgenumber;
@@ -178,11 +174,9 @@ export function withScreeningStrategySubWedge<TBase extends Constructor>(
     doseTotal?: Dosetotal1;
     numberOfImages?: Numberofimages1;
     comments?: Comments2;
-  };
+  }
 }
-export function withScreeningOutputLattice<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withScreeningOutputLattice<TBase extends Constructor>(Base: TBase) {
   return class WithScreeningOutputLattice extends Base {
     unitCell_a: UnitcellA;
     unitCell_b: UnitcellB;
@@ -192,5 +186,5 @@ export function withScreeningOutputLattice<TBase extends Constructor>(
     unitCell_gamma: UnitcellGamma;
     spaceGroup?: Spacegroup;
     pointGroup?: Pointgroup;
-  };
+  }
 }

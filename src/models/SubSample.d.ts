@@ -54,22 +54,22 @@ export function withSubSample<TBase extends Constructor>(Base: TBase) {
     BLSample: SubSampleSample;
     Position1?: Position;
     Position2?: Position;
-  };
+  }
 }
 export function withSubSampleMetaData<TBase extends Constructor>(Base: TBase) {
   return class WithSubSampleMetaData extends Base {
     datacollections: Datacollections;
     types?: Types;
-  };
+  }
 }
 export function withSubSampleSample<TBase extends Constructor>(Base: TBase) {
   return class WithSubSampleSample extends Base {
     name: Name;
-  };
+  }
 }
 export function withPosition<TBase extends Constructor>(Base: TBase) {
   return class WithPosition extends Base {
     posX: Posx;
     posY: Posy;
-  };
+  }
 }

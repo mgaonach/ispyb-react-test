@@ -115,11 +115,9 @@ export function withUPProtein<TBase extends Constructor>(Base: TBase) {
     modId?: Modid;
     concentrationTypeId?: Concentrationtypeid;
     person: PersonProposalLaboratory;
-  };
+  }
 }
-export function withPersonProposalLaboratory<TBase extends Constructor>(
-  Base: TBase
-) {
+export function withPersonProposalLaboratory<TBase extends Constructor>(Base: TBase) {
   return class WithPersonProposalLaboratory extends Base {
     siteId?: Siteid;
     personUUID?: Personuuid;
@@ -134,7 +132,7 @@ export function withPersonProposalLaboratory<TBase extends Constructor>(
     externalId?: Externalid1;
     cache?: Cache;
     laboratory?: LaboratoryCreate;
-  };
+  }
 }
 export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
   return class WithLaboratoryCreate extends Base {
@@ -144,5 +142,5 @@ export function withLaboratoryCreate<TBase extends Constructor>(Base: TBase) {
     country: Country;
     url?: URL;
     laboratoryExtPk?: LaboratoryExtPk;
-  };
+  }
 }

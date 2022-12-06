@@ -24,5 +24,5 @@ export function withVRun<TBase extends Constructor>(Base: TBase) {
     runId: Runid;
     startDate: Startdate;
     endDate: Enddate;
-  };
+  }
 }

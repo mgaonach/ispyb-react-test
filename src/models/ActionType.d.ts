@@ -8,6 +8,6 @@
 /**
  * An enumeration.
  */
-export type ActionType = 'db_options' | 'online';
+export type ActionType = "db_options" | "online";
 
 type Constructor<T = {}> = new (...args: any[]) => T;
